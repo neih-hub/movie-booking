@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cinema extends Model
 {
-    //
+    protected $fillable = ['name', 'address', 'city'];
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }
