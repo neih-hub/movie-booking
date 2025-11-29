@@ -59,3 +59,14 @@ Route::get('/search-movie', function (Request $request) {
 
     return response()->json($movies);
 });
+// đăng kí
+use App\Http\Controllers\AuthController;
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+// dang nhap
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+// dat ve
+Route::get('/booking', [BookingController::class, 'index'])
+    ->middleware(['auth', 'profile.completed']);
