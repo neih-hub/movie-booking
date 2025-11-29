@@ -70,3 +70,16 @@ Route::post('/login', [AuthController::class, 'login']);
 // dat ve
 Route::get('/booking', [BookingController::class, 'index'])
     ->middleware(['auth', 'profile.completed']);
+// cap nhat thong tin ca nhan
+use App\Http\Controllers\ProfileController;
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar');
+}); 
+// dang xuat
+use Illuminate\Support\Facades\Auth;
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/')->with('success', 'Bạn đã đăng xuất!');
+})->name('logout');

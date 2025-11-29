@@ -90,9 +90,20 @@
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item text-danger" href="/logout">Đăng xuất</a></li>
+
+          {{-- Logout form --}}
+          <li>
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <button type="submit" class="dropdown-item text-danger">
+                <i class="bi bi-box-arrow-right"></i> Đăng xuất
+              </button>
+            </form>
+          </li>
+
         </ul>
       </div>
+
       @else
       <a href="/login" class="nav-link fw-bold mx-2">Đăng Nhập</a>
       <a href="/register" class="nav-link fw-bold text-primary">Tham Gia</a>

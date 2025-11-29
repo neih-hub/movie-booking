@@ -34,8 +34,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/profile');
-    }
+        return redirect()->route('login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');    }
 
     // =========================
     // HIỂN THỊ FORM ĐĂNG NHẬP
