@@ -85,6 +85,17 @@
         </a>
 
         <ul class="dropdown-menu dropdown-menu-end">
+          {{-- Nếu là admin → hiện Admin Panel --}}
+          @if(Auth::user()->role === 0)
+          <li>
+            <a class="dropdown-item text-danger fw-bold" href="/admin">
+              🛠 Quản lý rạp
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          @endif
           <li><a class="dropdown-item" href="/profile">Thông tin cá nhân</a></li>
           <li><a class="dropdown-item" href="/bookings">Lịch sử đặt vé</a></li>
           <li>

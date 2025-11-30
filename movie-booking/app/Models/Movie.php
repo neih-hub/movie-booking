@@ -9,7 +9,7 @@ protected $fillable = [
 'description',
 'poster',
 'duration',
-'category',
+'genre',
 'release_date',
 ];
 

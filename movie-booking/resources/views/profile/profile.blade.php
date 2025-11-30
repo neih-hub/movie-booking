@@ -74,9 +74,8 @@
 
               <div class="col-md-6">
                 <label class="form-label fw-semibold">Ngày sinh</label>
-                <input type="date" name="birthday"
-                  value="{{ $user->birthday ? \Carbon\Carbon::parse($user->birthday)->format('Y-m-d') : '' }}">
-
+                <input type="date" name="birthday" class="form-control"
+                  value="{{ $user->birthday ? $user->birthday->format('Y-m-d') : '' }}">
               </div>
             </div>
 

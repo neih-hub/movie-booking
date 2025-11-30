@@ -6,6 +6,8 @@ use App\Http\Controllers\ShowtimeController;
 use App\Http\Controllers\BookingController;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use App\Http\Controllers\MovieAdminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -83,3 +85,17 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/')->with('success', 'Bạn đã đăng xuất!');
 })->name('logout');
+// ADMIN routes
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+});
+
+// admin quan li movies
+Route::prefix('admin/movies')->group(function () {
+    Route::get('/', [MovieAdminController::class, 'list'])->name('admin.movies.list');
+    Route::get('/create', [MovieAdminController::class, 'create'])->name('admin.movies.create');
+    Route::post('/store', [MovieAdminController::class, 'store'])->name('admin.movies.store');
+    Route::get('/edit/{id}', [MovieAdminController::class, 'edit'])->name('admin.movies.edit');
+    Route::post('/update/{id}', [MovieAdminController::class, 'update'])->name('admin.movies.update');
+    Route::post('/delete/{id}', [MovieAdminController::class, 'destroy'])->name('admin.movies.delete');
+});
