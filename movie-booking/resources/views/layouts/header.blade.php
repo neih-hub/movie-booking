@@ -84,13 +84,30 @@
           👋 Xin chào, {{ Auth::user()->name }}
         </a>
 
+
         <ul class="dropdown-menu dropdown-menu-end">
+          <li>@if(Auth::check() && Auth::user()->role == 0)
+          <li class="dropdown-item">
+            <a class="nav-link text-danger fw-bold" href="/admin">
+              Quản lý rạp
+            </a>
+          </li>
+          @endif</li>
+
           <li><a class="dropdown-item" href="/profile">Thông tin cá nhân</a></li>
           <li><a class="dropdown-item" href="/bookings">Lịch sử đặt vé</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item text-danger" href="/logout">Đăng xuất</a></li>
+          <li>
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <button type="submit" class="dropdown-item text-danger">
+                Đăng xuất
+              </button>
+            </form>
+          </li>
+
         </ul>
       </div>
       @else

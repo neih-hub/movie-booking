@@ -15,8 +15,8 @@
   {{-- CSS Header --}}
   <link rel="stylesheet" href="/css/header.css">
 
-  {{-- CSS chung cho website (nếu có) --}}
-  <link rel="stylesheet" href="/css/main.css">
+  <!-- {{-- CSS chung cho website (nếu có) --}}
+  <link rel="stylesheet" href="/css/main.css"> -->
 </head>
 
 <body>
