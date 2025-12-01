@@ -22,19 +22,30 @@ class AuthController extends Controller
     // =========================
     public function register(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+        try {
+            $request->validate([
+                'email' => 'required|email|unique:users',
+                'password' => 'required|confirmed|min:6',
+            ]);
 
-        $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+            $user = User::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 1, // Default role is user
+                'status' => 1, // Default status is active
+            ]);
 
-        Auth::login($user);
+            // Log user in after registration
+            Auth::login($user);
 
-        return redirect('/profile');
+            // Redirect to profile to complete registration
+            return redirect('/profile')->with('success', 'Đăng ký thành công! Vui lòng hoàn thiện thông tin cá nhân.');
+        } catch (\Exception $e) {
+            // Log error to Laravel log file
+            \Log::error('Registration failed: ' . $e->getMessage());
+
+            return back()->withErrors(['error' => 'Đăng ký thất bại: ' . $e->getMessage()])->withInput();
+        }
     }
 
     // =========================
@@ -91,8 +102,8 @@ class AuthController extends Controller
         ]);
 
         Auth::user()->update([
-            'name'    => $request->name,
-            'phone'   => $request->phone,
+            'name' => $request->name,
+            'phone' => $request->phone,
             'address' => $request->address,
         ]);
 

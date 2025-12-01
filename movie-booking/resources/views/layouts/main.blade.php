@@ -13,10 +13,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
   {{-- CSS Header --}}
-  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="{{ asset('css/header.css') }}">
 
-  <!-- {{-- CSS chung cho website (nếu có) --}}
-  <link rel="stylesheet" href="/css/main.css"> -->
+  {{-- CSS được push từ view --}}
+  @stack('styles')
 </head>
 
 <body>
@@ -34,8 +34,12 @@
 
   {{-- Bootstrap JS --}}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/header.js"></script>
+
+  {{-- Header script --}}
+  <script src="{{ asset('js/header.js') }}"></script>
+
+  {{-- Scripts được push từ view --}}
+  @stack('scripts')
 
 </body>
-
 </html>

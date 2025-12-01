@@ -1,115 +1,74 @@
-<!-- <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 header-wrapper">
-  <div class="container position-relative">
+<footer class="footer bg-dark text-light pt-5 pb-4">
 
-    {{-- Logo --}}
-    <a class="navbar-brand d-flex align-items-center" href="/">
-      <img src="/image/logo.png" height="42" alt="Galaxy Logo">
-      <span class="ms-2 fw-bold fs-4 text-primary">HubVese</span>
-    </a>
+    <div class="container">
 
-    {{-- Mobile Toggle --}}
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <div class="row">
 
-    {{-- Menu --}}
-    <div class="collapse navbar-collapse" id="navbarContent">
+            {{-- ==== Cột 1: Giới thiệu ==== --}}
+            <div class="col-md-4 mb-4">
+                <h5 class="fw-bold mb-3">GIỚI THIỆU</h5>
 
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-center">
+                <ul class="list-unstyled footer-links">
+                    <li><a href="#">Về Chúng Tôi</a></li>
+                    <li><a href="#">Thoả Thuận Sử Dụng</a></li>
+                    <li><a href="#">Quy Chế Hoạt Động</a></li>
+                    <li><a href="#">Chính Sách Bảo Mật</a></li>
+                </ul>
+            </div>
 
-        {{-- Mua vé --}}
-        <li class="nav-item mx-3">
-          <a href="/booking" class="btn btn-warning fw-bold px-4 py-2 rounded-3 buy-btn">
-            ⭐ Mua Vé
-          </a>
-        </li>
+            {{-- ==== Cột 2: Góc điện ảnh ==== --}}
+            <div class="col-md-4 mb-4">
+                <h5 class="fw-bold mb-3">GÓC ĐIỆN ẢNH</h5>
 
-        {{-- Phim --}}
-        <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Phim</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/movies">Đang Chiếu</a></li>
-            <li><a class="dropdown-item" href="/movies/coming">Sắp Chiếu</a></li>
-          </ul>
-        </li>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="#">Thể Loại Phim</a></li>
+                    <li><a href="#">Bình Luận Phim</a></li>
+                    <li><a href="#">Blog Điện Ảnh</a></li>
+                    <li><a href="#">Phim Hay Tháng</a></li>
+                    <li><a href="#">Phim IMAX</a></li>
+                </ul>
+            </div>
 
-        {{-- Star Shop --}}
-        <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Star Shop</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Ưu đãi</a></li>
-            <li><a class="dropdown-item" href="#">Thẻ thành viên</a></li>
-          </ul>
-        </li>
+            {{-- ==== Cột 3: Hỗ trợ ==== --}}
+            <div class="col-md-4 mb-4">
+                <h5 class="fw-bold mb-3">HỖ TRỢ</h5>
 
-        {{-- Góc Điện Ảnh --}}
-        <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Góc Điện Ảnh</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Blog</a></li>
-            <li><a class="dropdown-item" href="#">Review</a></li>
-          </ul>
-        </li>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="#">Góp Ý</a></li>
+                    <li><a href="#">Sale & Services</a></li>
+                    <li><a href="#">Rạp / Giá Vé</a></li>
+                    <li><a href="#">Tuyển Dụng</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
 
-        {{-- Rạp/Giá Vé --}}
-        <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Rạp / Giá Vé</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/theaters">Danh sách rạp</a></li>
-            <li><a class="dropdown-item" href="/prices">Giá vé</a></li>
-          </ul>
-        </li>
+                {{-- Icon mạng xã hội --}}
+                <div class="d-flex gap-3 mt-3">
+                    <i class="bi bi-facebook fs-3"></i>
+                    <i class="bi bi-youtube fs-3"></i>
+                    <i class="bi bi-instagram fs-3"></i>
+                </div>
 
-      </ul>
+                {{-- Logo thông báo bộ công thương --}}
+                <div class="mt-3">
+                    <img src="/images/bo-cong-thuong.png" alt="Bộ Công Thương" height="50">
+                </div>
+            </div>
 
-      {{-- Search container --}}
-      <div class="search-container d-flex align-items-center me-3">
+        </div>
 
-        {{-- Icon search --}}
-        <i class="bi bi-search fs-4 search-icon" id="openSearch"></i>
+        <hr class="border-secondary">
 
-        {{-- Input search --}}
-        <input type="text" id="searchInput" class="form-control search-input d-none"
-          placeholder="Tìm phim, thể loại, diễn viên...">
+        {{-- ==== Thông tin công ty ==== --}}
+        <div class="text-center mt-3">
+            <h5 class="fw-bold">CÔNG TY CỔ PHẦN PHIM THIÊN NGÂN</h5>
 
-        {{-- Kết quả gợi ý --}}
-        <div id="searchResults" class="search-results list-group d-none"></div>
+            <p class="mb-1">MST: 0101595681</p>
+            <p class="mb-1">3/9 Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh</p>
 
-      </div>
-
-      {{-- Auth --}}
-      @if(Auth::check())
-      <div class="dropdown">
-        <a class="nav-link dropdown-toggle fw-bold text-primary" href="#" data-bs-toggle="dropdown">
-          👋 Xin chào, {{ Auth::user()->name }}
-        </a>
-
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="/profile">Thông tin cá nhân</a></li>
-          <li><a class="dropdown-item" href="/bookings">Lịch sử đặt vé</a></li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-
-          {{-- Logout form --}}
-          <li>
-            <form action="{{ route('logout') }}" method="POST">
-              @csrf
-              <button type="submit" class="dropdown-item text-danger">
-                <i class="bi bi-box-arrow-right"></i> Đăng xuất
-              </button>
-            </form>
-          </li>
-
-        </ul>
-      </div>
-
-      @else
-      <a href="/login" class="nav-link fw-bold mx-2">Đăng Nhập</a>
-      <a href="/register" class="nav-link fw-bold text-primary">Tham Gia</a>
-      @endif
+            <p class="mb-0">
+                ☎ 028 39 333 303 — 📞 1900 2224 (9:00 - 22:00) — ✉ hotro@galaxystudio.vn
+            </p>
+        </div>
 
     </div>
-
-  </div>
-</nav> -->
+</footer>

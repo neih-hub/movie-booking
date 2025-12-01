@@ -4,46 +4,72 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
-use Illuminate\Support\Str;
-
 
 class MovieAdminController extends Controller
 {
-    // Danh sách
-    public function list()
-    {
-        $movies = Movie::all();
-        return view('admin.movies.list', compact('movies'));
-    }
+    // LIST
+   public function list()
+{
+    $movies = Movie::all();
+    return view('admin.movies.list', compact('movies'));
+}
+
 
     public function create()
     {
         return view('admin.movies.create');
     }
 
+    // STORE
     public function store(Request $request)
     {
         $data = $request->all();
+        $data['genre'] = $request->genre; // JSON string
+
+        if ($request->hasFile('poster')) {
+            $file = $request->file('poster');
+            $name = time().'_'.$file->getClientOriginalName();
+            $file->move('uploads/posters', $name);
+            $data['poster'] = 'uploads/posters/'.$name;
+        }
+
         Movie::create($data);
-        return redirect()->route('admin.movies.list')->with('success', 'Thêm phim thành công');
+
+        return redirect()->route('admin.movies.list')
+            ->with('success', 'Thêm phim thành công!');
     }
 
+    // EDIT PAGE
     public function edit($id)
     {
         $movie = Movie::findOrFail($id);
         return view('admin.movies.edit', compact('movie'));
     }
 
+    // UPDATE
     public function update(Request $request, $id)
     {
         $movie = Movie::findOrFail($id);
-        $movie->update($request->all());
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+
+        $data = $request->all();
+        $data['genre'] = $request->genre; // JSON string
+
+        if ($request->hasFile('poster')) {
+            $file = $request->file('poster');
+            $name = time().'_'.$file->getClientOriginalName();
+            $file->move('uploads/posters', $name);
+            $data['poster'] = 'uploads/posters/'.$name;
+        }
+
+        $movie->update($data);
+
+        return back()->with('success', 'Cập nhật phim thành công!');
     }
 
+    // DELETE
     public function destroy($id)
     {
         Movie::destroy($id);
-        return redirect()->back()->with('success', 'Xóa thành công');
+        return back()->with('success', 'Xóa phim thành công!');
     }
-} 
+}

@@ -1,0 +1,19 @@
+.genre-btn {
+  border-radius: 12px;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background: white;
+  margin: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.genre-btn:hover {
+  background: #f0f0f0;
+}
+
+.genre-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}

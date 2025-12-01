@@ -14,4 +14,12 @@ class Movie extends Model
         'poster',
         'release_date',
     ];
+
+    protected $casts = [
+        'genre' => 'array'
+    ];
+    public function showtimes()
+{
+    return $this->hasMany(Showtime::class, 'movie_id');
+}
 }

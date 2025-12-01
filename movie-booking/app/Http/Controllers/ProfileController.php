@@ -4,18 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User; // thêm dòng này
 
 class ProfileController extends Controller
 {
-    // HIỂN THỊ TRANG PROFILE
+    // TRANG PROFILE
     public function index()
     {
+        /** @var User $user */
         $user = Auth::user();
-        // đúng là "view", không phải "views"
         return view('profile.profile', compact('user'));
     }
 
-    // CẬP NHẬT THÔNG TIN CÁ NHÂN
+    // CẬP NHẬT THÔNG TIN
     public function update(Request $request)
     {
         $request->validate([
@@ -26,13 +27,14 @@ class ProfileController extends Controller
             'gender' => 'nullable|in:male,female,other',
         ]);
 
+        /** @var User $user */
         $user = Auth::user();
         $user->update($request->only('name','phone','address','birthday','gender'));
 
         return back()->with('success', 'Cập nhật thông tin thành công!');
     }
 
-    // CẬP NHẬT ẢNH ĐẠI DIỆN
+    // CẬP NHẬT AVATAR
     public function updateAvatar(Request $request)
     {
         $request->validate([
@@ -41,15 +43,10 @@ class ProfileController extends Controller
 
         $file = $request->file('avatar');
         $fileName = time().'_'.$file->getClientOriginalName();
-
-        // Lưu vào public/uploads/avatar (đảm bảo thư mục tồn tại và có quyền ghi)
         $file->move(public_path('uploads/avatar'), $fileName);
 
+        /** @var User $user */
         $user = Auth::user();
-
-        // Nếu bạn muốn xóa avatar cũ (nếu có), uncomment dòng sau
-        // if ($user->avatar && file_exists(public_path($user->avatar))) { unlink(public_path($user->avatar)); }
-
         $user->avatar = 'uploads/avatar/'.$fileName;
         $user->save();
 
