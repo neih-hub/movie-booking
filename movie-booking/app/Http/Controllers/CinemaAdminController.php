@@ -33,32 +33,32 @@ class CinemaAdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'    => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'city'    => 'required|string|max:255',
+            'city' => 'required|string|max:255',
         ]);
 
-        // Create cinema
+        // create cinema
         $cinema = Cinema::create($request->only(['name', 'address', 'city']));
 
-        // Default rooms: A, B, C
+        // default room
         $rooms = ['A', 'B', 'C'];
 
         foreach ($rooms as $r) {
             $room = Room::create([
-                'cinema_id'   => $cinema->id,
-                'name'        => $r,
-                'total_seats' => 10,
+                'cinema_id' => $cinema->id,
+                'name' => $r,
+                'total_seats' => 30,
             ]);
 
-            // Generate seats A01...A10
-            for ($i = 1; $i <= 10; $i++) {
+            // tạo ghế từ 1 tới 30
+            for ($i = 1; $i <= 30; $i++) {
                 $label = $r . str_pad($i, 2, '0', STR_PAD_LEFT);
                 Seat::create([
-    'room_id'      => $room->id,
-    'seat_number'  => $label,  // A01, A02...C10
-    'type'         => 'normal', // hoặc VIP nếu bạn cần
-]);
+                    'room_id' => $room->id,
+                    'seat_number' => $label,  // A01, A02...
+                    'type' => 'normal',
+                ]);
             }
         }
 
@@ -72,15 +72,15 @@ class CinemaAdminController extends Controller
     public function edit($id)
     {
         $cinema = Cinema::findOrFail($id);
-        $rooms  = Room::where('cinema_id', $id)->with('seats')->get();
+        $rooms = Room::where('cinema_id', $id)->with('seats')->get();
 
         return view('admin.cinemas.edit', compact('cinema', 'rooms'));
     }
     public function showSeats($room_id)
-{
-    $room = Room::with('seats')->findOrFail($room_id);
-    return view('admin.cinemas.seats', compact('room'));
-}
+    {
+        $room = Room::with('seats')->findOrFail($room_id);
+        return view('admin.cinemas.seats', compact('room'));
+    }
 
 
     // ======================
@@ -91,9 +91,9 @@ class CinemaAdminController extends Controller
         $cinema = Cinema::findOrFail($id);
 
         $request->validate([
-            'name'    => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'city'    => 'required|string|max:255',
+            'city' => 'required|string|max:255',
         ]);
 
         $cinema->update($request->only(['name', 'address', 'city']));

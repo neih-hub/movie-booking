@@ -63,6 +63,14 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.rooms.manage') }}"
+                        class="nav-link {{ request()->is('admin/rooms/manage*') ? 'active' : '' }}">
+                        <i class="bi bi-door-open"></i>
+                        <span>Quản lí phòng</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('admin.showtimes.list') }}"
                         class="nav-link {{ request()->is('admin/showtimes*') ? 'active' : '' }}">
                         <i class="bi bi-clock"></i>
