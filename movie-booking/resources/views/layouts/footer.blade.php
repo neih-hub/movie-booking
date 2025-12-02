@@ -3,8 +3,6 @@
     <div class="container">
 
         <div class="row">
-
-            {{-- ==== Cột 1: Giới thiệu ==== --}}
             <div class="col-md-4 mb-4">
                 <h5 class="fw-bold mb-3">GIỚI THIỆU</h5>
 
@@ -43,14 +41,14 @@
 
                 {{-- Icon mạng xã hội --}}
                 <div class="d-flex gap-3 mt-3">
-                    <i class="bi bi-facebook fs-3"></i>
-                    <i class="bi bi-youtube fs-3"></i>
-                    <i class="bi bi-instagram fs-3"></i>
+                    <a href="#"><i class="bi bi-facebook fs-3"></i></a>
+                    <a href="#"><i class="bi bi-youtube fs-3"></i></a>
+                    <a href="#"><i class="bi bi-instagram fs-3"></i></a>
                 </div>
 
                 {{-- Logo thông báo bộ công thương --}}
                 <div class="mt-3">
-                    <img src="/images/bo-cong-thuong.png" alt="Bộ Công Thương" height="50">
+                    <img src="/image/logo-da-thong-bao-bo-cong-thuong.webp" alt="Bộ Công Thương" height="50">
                 </div>
             </div>
 
@@ -60,13 +58,15 @@
 
         {{-- ==== Thông tin công ty ==== --}}
         <div class="text-center mt-3">
-            <h5 class="fw-bold">CÔNG TY CỔ PHẦN PHIM THIÊN NGÂN</h5>
+            <h5 class="fw-bold">CÔNG TY TNHH HAI THÀNH VIÊN</h5>
 
-            <p class="mb-1">MST: 0101595681</p>
-            <p class="mb-1">3/9 Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh</p>
+            <p class="mb-1">SĐT: 0123456789(Quang) — 0987654321(Hiền)</p>
+            <p class="mb-1">Tầng 3, Phòng K.A303, Tòa A, Trường ĐH CNTT & TT Việt Hàn, 
+                470 Trần Đại Nghĩa, Phường Hòa Quý, Quận Ngũ Hành Sơn, TP Đà Nẵng
+            </p>
 
             <p class="mb-0">
-                ☎ 028 39 333 303 — 📞 1900 2224 (9:00 - 22:00) — ✉ hotro@galaxystudio.vn
+                ☎ 0987 654 321 — 📞 1900 2224 (9:00 - 22:00) — <a href="">✉ hiendaide@gmail.com</a>
             </p>
         </div>
 

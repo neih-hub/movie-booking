@@ -12,8 +12,10 @@
   {{-- Bootstrap Icons --}}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-  {{-- CSS Header --}}
+  {{-- CSS Header / Footer --}}
   <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+  <link rel="stylesheet" href="/css/footer.css"> 
+
 
   {{-- CSS được push từ view --}}
   @stack('styles')
