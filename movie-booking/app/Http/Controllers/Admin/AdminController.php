@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Movie;
 use App\Models\Cinema;
 use App\Models\Booking;
+use App\Models\Food;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -18,17 +20,18 @@ class AdminController extends Controller
         $totalMovies = Movie::count();
         $totalCinemas = Cinema::count();
         $totalBookings = Booking::count();
+        $totalFoods = Food::count();
 
-        // Get recent bookings
+        // Get recent bookings (safe eager load)
         $recentBookings = Booking::with(['user', 'showtime.movie'])
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
 
-        // Get revenue (assuming bookings have a total_price field)
+        // Revenue — if column name differs, this will just return 0
         $totalRevenue = Booking::sum('total_price') ?? 0;
 
-        // Get popular movies (most booked)
+        // Popular movies (example)
         $popularMovies = Movie::withCount('showtimes')
             ->orderBy('showtimes_count', 'desc')
             ->take(5)
@@ -40,8 +43,7 @@ class AdminController extends Controller
             'totalCinemas',
             'totalBookings',
             'recentBookings',
-            'totalRevenue',
-            'popularMovies'
+            'totalFoods',
         ));
     }
 }

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Showtime;
 use App\Models\Movie;
 use App\Models\Cinema;
 use App\Models\Room;
+use App\Http\Controllers\Controller;
 
 class ShowtimeAdminController extends Controller
 {
@@ -54,11 +55,13 @@ class ShowtimeAdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'movie_id' => 'required|exists:movies,id',
-            'room_id' => 'required|exists:rooms,id',
-            'start_time' => 'required|date',
-            'price' => 'required|numeric|min:0',
-        ]);
+    'movie_id' => 'required|exists:movies,id',
+    'room_id' => 'required|exists:rooms,id',
+    'date_start' => 'required|date',
+    'start_time' => 'required|date_format:H:i',
+    'price' => 'required|numeric|min:0',
+]);
+
 
         Showtime::create($request->all());
 

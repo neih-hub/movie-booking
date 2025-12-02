@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Http\Controllers\Controller;
 
 class MovieAdminController extends Controller
 {

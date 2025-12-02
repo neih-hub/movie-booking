@@ -4,14 +4,16 @@
 @section('page-title', 'Dashboard')
 
 @section('content')
+
   <!-- Statistics Cards -->
   <div class="stats-grid">
+
     <div class="stat-card">
       <div class="stat-icon">
         <i class="bi bi-people"></i>
       </div>
       <div class="stat-label">Tổng người dùng</div>
-      <div class="stat-value">{{ $totalUsers }}</div>
+      <div class="stat-value">{{ $totalUsers ?? 0 }}</div>
     </div>
 
     <div class="stat-card success">
@@ -19,7 +21,7 @@
         <i class="bi bi-film"></i>
       </div>
       <div class="stat-label">Tổng phim</div>
-      <div class="stat-value">{{ $totalMovies }}</div>
+      <div class="stat-value">{{ $totalMovies ?? 0 }}</div>
     </div>
 
     <div class="stat-card warning">
@@ -27,7 +29,7 @@
         <i class="bi bi-building"></i>
       </div>
       <div class="stat-label">Tổng rạp chiếu</div>
-      <div class="stat-value">{{ $totalCinemas }}</div>
+      <div class="stat-value">{{ $totalCinemas ?? 0 }}</div>
     </div>
 
     <div class="stat-card danger">
@@ -35,9 +37,20 @@
         <i class="bi bi-ticket-perforated"></i>
       </div>
       <div class="stat-label">Tổng đặt vé</div>
-      <div class="stat-value">{{ $totalBookings }}</div>
+      <div class="stat-value">{{ $totalBookings ?? 0 }}</div>
     </div>
+
+    <!-- NEW: TOTAL FOODS -->
+    <div class="stat-card info">
+      <div class="stat-icon">
+        <i class="bi bi-shop"></i>
+      </div>
+      <div class="stat-label">Tổng đồ ăn</div>
+      <div class="stat-value">{{ $totalFoods ?? 0 }}</div>
+    </div>
+
   </div>
+
 
   <!-- Recent Bookings -->
   <div class="content-card">
@@ -50,7 +63,7 @@
       </a>
     </div>
 
-    @if($recentBookings->count() > 0)
+    @if(isset($recentBookings) && $recentBookings->count() > 0)
       <div style="overflow-x: auto;">
         <table class="admin-table">
           <thead>
@@ -84,9 +97,12 @@
         </table>
       </div>
     @else
-      <p style="text-align: center; color: #64748b; padding: 2rem;">Chưa có đặt vé nào</p>
+      <p style="text-align: center; color: #64748b; padding: 2rem;">
+        Chưa có đặt vé nào
+      </p>
     @endif
   </div>
+
 
   <!-- Quick Actions -->
   <div class="content-card">
@@ -97,6 +113,7 @@
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+
       <a href="{{ route('admin.movies.create') }}" class="btn btn-primary" style="text-align: center; padding: 1.5rem;">
         <i class="bi bi-plus-circle"></i><br>
         Thêm phim mới
@@ -107,8 +124,7 @@
         Thêm rạp chiếu
       </a>
 
-      <a href="{{ route('admin.showtimes.create') }}" class="btn btn-warning"
-        style="text-align: center; padding: 1.5rem;">
+      <a href="{{ route('admin.showtimes.create') }}" class="btn btn-warning" style="text-align: center; padding: 1.5rem;">
         <i class="bi bi-plus-circle"></i><br>
         Thêm suất chiếu
       </a>
@@ -117,6 +133,14 @@
         <i class="bi bi-gear"></i><br>
         Quản lý users
       </a>
+
+      <!-- NEW: QUICK ACTION FOOD -->
+      <a href="{{ route('admin.foods.list') }}" class="btn btn-info" style="text-align: center; padding: 1.5rem;">
+        <i class="bi bi-shop"></i><br>
+        Quản lý đồ ăn
+      </a>
+
     </div>
   </div>
+
 @endsection

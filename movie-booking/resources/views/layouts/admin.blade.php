@@ -85,6 +85,13 @@
                         <span>Quản lý đặt vé</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.foods.list') }}"
+                        class="nav-link {{ request()->is('admin/foods*') ? 'active' : '' }}">
+                        <i class="bi bi-shop"></i>
+                        <span>Quản lý đồ ăn</span>
+                    </a>
+                </li>
 
                 <li class="nav-item"
                     style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Cinema;
 use App\Models\Room;
 use App\Models\Seat;
+use App\Http\Controllers\Controller;
 
 
 class CinemaAdminController extends Controller

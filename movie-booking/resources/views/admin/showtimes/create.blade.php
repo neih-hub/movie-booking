@@ -18,6 +18,8 @@
             @csrf
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+
+                {{-- Chọn phim --}}
                 <div class="form-group">
                     <label class="form-label">Phim <span style="color: red;">*</span></label>
                     <select name="movie_id" class="form-select" required>
@@ -30,6 +32,7 @@
                     </select>
                 </div>
 
+                {{-- Chọn rạp --}}
                 <div class="form-group">
                     <label class="form-label">Rạp chiếu <span style="color: red;">*</span></label>
                     <select name="cinema_id" id="cinema_select" class="form-select" required>
@@ -40,6 +43,7 @@
                     </select>
                 </div>
 
+                {{-- Chọn phòng --}}
                 <div class="form-group">
                     <label class="form-label">Phòng chiếu <span style="color: red;">*</span></label>
                     <select name="room_id" id="room_select" class="form-select" required>
@@ -47,16 +51,25 @@
                     </select>
                 </div>
 
+                {{-- Ngày chiếu --}}
                 <div class="form-group">
-                    <label class="form-label">Thời gian chiếu <span style="color: red;">*</span></label>
-                    <input type="datetime-local" name="start_time" class="form-control" value="{{ old('start_time') }}"
-                        required>
+                    <label class="form-label">Ngày chiếu <span style="color: red;">*</span></label>
+                    <input type="date" name="date_start" class="form-control"
+                           value="{{ old('date_start') }}" required>
                 </div>
 
+                {{-- Giờ chiếu --}}
+                <div class="form-group">
+                    <label class="form-label">Giờ chiếu <span style="color: red;">*</span></label>
+                    <input type="time" name="start_time" class="form-control"
+                           value="{{ old('start_time') }}" required>
+                </div>
+
+                {{-- Giá vé --}}
                 <div class="form-group">
                     <label class="form-label">Giá vé (VNĐ) <span style="color: red;">*</span></label>
-                    <input type="number" name="price" class="form-control" value="{{ old('price', 50000) }}" min="0"
-                        required>
+                    <input type="number" name="price" class="form-control"
+                           value="{{ old('price', 50000) }}" min="0" required>
                 </div>
             </div>
 
@@ -73,7 +86,7 @@
 
     @section('scripts')
         <script>
-            // Dynamic room loading based on cinema selection
+            // Load phòng theo rạp
             const cinemaSelect = document.getElementById('cinema_select');
             const roomSelect = document.getElementById('room_select');
             const cinemas = @json($cinemas);
