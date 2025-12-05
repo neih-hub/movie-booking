@@ -10,6 +10,6 @@ class Cinema extends Model
 
     public function rooms()
     {
-        return $this->hasMany(Room::class);
+        return $this->hasMany(Room::class, 'cinema_id');
     }
 }

@@ -6,15 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $fillable = ['cinema_id', 'name', 'total_seats', 'seats_per_row', 'rows'];
+    protected $fillable = [
+        'cinema_id', 'name', 'total_seats', 'seats_per_row', 'rows'
+    ];
 
     public function cinema()
     {
-        return $this->belongsTo(Cinema::class);
+        return $this->belongsTo(Cinema::class, 'cinema_id');
     }
 
     public function seats()
     {
-        return $this->hasMany(Seat::class);
+        return $this->hasMany(Seat::class, 'room_id');
+    }
+
+    public function showtimes()
+    {
+        return $this->hasMany(Showtime::class, 'room_id');
     }
 }

@@ -1,64 +1,153 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
+{{-- ========== LOAD CSS ========== --}}
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/genre.css') }}">
 @endpush
 
+@section('title', 'Thêm phim')
+@section('page-title', 'Thêm phim')
+
 @section('content')
-<div class="container py-4">
 
-    <h3 class="fw-bold mb-3">Thêm phim</h3>
+<div class="content-card">
 
-    <form action="{{ route('admin.movies.store') }}" method="POST" enctype="multipart/form-data">
+    {{-- ================= HEADER ================= --}}
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="card-title">
+            <i class="fas fa-film"></i> Thêm phim mới
+        </h2>
+
+        <a href="{{ route('admin.movies.list') }}" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </div>
+
+    {{-- ================= FORM ================= --}}
+    <form action="{{ route('admin.movies.store') }}" method="POST" enctype="multipart/form-data" class="movie-form">
         @csrf
 
-        <label>Tiêu đề</label>
-        <input type="text" name="title" class="form-control mb-3" required>
-
-        <label>Mô tả</label>
-        <textarea name="description" class="form-control mb-3"></textarea>
-
-        <label>Thời lượng (phút)</label>
-        <input type="number" name="duration" class="form-control mb-3">
-
-        {{-- THỂ LOẠI --}}
-        <label>Thể loại (chọn tối đa 4)</label>
-
-        @php
-            $genres = [
-                'Hành động', 'Phiêu lưu', 'Khoa học viễn tưởng', 'Kinh dị',
-                'Tâm lý', 'Tình cảm', 'Hài', 'Hoạt hình', 'Gia đình',
-                'Chiến tranh', 'Hình sự', 'Thể thao', 'Nhạc kịch',
-                'Viễn Tây', 'Giả tưởng', 'Bí ẩn', 'Tài liệu',
-                'Lịch sử', 'Phiêu lưu - Hành động', 'Anime'
-            ];
-        @endphp
-
-        <div id="genre-wrapper" class="d-flex flex-wrap gap-2 mb-3">
-            @foreach($genres as $g)
-                <button type="button" class="genre-btn" data-value="{{ $g }}">
-                    {{ $g }}
-                </button>
-            @endforeach
+        {{-- Tiêu đề phim --}}
+        <div class="form-section">
+            <div class="section-header">
+                <i class="fas fa-heading"></i>
+                <h3>Thông tin cơ bản</h3>
+            </div>
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-film"></i> Tiêu đề phim 
+                    <span class="text-danger">*</span>
+                </label>
+                <input type="text" name="title" class="form-control" placeholder="Nhập tên phim..." required>
+            </div>
         </div>
 
-        <input type="hidden" name="genre" id="genreInput">
+        {{-- Thời lượng --}}
+        <div class="form-section">
+            <div class="section-header">
+                <i class="fas fa-clock"></i>
+                <h3>Thời lượng</h3>
+            </div>
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-stopwatch"></i> Thời lượng (phút)
+                </label>
+                <input type="number" name="duration" class="form-control" placeholder="Ví dụ: 120" min="1">
+            </div>
+        </div>
 
-        <label>Ngày công chiếu</label>
-        <input type="date" name="release_date" class="form-control mb-3">
+        {{-- Mô tả --}}
+        <div class="form-section">
+            <div class="section-header">
+                <i class="fas fa-align-left"></i>
+                <h3>Mô tả phim</h3>
+            </div>
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-file-alt"></i> Nội dung mô tả
+                </label>
+                <textarea name="description" class="form-control" rows="5" placeholder="Nhập mô tả chi tiết về phim..."></textarea>
+            </div>
+        </div>
 
-        <label>Poster</label>
-        <input type="file" name="poster" class="form-control mb-3">
+        {{-- Thể loại --}}
+        <div class="form-section">
+            <div class="section-header">
+                <i class="fas fa-tags"></i>
+                <h3>Thể loại phim</h3>
+            </div>
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-list"></i> Chọn thể loại 
+                    <span class="badge bg-info">Tối đa 4</span>
+                </label>
 
-        <button class="btn btn-primary">Lưu</button>
+                @php
+                    $genres = [
+                        'Hành động','Phiêu lưu','Khoa học viễn tưởng','Kinh dị',
+                        'Tâm lý','Tình cảm','Hài','Hoạt hình','Gia đình',
+                        'Chiến tranh','Hình sự','Thể thao','Nhạc kịch',
+                        'Viễn Tây','Giả tưởng','Bí ẩn','Tài liệu',
+                        'Lịch sử','Phiêu lưu - Hành động','Anime'
+                    ];
+                @endphp
+
+                <div id="genre-wrapper" class="genre-container">
+                    @foreach($genres as $g)
+                        <button type="button" class="genre-btn" data-value="{{ $g }}">
+                            <i class="fas fa-tag"></i>
+                            {{ $g }}
+                        </button>
+                    @endforeach
+                </div>
+
+                <input type="hidden" name="genre" id="genreInput">
+            </div>
+        </div>
+
+        {{-- Ngày công chiếu & Poster --}}
+        <div class="form-section">
+            <div class="section-header">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Ngày công chiếu & Poster</h3>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-calendar-day"></i> Ngày công chiếu
+                        </label>
+                        <input type="date" name="release_date" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-image"></i> Poster phim
+                        </label>
+                        <input type="file" name="poster" class="form-control" accept="image/*">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- ================= BUTTONS ================= --}}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success btn-lg">
+                <i class="fas fa-save"></i> Lưu phim
+            </button>
+
+            <a href="{{ route('admin.movies.list') }}" class="btn btn-secondary btn-lg">
+                <i class="fas fa-times"></i> Hủy bỏ
+            </a>
+        </div>
+
     </form>
-
 </div>
 
-<script>
-    window.selectedGenres = []; // mặc định không có genre nào được chọn
-</script>
-
+{{-- ========== LOAD JS ========== --}}
+@push('scripts')
 <script src="{{ asset('js/genre.js') }}"></script>
+@endpush
 
 @endsection

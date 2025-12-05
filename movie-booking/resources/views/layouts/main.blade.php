@@ -15,6 +15,7 @@
   {{-- CSS Header / Footer --}}
   <link rel="stylesheet" href="{{ asset('css/header.css') }}">
   <link rel="stylesheet" href="/css/footer.css"> 
+  <link rel="stylesheet" href="/css/home.css"> 
 
 
   {{-- CSS được push từ view --}}

@@ -1,0 +1,249 @@
+/* public/css/seats-honeycomb.css */
+
+/* ==================== LAYOUT ==================== */
+.seats-layout {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.seat-container {
+    background: #f8fafc;
+    padding: 3rem;
+    border-radius: 16px;
+}
+
+/* ==================== INFO PANEL ==================== */
+.info-panel {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.info-panel-header {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #e5e7eb;
+    margin-bottom: 1.5rem;
+}
+
+.info-panel-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.info-panel-header p {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* ==================== SEAT INFO SECTIONS ==================== */
+.seat-info-section {
+    margin-bottom: 2rem;
+}
+
+.seat-info-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.seat-info-section h4 i {
+    color: #3b82f6;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.info-item-label {
+    font-weight: 500;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.info-item-value {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.875rem;
+}
+
+/* ==================== EMPTY SEAT MESSAGE ==================== */
+.empty-seat-message {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: 12px;
+    border: 2px dashed #3b82f6;
+}
+
+.empty-seat-message i {
+    font-size: 3rem;
+    color: #3b82f6;
+    margin-bottom: 1rem;
+}
+
+.empty-seat-message h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.empty-seat-message p {
+    color: #64748b;
+    margin: 0;
+}
+
+/* ==================== CINEMA INFO ==================== */
+.cinema-info {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.cinema-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.cinema-info p {
+    color: #64748b;
+    margin: 0;
+}
+
+/* ==================== SCREEN ==================== */
+.screen {
+    background: linear-gradient(to bottom, #e2e8f0 0%, #cbd5e1 100%);
+    height: 8px;
+    border-radius: 50%;
+    margin: 2rem auto 3rem;
+    max-width: 80%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.screen::before {
+    content: 'MÀN HÌNH';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    letter-spacing: 2px;
+}
+
+/* ==================== SEAT GRID ==================== */
+.honeycomb-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.seat-row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+/* ==================== SEATS ==================== */
+.seat {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+    color: #374151;
+    border: 2px solid transparent;
+}
+
+.seat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.seat.selected {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border-color: #1d4ed8;
+    transform: translateY(-3px);
+}
+
+.seat.occupied {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+/* ==================== STATS ==================== */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.stat-card .number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.stat-card .label {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+    .seats-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .info-panel {
+        position: relative;
+        top: 0;
+        max-height: none;
+    }
+}

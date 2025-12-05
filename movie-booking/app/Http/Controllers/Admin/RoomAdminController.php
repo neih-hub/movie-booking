@@ -38,7 +38,45 @@ class RoomAdminController extends Controller
             });
         }
 
-        return view('admin.rooms.seats_honeycomb', compact('room', 'seatRows'));
+
+        // Get booking information for each seat
+        $seatsWithBookings = [];
+        foreach ($room->seats as $seat) {
+            $bookingData = null;
+            
+            try {
+                // Find the most recent booking for this seat
+                $bookingSeat = \App\Models\BookingSeat::where('seat_id', $seat->id)
+                    ->with(['booking.user'])
+                    ->latest()
+                    ->first();
+
+                if ($bookingSeat && $bookingSeat->booking && $bookingSeat->booking->status == 1) {
+                    $bookingData = [
+                        'id' => $bookingSeat->booking->id,
+                        'user' => [
+                            'name' => $bookingSeat->booking->user->name ?? 'N/A',
+                            'email' => $bookingSeat->booking->user->email ?? 'N/A',
+                            'phone' => $bookingSeat->booking->user->phone ?? 'N/A',
+                            'gender' => $bookingSeat->booking->user->gender ?? 'other',
+                        ]
+                    ];
+                }
+            } catch (\Exception $e) {
+                // If there's any error, just set booking to null
+                $bookingData = null;
+            }
+
+            $seatsWithBookings[] = [
+                'id' => $seat->id,
+                'seat_number' => $seat->seat_number,
+                'room_name' => $room->name,
+                'cinema_name' => $room->cinema->name,
+                'booking' => $bookingData
+            ];
+        }
+
+        return view('admin.rooms.seats_honeycomb', compact('room', 'seatRows', 'seatsWithBookings'));
     }
 
     public function list()

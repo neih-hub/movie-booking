@@ -61,7 +61,7 @@
                 <td>{{ $room->name }}</td>
                 <td>{{ $room->seats->count() }}</td>
                 <td>
-                    <a href="{{ route('admin.rooms.show', $room->id) }}" class="btn btn-info btn-sm">
+                    <a href="{{ route('admin.rooms.seats.honeycomb', $room->id) }}" class="btn btn-info btn-sm">
                         <i class="fas fa-chair"></i> Xem ghế
                     </a>
                 </td>

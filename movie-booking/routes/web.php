@@ -5,14 +5,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-// CLIENT CONTROLLERS
+// HOME
+use App\Http\Controllers\HomeController;
+
+// CLIENT
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ShowtimeController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 
-// ADMIN CONTROLLERS (trong folder Admin)
+// ADMIN
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Admin\MovieAdminController;
@@ -27,12 +30,24 @@ use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
-| HOME
+| HOME PAGE
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
-    return view('home.index', ['title' => 'Trang chủ']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// API load ngày chiếu
+Route::get('/get-dates', [HomeController::class, 'getDates'])->name('showtime.dates');
+
+// API load suất chiếu
+Route::get('/search-showtime', [HomeController::class, 'searchShowtime'])->name('search.showtime');
+
+// Trang mua vé (test — sau này thay bằng BookingController)
+Route::get('/booking/{showtime}', function ($id) {
+    return "Trang đặt vé cho suất chiếu: " . $id;
 });
+Route::get('/get-rooms', [HomeController::class, 'getRooms'])->name('showtime.rooms');
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,14 +55,18 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 Route::get('/movies', [MovieController::class, 'index']);
-Route::get('/movie/{slug}', [MovieController::class, 'show'])->name('movie.show');
+Route::get('/movie/{id}', [MovieController::class, 'show'])
+    ->where('id', '[0-9]+')
+    ->name('movie.show');
+
 
 /*
 |--------------------------------------------------------------------------
-| SHOWTIME
+| SHOWTIME (CLIENT)
 |--------------------------------------------------------------------------
 */
 Route::get('/showtime/{id}', [ShowtimeController::class, 'show']);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,18 +77,18 @@ Route::post('/booking', [BookingController::class, 'store']);
 Route::get('/booking', [BookingController::class, 'index'])
     ->middleware(['auth', 'profile.completed']);
 
+
 /*
 |--------------------------------------------------------------------------
 | AJAX SEARCH MOVIE
 |--------------------------------------------------------------------------
 */
 Route::get('/search-movie', function (Request $req) {
-    $query = $req->query;
-
-    return \App\Models\Movie::where('title', 'like', "%$query%")
+    return \App\Models\Movie::where('title', 'like', "%{$req->query}%")
         ->take(5)
-        ->get(['title', 'slug']);
+        ->get(['id', 'title']);
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -87,22 +106,22 @@ Route::post('/logout', function () {
     return redirect('/')->with('success', 'Bạn đã đăng xuất!');
 })->name('logout');
 
+
 /*
 |--------------------------------------------------------------------------
 | USER PROFILE
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
-
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar');
-
 });
+
 
 /*
 |--------------------------------------------------------------------------
-| CREATE ADMIN (ONE-TIME RUN)
+| CREATE DEFAULT ADMIN (ONE-TIME)
 |--------------------------------------------------------------------------
 */
 Route::get('/create-admin', function () {
@@ -113,9 +132,9 @@ Route::get('/create-admin', function () {
         'role' => 0,
         'status' => 1,
     ]);
-
     return "Tạo admin thành công: " . $admin->email;
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -124,126 +143,114 @@ Route::get('/create-admin', function () {
 */
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
+    ->name('admin.')
     ->group(function () {
 
-        // DASHBOARD
-        Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    // DASHBOARD
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
-        /*
-        |--------------------------------------------------------------------------
-        | USERS
-        |--------------------------------------------------------------------------
-        */
-        Route::prefix('users')->group(function () {
-            Route::get('/', [UserAdminController::class, 'list'])->name('admin.users.list');
-            Route::get('/edit/{id}', [UserAdminController::class, 'edit'])->name('admin.users.edit');
-            Route::post('/update/{id}', [UserAdminController::class, 'update'])->name('admin.users.update');
-            Route::post('/toggle/{id}', [UserAdminController::class, 'toggleStatus'])->name('admin.users.toggle');
-            Route::post('/delete/{id}', [UserAdminController::class, 'destroy'])->name('admin.users.delete');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | MOVIES
-        |--------------------------------------------------------------------------
-        */
-        Route::prefix('movies')->group(function () {
-            Route::get('/', [MovieAdminController::class, 'list'])->name('admin.movies.list');
-            Route::get('/create', [MovieAdminController::class, 'create'])->name('admin.movies.create');
-            Route::post('/store', [MovieAdminController::class, 'store'])->name('admin.movies.store');
-            Route::get('/edit/{id}', [MovieAdminController::class, 'edit'])->name('admin.movies.edit');
-            Route::post('/update/{id}', [MovieAdminController::class, 'update'])->name('admin.movies.update');
-            Route::post('/delete/{id}', [MovieAdminController::class, 'destroy'])->name('admin.movies.delete');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | CINEMAS
-        |--------------------------------------------------------------------------
-        */
-        Route::prefix('cinemas')->group(function () {
-            Route::get('/', [CinemaAdminController::class, 'list'])->name('admin.cinemas.list');
-            Route::get('/create', [CinemaAdminController::class, 'create'])->name('admin.cinemas.create');
-            Route::post('/store', [CinemaAdminController::class, 'store'])->name('admin.cinemas.store');
-            Route::get('/edit/{id}', [CinemaAdminController::class, 'edit'])->name('admin.cinemas.edit');
-            Route::post('/update/{id}', [CinemaAdminController::class, 'update'])->name('admin.cinemas.update');
-            Route::post('/delete/{id}', [CinemaAdminController::class, 'destroy'])->name('admin.cinemas.delete');
-        });
-
-        // VIEW SEATS OF A ROOM
-        Route::get('/rooms/{id}/seats', [CinemaAdminController::class, 'showSeats'])
-            ->name('admin.rooms.show');
-
-        /*
-        |--------------------------------------------------------------------------
-        | ROOMS
-        |--------------------------------------------------------------------------
-        */
-        Route::prefix('rooms')->group(function () {
-            Route::get('/manage', [RoomAdminController::class, 'manage'])->name('admin.rooms.manage');
-            Route::get('/{id}/seats-honeycomb', [RoomAdminController::class, 'showSeatsHoneycomb'])->name('admin.rooms.seats.honeycomb');
-            Route::get('/', [RoomAdminController::class, 'list'])->name('admin.rooms.list');
-            Route::get('/create', [RoomAdminController::class, 'create'])->name('admin.rooms.create');
-            Route::post('/store', [RoomAdminController::class, 'store'])->name('admin.rooms.store');
-            Route::get('/edit/{id}', [RoomAdminController::class, 'edit'])->name('admin.rooms.edit');
-            Route::post('/update/{id}', [RoomAdminController::class, 'update'])->name('admin.rooms.update');
-            Route::post('/delete/{id}', [RoomAdminController::class, 'destroy'])->name('admin.rooms.delete');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | SHOWTIMES
-        |--------------------------------------------------------------------------
-        */
-        Route::prefix('showtimes')->group(function () {
-            Route::get('/', [ShowtimeAdminController::class, 'list'])->name('admin.showtimes.list');
-            Route::get('/create', [ShowtimeAdminController::class, 'create'])->name('admin.showtimes.create');
-            Route::post('/store', [ShowtimeAdminController::class, 'store'])->name('admin.showtimes.store');
-            Route::get('/edit/{id}', [ShowtimeAdminController::class, 'edit'])->name('admin.showtimes.edit');
-            Route::post('/update/{id}', [ShowtimeAdminController::class, 'update'])->name('admin.showtimes.update');
-            Route::post('/delete/{id}', [ShowtimeAdminController::class, 'destroy'])->name('admin.showtimes.delete');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | BOOKINGS
-        |--------------------------------------------------------------------------
-        */
-        Route::prefix('bookings')->group(function () {
-            Route::get('/', [BookingAdminController::class, 'list'])->name('admin.bookings.list');
-            Route::get('/show/{id}', [BookingAdminController::class, 'show'])->name('admin.bookings.show');
-            Route::post('/cancel/{id}', [BookingAdminController::class, 'cancel'])->name('admin.bookings.cancel');
-            Route::post('/delete/{id}', [BookingAdminController::class, 'destroy'])->name('admin.bookings.delete');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | SEATS
-        |--------------------------------------------------------------------------
-        */
-        Route::prefix('seats')->group(function () {
-            Route::get('/', [SeatAdminController::class, 'list'])->name('admin.seats.list');
-            Route::get('/create', [SeatAdminController::class, 'create'])->name('admin.seats.create');
-            Route::post('/store', [SeatAdminController::class, 'store'])->name('admin.seats.store');
-            Route::post('/bulk-create', [SeatAdminController::class, 'bulkCreate'])->name('admin.seats.bulkCreate');
-            Route::post('/delete/{id}', [SeatAdminController::class, 'destroy'])->name('admin.seats.delete');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | FOODS
-        |--------------------------------------------------------------------------
-        */
-        Route::prefix('foods')->name('admin.foods.')->group(function () {
-
-            Route::get('/', [FoodAdminController::class, 'list'])->name('list');
-
-            Route::get('/create', [FoodAdminController::class, 'create'])->name('create');
-            Route::post('/create', [FoodAdminController::class, 'store'])->name('store');
-
-            Route::get('/edit/{id}', [FoodAdminController::class, 'edit'])->name('edit');
-            Route::post('/edit/{id}', [FoodAdminController::class, 'update'])->name('update');
-
-            Route::delete('/delete/{id}', [FoodAdminController::class, 'destroy'])->name('delete');
-        });
+    /*
+    |--------------------------------------------------------------------------
+    | USERS
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/', [UserAdminController::class, 'list'])->name('list');
+        Route::get('/edit/{id}', [UserAdminController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [UserAdminController::class, 'update'])->name('update');
+        Route::post('/toggle/{id}', [UserAdminController::class, 'toggleStatus'])->name('toggle');
+        Route::post('/delete/{id}', [UserAdminController::class, 'destroy'])->name('delete');
     });
+
+    /*
+    |--------------------------------------------------------------------------
+    | MOVIES
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('movies')->name('movies.')->group(function () {
+        Route::get('/', [MovieAdminController::class, 'list'])->name('list');
+        Route::get('/create', [MovieAdminController::class, 'create'])->name('create');
+        Route::post('/store', [MovieAdminController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [MovieAdminController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [MovieAdminController::class, 'update'])->name('update');
+        Route::post('/delete/{id}', [MovieAdminController::class, 'destroy'])->name('delete');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | CINEMAS
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('cinemas')->name('cinemas.')->group(function () {
+        Route::get('/', [CinemaAdminController::class, 'list'])->name('list');
+        Route::get('/create', [CinemaAdminController::class, 'create'])->name('create');
+        Route::post('/store', [CinemaAdminController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [CinemaAdminController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [CinemaAdminController::class, 'update'])->name('update');
+        Route::post('/delete/{id}', [CinemaAdminController::class, 'destroy'])->name('delete');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | ROOMS
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('rooms')->name('rooms.')->group(function () {
+
+        Route::get('/manage', [RoomAdminController::class, 'manage'])->name('manage');
+
+        Route::get('/', [RoomAdminController::class, 'list'])->name('list');
+
+        Route::get('/create', [RoomAdminController::class, 'create'])->name('create');
+        Route::post('/store', [RoomAdminController::class, 'store'])->name('store');
+
+        Route::get('/edit/{id}', [RoomAdminController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [RoomAdminController::class, 'update'])->name('update');
+
+        Route::post('/delete/{id}', [RoomAdminController::class, 'destroy'])->name('delete');
+
+        Route::get('/{id}/seats-honeycomb',
+            [RoomAdminController::class, 'showSeatsHoneycomb'])
+            ->name('seats.honeycomb');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | SHOWTIMES
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('showtimes')->name('showtimes.')->group(function () {
+        Route::get('/', [ShowtimeAdminController::class, 'list'])->name('list');
+        Route::get('/create', [ShowtimeAdminController::class, 'create'])->name('create');
+        Route::post('/store', [ShowtimeAdminController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [ShowtimeAdminController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [ShowtimeAdminController::class, 'update'])->name('update');
+        Route::post('/delete/{id}', [ShowtimeAdminController::class, 'destroy'])->name('delete');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | BOOKINGS
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('bookings')->name('bookings.')->group(function () {
+        Route::get('/', [BookingAdminController::class, 'list'])->name('list');
+        Route::get('/show/{id}', [BookingAdminController::class, 'show'])->name('show');
+        Route::post('/cancel/{id}', [BookingAdminController::class, 'cancel'])->name('cancel');
+        Route::post('/delete/{id}', [BookingAdminController::class, 'destroy'])->name('delete');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | FOODS
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('foods')->name('foods.')->group(function () {
+        Route::get('/', [FoodAdminController::class, 'list'])->name('list');
+        Route::get('/create', [FoodAdminController::class, 'create'])->name('create');
+        Route::post('/create', [FoodAdminController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [FoodAdminController::class, 'edit'])->name('edit');
+        Route::post('/edit/{id}', [FoodAdminController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [FoodAdminController::class, 'destroy'])->name('delete');
+    });
+});

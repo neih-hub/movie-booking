@@ -7,16 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Showtime extends Model
 {
     protected $fillable = [
-    'movie_id',
-    'room_id',
-    'date_start',
-    'start_time',
-    'price',
-];
-
-
-    protected $casts = [
-        'start_time' => 'datetime',
+        'movie_id', 'room_id', 'date_start', 'start_time', 'price'
     ];
 
     public function movie()
@@ -26,11 +17,8 @@ class Showtime extends Model
 
     public function room()
     {
-        return $this->belongsTo(Room::class);
-    }
-
-    public function bookings()
-    {
-        return $this->hasMany(Booking::class);
+        return $this->belongsTo(Room::class, 'room_id');
     }
 }
+
+   

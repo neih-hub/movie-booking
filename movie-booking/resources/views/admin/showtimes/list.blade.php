@@ -62,7 +62,7 @@
                                 <td>{{ $showtime->movie->title ?? 'N/A' }}</td>
                                 <td>{{ $showtime->room->cinema->name ?? 'N/A' }}</td>
                                 <td>{{ $showtime->room->name ?? 'N/A' }}</td>
-                                <td>{{ $showtime->start_time->format('d/m/Y H:i') }}</td>
+                                <td>{{ $showtime->date_start }} {{ $showtime->start_time }}</td>
                                 <td>{{ number_format($showtime->price ?? 0) }} VNĐ</td>
                                 <td>
                                     <a href="{{ route('admin.showtimes.edit', $showtime->id) }}" class="btn btn-primary btn-sm">

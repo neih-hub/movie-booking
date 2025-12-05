@@ -19,12 +19,12 @@ class MovieController extends Controller
     // ============================
     // XEM CHI TIẾT PHIM THEO SLUG
     // ============================
-    public function show($slug)
-    {
-        $movie = Movie::where('slug', $slug)->firstOrFail();
+    public function show($id)
+{
+    $movie = Movie::findOrFail($id);
+    return view('movies.show', compact('movie'));
+}
 
-        return view('movies.show', compact('movie'));
-    }
 
     // ============================
     // TÌM KIẾM NHANH GỢI Ý (AJAX)

@@ -1,0 +1,201 @@
+/* ===============================
+   RESET
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f5f5f7;
+  font-family: "Roboto", sans-serif;
+}
+
+/* ===============================
+   SEARCH BOX
+================================ */
+.search-box {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.search-box label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #333;
+}
+
+.search-box select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  transition: 0.2s;
+}
+
+.search-box select:focus {
+  border-color: #ff9800;
+  box-shadow: 0 0 0 2px rgba(255, 152, 0, 0.25);
+}
+
+/* BUTTON MUA VÉ */
+#btnBuy {
+  background: linear-gradient(45deg, #ff9800, #ff6d00);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+#btnBuy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 152, 0, 0.45);
+}
+
+
+/* ===============================
+   MOVIE GRID
+================================ */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 26px;
+}
+
+/* ===============================
+   MOVIE CARD
+================================ */
+.movie-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #000;
+  cursor: pointer;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  transition: 0.3s ease;
+  border-radius: 18px;
+}
+
+/* Hover effect */
+.movie-card:hover img {
+  filter: brightness(45%);
+  transform: scale(1.05);
+}
+
+/* ===============================
+   OVERLAY BUTTONS
+================================ */
+.movie-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.35s ease;
+}
+
+.movie-card:hover .movie-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===============================
+   BUTTON: BUY TICKET
+================================ */
+.btn-buy {
+  padding: 8px 22px;
+  /* nhỏ hơn */
+  background: #e86d39;
+  color: #fff;
+  font-size: 16px;
+  /* giảm size */
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* icon + text */
+  cursor: pointer;
+  transition: 0.25s;
+  text-decoration: none;
+}
+
+.btn-buy i {
+  font-size: 18px;
+  /* icon nhỏ */
+}
+
+.btn-buy:hover {
+  background: #d55f32;
+  transform: translateY(-3px);
+}
+
+/* ===============================
+   BUTTON: TRAILER
+================================ */
+.btn-trailer {
+  padding: 7px 18px;
+  /* giảm kích thước thêm */
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font-size: 14px;
+  /* nhỏ hơn */
+  border-radius: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: transparent;
+  transition: 0.25s;
+}
+
+.btn-trailer i {
+  font-size: 18px;
+}
+
+.btn-trailer:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+/* ===============================
+   MOVIE TITLE
+================================ */
+.movie-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 10px;
+  color: #222;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  #btnBuy {
+    width: 100%;
+  }
+}
