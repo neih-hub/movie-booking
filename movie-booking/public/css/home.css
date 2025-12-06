@@ -99,12 +99,12 @@ body {
   border-bottom-color: #f97316;
 }
 
-/* Tab Content */
-.tab-content {
+/* Tab Content - Only for movie tabs */
+.movie-tabs-container .tab-content {
   display: none;
 }
 
-.tab-content.active {
+.movie-tabs-container .tab-content.active {
   display: block;
 }
 
