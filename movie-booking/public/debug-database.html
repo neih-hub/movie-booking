@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Showtimes Data</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+        h2 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Showtimes Database</h1>
+    
+    <div class="section">
+        <h2>1. Kiểm tra cấu trúc bảng showtimes</h2>
+        <p>Chạy query này trong phpMyAdmin:</p>
+        <pre>DESCRIBE showtimes;</pre>
+        <p>Kết quả phải có các cột: id, movie_id, room_id, date_start, start_time, price</p>
+    </div>
+
+    <div class="section">
+        <h2>2. Kiểm tra dữ liệu showtimes</h2>
+        <pre>SELECT 
+    s.id,
+    s.movie_id,
+    m.title as movie_title,
+    s.room_id,
+    r.name as room_name,
+    r.cinema_id,
+    c.name as cinema_name,
+    s.date_start,
+    s.start_time,
+    s.price
+FROM showtimes s
+LEFT JOIN movies m ON s.movie_id = m.id
+LEFT JOIN rooms r ON s.room_id = r.id  
+LEFT JOIN cinemas c ON r.cinema_id = c.id
+ORDER BY s.date_start DESC, s.start_time DESC
+LIMIT 20;</pre>
+    </div>
+
+    <div class="section">
+        <h2>3. Test API /get-dates</h2>
+        <p>Mở Console (F12) và chạy:</p>
+        <pre>fetch('/get-dates?movie_id=1&cinema_id=1')
+  .then(r => r.json())
+  .then(d => console.log('Dates:', d));</pre>
+    </div>
+
+    <div class="section">
+        <h2>4. Test API /search-showtime</h2>
+        <p>Thay date bằng ngày trong database:</p>
+        <pre>fetch('/search-showtime?movie_id=1&cinema_id=1&date_start=2025-12-07')
+  .then(r => r.json())
+  .then(d => console.log('Showtimes:', d));</pre>
+    </div>
+
+    <div class="section">
+        <h2>5. Kiểm tra rooms có cinema_id</h2>
+        <pre>SELECT 
+    r.id,
+    r.name,
+    r.cinema_id,
+    c.name as cinema_name
+FROM rooms r
+LEFT JOIN cinemas c ON r.cinema_id = c.id;</pre>
+    </div>
+
+    <div class="section">
+        <h2>6. Tạo dữ liệu mẫu (nếu chưa có)</h2>
+        <pre>-- Giả sử có movie_id=1, cinema_id=1, room_id=1
+INSERT INTO showtimes (movie_id, room_id, date_start, start_time, price, created_at, updated_at)
+VALUES 
+(1, 1, '2025-12-07', '10:00:00', 50000, NOW(), NOW()),
+(1, 1, '2025-12-07', '14:00:00', 50000, NOW(), NOW()),
+(1, 1, '2025-12-08', '10:00:00', 50000, NOW(), NOW());</pre>
+    </div>
+</body>
+</html>

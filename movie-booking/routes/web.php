@@ -5,17 +5,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-// HOME
+// CLIENT CONTROLLERS
 use App\Http\Controllers\HomeController;
-
-// CLIENT
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ShowtimeController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 
-// ADMIN
+// ADMIN CONTROLLERS
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Admin\MovieAdminController;
@@ -35,66 +33,75 @@ use App\Models\User;
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// API load ngày chiếu
-Route::get('/get-dates', [HomeController::class, 'getDates'])->name('showtime.dates');
+/*
+|--------------------------------------------------------------------------
+| AJAX API (Client & Admin)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('api')->name('api.')->group(function () {
 
-// API load suất chiếu
-Route::get('/search-showtime', [HomeController::class, 'searchShowtime'])->name('search.showtime');
+    // Lấy phòng theo rạp
+    Route::get('/rooms', [HomeController::class, 'getRooms'])->name('rooms');
 
-// Trang mua vé (test — sau này thay bằng BookingController)
-Route::get('/booking/{showtime}', function ($id) {
-    return "Trang đặt vé cho suất chiếu: " . $id;
+    // Lấy ngày chiếu theo phim + phòng
+    Route::get('/dates', [HomeController::class, 'getDates'])->name('dates');
+
+    // Lấy suất chiếu theo ngày + phòng + phim
+    Route::get('/showtimes', [HomeController::class, 'searchShowtime'])->name('showtimes');
+
+    // Auto complete tìm phim
+    Route::get('/search-movie', function (Request $req) {
+        return \App\Models\Movie::where('title', 'like', "%{$req->query}%")
+            ->take(5)
+            ->get(['id', 'title']);
+    })->name('search-movie');
+
 });
-Route::get('/get-rooms', [HomeController::class, 'getRooms'])->name('showtime.rooms');
-
-
-
-/*
-|--------------------------------------------------------------------------
-| MOVIES (CLIENT)
-|--------------------------------------------------------------------------
-*/
-Route::get('/movies', [MovieController::class, 'index']);
-Route::get('/movie/{id}', [MovieController::class, 'show'])
-    ->where('id', '[0-9]+')
-    ->name('movie.show');
-
-
-/*
-|--------------------------------------------------------------------------
-| SHOWTIME (CLIENT)
-|--------------------------------------------------------------------------
-*/
-Route::get('/showtime/{id}', [ShowtimeController::class, 'show']);
-
 
 /*
 |--------------------------------------------------------------------------
 | BOOKING CLIENT
 |--------------------------------------------------------------------------
 */
-Route::post('/booking', [BookingController::class, 'store']);
-Route::get('/booking', [BookingController::class, 'index'])
-    ->middleware(['auth', 'profile.completed']);
 
+Route::get('/booking/{showtime_id}', [BookingController::class, 'bookingPage'])
+    ->whereNumber('showtime_id')
+    ->name('booking.page');
+
+Route::post('/booking', [BookingController::class, 'store'])
+    ->name('booking.store');
 
 /*
 |--------------------------------------------------------------------------
-| AJAX SEARCH MOVIE
+| MOVIES CLIENT
 |--------------------------------------------------------------------------
 */
-Route::get('/search-movie', function (Request $req) {
-    return \App\Models\Movie::where('title', 'like', "%{$req->query}%")
-        ->take(5)
-        ->get(['id', 'title']);
-});
 
+Route::get('/movies', [MovieController::class, 'index'])->name('movies.list');
+
+Route::get('/movie/{id}', [MovieController::class, 'show'])
+    ->whereNumber('id')
+    ->name('movie.show');
+
+/*
+|--------------------------------------------------------------------------
+| USER PROFILE
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar');
+
+});
 
 /*
 |--------------------------------------------------------------------------
 | AUTH
 |--------------------------------------------------------------------------
 */
+
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -106,47 +113,48 @@ Route::post('/logout', function () {
     return redirect('/')->with('success', 'Bạn đã đăng xuất!');
 })->name('logout');
 
-
 /*
 |--------------------------------------------------------------------------
-| USER PROFILE
+| CREATE DEFAULT ADMIN (one time)
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar');
-});
 
-
-/*
-|--------------------------------------------------------------------------
-| CREATE DEFAULT ADMIN (ONE-TIME)
-|--------------------------------------------------------------------------
-*/
 Route::get('/create-admin', function () {
     $admin = User::create([
-        'name' => 'Administrator',
-        'email' => 'admin@gmail.com',
+        'name'     => 'Administrator',
+        'email'    => 'admin@gmail.com',
         'password' => Hash::make('admin123'),
-        'role' => 0,
-        'status' => 1,
+        'role'     => 0,
+        'status'   => 1,
     ]);
+
     return "Tạo admin thành công: " . $admin->email;
 });
-
 
 /*
 |--------------------------------------------------------------------------
 | ADMIN PANEL
 |--------------------------------------------------------------------------
 */
+
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
+        // ===================== POSTS (NEW) =====================
+Route::prefix('posts')->name('posts.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Admin\PostAdminController::class, 'list'])->name('list');
+    Route::get('/create', [App\Http\Controllers\Admin\PostAdminController::class, 'create'])->name('create');
+    Route::post('/store', [App\Http\Controllers\Admin\PostAdminController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [App\Http\Controllers\Admin\PostAdminController::class, 'edit'])->name('edit');
+    Route::post('/update/{id}', [App\Http\Controllers\Admin\PostAdminController::class, 'update'])->name('update');
+    Route::post('/delete/{id}', [App\Http\Controllers\Admin\PostAdminController::class, 'destroy'])->name('delete');
+    Route::post('/upload-image', [App\Http\Controllers\Admin\PostAdminController::class, 'uploadImage'])
+        ->name('upload-image');
+});
 
-    // DASHBOARD
+
+    // Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
     /*
@@ -197,20 +205,15 @@ Route::middleware(['auth', 'admin'])
     */
     Route::prefix('rooms')->name('rooms.')->group(function () {
 
-        Route::get('/manage', [RoomAdminController::class, 'manage'])->name('manage');
-
         Route::get('/', [RoomAdminController::class, 'list'])->name('list');
-
         Route::get('/create', [RoomAdminController::class, 'create'])->name('create');
         Route::post('/store', [RoomAdminController::class, 'store'])->name('store');
-
         Route::get('/edit/{id}', [RoomAdminController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [RoomAdminController::class, 'update'])->name('update');
-
         Route::post('/delete/{id}', [RoomAdminController::class, 'destroy'])->name('delete');
 
-        Route::get('/{id}/seats-honeycomb',
-            [RoomAdminController::class, 'showSeatsHoneycomb'])
+        Route::get('/manage', [RoomAdminController::class, 'manage'])->name('manage');
+        Route::get('/{id}/seats-honeycomb', [RoomAdminController::class, 'showSeatsHoneycomb'])
             ->name('seats.honeycomb');
     });
 
@@ -253,4 +256,5 @@ Route::middleware(['auth', 'admin'])
         Route::post('/edit/{id}', [FoodAdminController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [FoodAdminController::class, 'destroy'])->name('delete');
     });
+
 });

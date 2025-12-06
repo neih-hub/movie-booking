@@ -83,30 +83,52 @@
             </div>
         </form>
     </div>
+@endsection
 
-    @section('scripts')
-        <script>
-            // Load phòng theo rạp
-            const cinemaSelect = document.getElementById('cinema_select');
-            const roomSelect = document.getElementById('room_select');
-            const cinemas = @json($cinemas);
+@section('scripts')
+    <script>
+        // Load phòng theo rạp (AJAX)
+        const cinemaSelect = document.getElementById('cinema_select');
+        const roomSelect = document.getElementById('room_select');
 
-            cinemaSelect.addEventListener('change', function () {
-                const cinemaId = this.value;
-                roomSelect.innerHTML = '<option value="">Chọn phòng</option>';
+        // Debug: Log khi trang load
+        console.log('Admin Showtime Create page loaded');
 
-                if (cinemaId) {
-                    const cinema = cinemas.find(c => c.id == cinemaId);
-                    if (cinema && cinema.rooms) {
-                        cinema.rooms.forEach(room => {
+        cinemaSelect.addEventListener('change', function () {
+            const cinemaId = this.value;
+            console.log('Selected cinema ID:', cinemaId);
+            
+            // Reset dropdown phòng
+            roomSelect.innerHTML = '<option value="">Đang tải...</option>';
+
+            if (!cinemaId) {
+                roomSelect.innerHTML = '<option value="">Chọn rạp trước</option>';
+                return;
+            }
+
+            // Gọi API lấy danh sách phòng
+            fetch(`/api/rooms?cinema_id=${cinemaId}`)
+                .then(res => res.json())
+                .then(rooms => {
+                    console.log('Rooms received:', rooms);
+                    
+                    roomSelect.innerHTML = '<option value="">Chọn phòng</option>';
+                    
+                    if (rooms && rooms.length > 0) {
+                        rooms.forEach(room => {
                             const option = document.createElement('option');
                             option.value = room.id;
                             option.textContent = room.name;
                             roomSelect.appendChild(option);
                         });
+                    } else {
+                        roomSelect.innerHTML = '<option value="">Rạp này chưa có phòng</option>';
                     }
-                }
-            });
-        </script>
-    @endsection
+                })
+                .catch(err => {
+                    console.error('Error loading rooms:', err);
+                    roomSelect.innerHTML = '<option value="">Lỗi tải dữ liệu</option>';
+                });
+        });
+    </script>
 @endsection

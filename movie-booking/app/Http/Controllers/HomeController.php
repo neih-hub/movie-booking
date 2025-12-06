@@ -6,38 +6,76 @@ use Illuminate\Http\Request;
 use App\Models\Movie;
 use App\Models\Cinema;
 use App\Models\Showtime;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
+    /**
+     * Trang chủ
+     */
     public function index()
     {
+        // Phim đang chiếu
+        $nowShowing = Movie::orderBy('title')->get();
+
+        // Phim sắp chiếu
+        $comingSoon = Movie::where('release_date', '>', today())
+            ->orderBy('release_date')
+            ->get();
+
+        // Góc điện ảnh – lấy 4 bài viết mới nhất
+        $latestPosts = Post::published()
+            ->orderBy('published_at', 'desc')
+            ->take(4)
+            ->get();
+
         return view('home.index', [
-            'movies'  => Movie::orderBy('title')->get(),
-            'cinemas' => Cinema::orderBy('name')->get(),
+            'nowShowing'   => $nowShowing,
+            'comingSoon'   => $comingSoon,
+            'cinemas'      => Cinema::orderBy('name')->get(),
+            'latestPosts'  => $latestPosts,   // 🔥 để hiển thị Góc điện ảnh
         ]);
     }
 
     /**
-     * Lấy danh sách ngày chiếu theo phim + rạp
-     * 
-     * @param Request $request (movie_id, cinema_id)
-     * @return JSON array of dates
+     * API: Lấy phòng theo rạp
+     */
+    public function getRooms(Request $request)
+    {
+        try {
+            $cinemaId = $request->cinema_id;
+
+            if (!$cinemaId) {
+                return response()->json([]);
+            }
+
+            $rooms = \App\Models\Room::where('cinema_id', $cinemaId)
+                ->orderBy('name', 'asc')
+                ->get(['id', 'name'])
+                ->toArray();
+
+            return response()->json($rooms);
+        } catch (\Exception $e) {
+            logger()->error('Error in getRooms: ' . $e->getMessage());
+            return response()->json([]);
+        }
+    }
+
+    /**
+     * API: Lấy danh sách ngày chiếu theo phim + phòng
      */
     public function getDates(Request $request)
     {
         try {
             $movieId = $request->movie_id;
-            $cinemaId = $request->cinema_id;
+            $roomId  = $request->room_id;
 
-            if (!$movieId || !$cinemaId) {
+            if (!$movieId || !$roomId) {
                 return response()->json([]);
             }
 
-            // Lấy các ngày chiếu duy nhất cho phim tại rạp này
             $dates = Showtime::where('movie_id', $movieId)
-                ->whereHas('room', function ($q) use ($cinemaId) {
-                    $q->where('cinema_id', $cinemaId);
-                })
+                ->where('room_id', $roomId)
                 ->select('date_start')
                 ->distinct()
                 ->orderBy('date_start', 'asc')
@@ -52,48 +90,32 @@ class HomeController extends Controller
     }
 
     /**
-     * Lấy suất chiếu theo phim + rạp + ngày
-     * 
-     * @param Request $request (movie_id, cinema_id, date_start)
-     * @return JSON array of showtimes
+     * API: Lấy suất chiếu theo phim + phòng + ngày
      */
     public function searchShowtime(Request $request)
     {
         try {
-            $movieId = $request->movie_id;
-            $cinemaId = $request->cinema_id;
+            $movieId   = $request->movie_id;
+            $roomId    = $request->room_id;
             $dateStart = $request->date_start;
 
-            if (!$movieId || !$cinemaId || !$dateStart) {
+            if (!$movieId || !$roomId || !$dateStart) {
                 return response()->json([]);
             }
 
-            // Lấy tất cả suất chiếu cho phim tại rạp vào ngày đã chọn
-            $showtimes = Showtime::with(['room.cinema', 'movie'])
-                ->where('movie_id', $movieId)
-                ->whereHas('room', function ($q) use ($cinemaId) {
-                    $q->where('cinema_id', $cinemaId);
-                })
+            $showtimes = Showtime::where('movie_id', $movieId)
+                ->where('room_id', $roomId)
                 ->where('date_start', $dateStart)
                 ->orderBy('start_time', 'asc')
                 ->get()
-                ->map(function($showtime) {
+                ->map(function ($showtime) {
                     return [
-                        'id' => $showtime->id,
-                        'movie_id' => $showtime->movie_id,
-                        'room_id' => $showtime->room_id,
+                        'id'         => $showtime->id,
+                        'movie_id'   => $showtime->movie_id,
+                        'room_id'    => $showtime->room_id,
                         'date_start' => $showtime->date_start,
-                        'start_time' => substr($showtime->start_time, 0, 5), // HH:MM format
-                        'price' => $showtime->price,
-                        'room' => [
-                            'id' => $showtime->room->id,
-                            'name' => $showtime->room->name,
-                            'cinema_id' => $showtime->room->cinema_id,
-                        ],
-                        'movie' => [
-                            'id' => $showtime->movie->id,
-                            'title' => $showtime->movie->title,
-                        ]
+                        'start_time' => substr($showtime->start_time, 0, 5), // HH:MM
+                        'price'      => $showtime->price,
                     ];
                 });
 

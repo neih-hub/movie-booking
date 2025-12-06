@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let movie = document.querySelector("#movie");
   let cinema = document.querySelector("#cinema");
+  let room = document.querySelector("#room");
   let date = document.querySelector("#date_start");
   let showtime = document.querySelector("#showtime");
 
@@ -9,12 +10,49 @@ document.addEventListener("DOMContentLoaded", function () {
   // RESET FUNCTIONS
   // =====================
 
+  function resetRooms() {
+    room.innerHTML = `<option value="">-- Chọn phòng --</option>`;
+  }
+
   function resetDates() {
     date.innerHTML = `<option value="">-- Chọn ngày --</option>`;
   }
 
   function resetShowtimes() {
-    showtime.innerHTML = `<option value="">-- Chọn suất chiếu --</option>`;
+    showtime.innerHTML = `<option value="">-- Chọn suất --</option>`;
+  }
+
+  // =====================
+  // LOAD PHÒNG THEO RẠP
+  // =====================
+
+  function loadRooms() {
+    resetRooms();
+    resetDates();
+    resetShowtimes();
+
+    if (!cinema.value) return;
+
+    console.log('Loading rooms for cinema:', cinema.value);
+
+    fetch(`/api/rooms?cinema_id=${cinema.value}`)
+      .then(res => res.json())
+      .then(rooms => {
+        console.log('Rooms received:', rooms);
+        
+        if (rooms && rooms.length > 0) {
+          rooms.forEach(r => {
+            room.innerHTML += `<option value="${r.id}">${r.name}</option>`;
+          });
+        } else {
+          console.warn('No rooms found');
+          room.innerHTML = `<option value="">Rạp chưa có phòng</option>`;
+        }
+      })
+      .catch(err => {
+        console.error('Error loading rooms:', err);
+        room.innerHTML = `<option value="">Lỗi tải dữ liệu</option>`;
+      });
   }
 
   // =====================
@@ -25,11 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
     resetDates();
     resetShowtimes();
 
-    if (!movie.value || !cinema.value) return;
+    if (!movie.value || !room.value) return;
 
-    console.log('Loading dates for:', { movie_id: movie.value, cinema_id: cinema.value });
+    console.log('Loading dates for:', { movie_id: movie.value, room_id: room.value });
 
-    fetch(`/get-dates?movie_id=${movie.value}&cinema_id=${cinema.value}`)
+    fetch(`/api/dates?movie_id=${movie.value}&room_id=${room.value}`)
       .then(res => res.json())
       .then(dates => {
         console.log('Dates received:', dates);
@@ -56,15 +94,15 @@ document.addEventListener("DOMContentLoaded", function () {
   function loadShowtimes() {
     resetShowtimes();
 
-    if (!movie.value || !cinema.value || !date.value) return;
+    if (!movie.value || !room.value || !date.value) return;
 
     console.log('Loading showtimes for:', { 
       movie_id: movie.value, 
-      cinema_id: cinema.value, 
+      room_id: room.value, 
       date_start: date.value 
     });
 
-    fetch(`/search-showtime?movie_id=${movie.value}&cinema_id=${cinema.value}&date_start=${date.value}`)
+    fetch(`/api/showtimes?movie_id=${movie.value}&room_id=${room.value}&date_start=${date.value}`)
       .then(res => res.json())
       .then(showtimes => {
         console.log('Showtimes received:', showtimes);
@@ -73,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
           showtimes.forEach(st => {
             showtime.innerHTML += `
               <option value="${st.id}">
-                ${st.start_time} - Phòng ${st.room.name}
+                ${st.start_time} - ${st.price.toLocaleString('vi-VN')}đ
               </option>
             `;
           });
@@ -92,8 +130,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // EVENT LISTENERS
   // =====================
 
+  cinema.addEventListener("change", loadRooms);
+  
   movie.addEventListener("change", loadDates);
-  cinema.addEventListener("change", loadDates);
+  room.addEventListener("change", loadDates);
 
   date.addEventListener("change", loadShowtimes);
 
@@ -106,6 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Vui lòng chọn suất chiếu!");
       return;
     }
-    window.location.href = "/showtime/" + showtime.value;
+    window.location.href = "/booking/" + showtime.value;
   };
 });

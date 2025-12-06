@@ -95,6 +95,13 @@
                         <span>Quản lý đồ ăn</span>
                     </a>
                 </li>
+                <li class="nav-item">
+    <a href="{{ route('admin.posts.list') }}" class="nav-link">
+        <i class="bi bi-newspaper"></i>
+        <span>Quản lý bài viết</span>
+    </a>
+</li>
+
 
                 <li class="nav-item"
                     style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
@@ -172,6 +179,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     @stack('scripts')
+    
+    {{-- Scripts được yield từ view --}}
+    @yield('scripts')
 </body>
 
 </html>

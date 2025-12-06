@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="{{ asset('css/header.css') }}">
   <link rel="stylesheet" href="/css/footer.css"> 
   <link rel="stylesheet" href="/css/home.css"> 
+  <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
+
 
 
   {{-- CSS được push từ view --}}
@@ -43,6 +45,9 @@
 
   {{-- Scripts được push từ view --}}
   @stack('scripts')
+  
+  {{-- Scripts được yield từ view --}}
+  @yield('scripts')
 
 </body>
 </html>
