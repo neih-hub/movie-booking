@@ -1,10 +1,12 @@
+<link rel="stylesheet" href="{{ asset('css/header.css') }}">
+
 <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 header-wrapper">
   <div class="container position-relative">
 
     {{-- Logo --}}
     <a class="navbar-brand d-flex align-items-center" href="/">
       <img src="/image/logo.png" height="42" alt="Galaxy Logo">
-      <span class="ms-2 fw-bold fs-4 text-primary">HubVerse</span>
+      <!-- <span class="ms-2 brand-text">HubVerse</span> -->
     </a>
 
     {{-- Mobile Toggle --}}
@@ -73,7 +75,7 @@
       {{-- Auth --}}
       @if(Auth::check())
       <div class="dropdown">
-        <a class="nav-link dropdown-toggle fw-bold text-primary" href="#" data-bs-toggle="dropdown">
+        <a class="nav-link dropdown-toggle user-greeting" href="#" data-bs-toggle="dropdown">
           👋 Xin chào, {{ Auth::user()->name }}
         </a>
 
@@ -111,8 +113,8 @@
       </div>
 
       @else
-      <a href="/login" class="nav-link fw-bold mx-2">Đăng Nhập</a>
-      <a href="/register" class="nav-link fw-bold text-primary">Tham Gia</a>
+      <a href="/login" class="nav-link fw-bold mx-2 auth-link">Đăng Nhập</a>
+      <a href="/register" class="nav-link fw-bold auth-link" style="color: #667eea !important;">Tham Gia</a>
       @endif
 
     </div>

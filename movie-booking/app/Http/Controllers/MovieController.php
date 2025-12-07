@@ -20,10 +20,16 @@ class MovieController extends Controller
     // XEM CHI TIẾT PHIM THEO SLUG
     // ============================
     public function show($id)
-{
-    $movie = Movie::findOrFail($id);
-    return view('movies.show', compact('movie'));
-}
+    {
+        $movie = Movie::with(['showtimes' => function($query) {
+            $query->where('date_start', '>=', now()->toDateString())
+                  ->orderBy('date_start')
+                  ->orderBy('start_time')
+                  ->with(['room.cinema']);
+        }])->findOrFail($id);
+        
+        return view('movies.show', compact('movie'));
+    }
 
 
     // ============================
@@ -35,7 +41,7 @@ class MovieController extends Controller
 
         $movies = Movie::where('title', 'like', "%$query%")
             ->take(5)
-            ->get(['title', 'slug']);
+            ->get(['id', 'title']);
 
         return response()->json($movies);
     }

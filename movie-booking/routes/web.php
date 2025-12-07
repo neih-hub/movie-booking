@@ -56,6 +56,14 @@ Route::prefix('api')->name('api.')->group(function () {
             ->get(['id', 'title']);
     })->name('search-movie');
 
+    // Get seats for showtime
+    Route::get('/seats/{showtime_id}', [BookingController::class, 'getSeats'])
+        ->name('seats');
+
+    // Get available foods
+    Route::get('/foods', [BookingController::class, 'getFoods'])
+        ->name('foods');
+
 });
 
 /*
@@ -64,12 +72,19 @@ Route::prefix('api')->name('api.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/booking/{showtime_id}', [BookingController::class, 'bookingPage'])
+Route::get('/booking/{showtime_id}', [BookingController::class, 'create'])
     ->whereNumber('showtime_id')
-    ->name('booking.page');
+    ->name('booking.create');
 
 Route::post('/booking', [BookingController::class, 'store'])
+    ->middleware('auth')
     ->name('booking.store');
+
+Route::get('/booking/success/{id}', [BookingController::class, 'success'])
+    ->middleware('auth')
+    ->whereNumber('id')
+    ->name('booking.success');
+
 
 /*
 |--------------------------------------------------------------------------

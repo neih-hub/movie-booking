@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User; // thêm dòng này
+use App\Models\User;
+use App\Models\Booking;
 
 class ProfileController extends Controller
 {
@@ -13,7 +14,19 @@ class ProfileController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
-        return view('profile.profile', compact('user'));
+        
+        // Load user bookings with relationships
+        $bookings = Booking::where('user_id', $user->id)
+            ->with([
+                'showtime.movie',
+                'showtime.room.cinema',
+                'bookingSeats.seat',
+                'bookingFoods.food'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        return view('profile.profile', compact('user', 'bookings'));
     }
 
     // CẬP NHẬT THÔNG TIN

@@ -36,7 +36,7 @@
                     <p><strong>Phim:</strong> {{ $booking->showtime->movie->title }}</p>
                     <p><strong>Rạp:</strong> {{ $booking->showtime->room->cinema->name }}</p>
                     <p><strong>Phòng:</strong> {{ $booking->showtime->room->name }}</p>
-                    <p><strong>Thời gian:</strong> {{ $booking->showtime->start_time->format('d/m/Y H:i') }}</p>
+                    <p><strong>Thời gian:</strong> {{ \Carbon\Carbon::parse($booking->showtime->date_start . ' ' . $booking->showtime->start_time)->format('d/m/Y H:i') }}</p>
                     <p><strong>Giá vé:</strong> {{ number_format($booking->showtime->price) }} VNĐ</p>
                 </div>
             </div>
@@ -74,11 +74,43 @@
                     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
                         @foreach($booking->bookingSeats as $bookingSeat)
                             <span class="badge badge-info" style="font-size: 0.875rem; padding: 0.5rem 1rem;">
-                                Ghế
-                                {{ $bookingSeat->seat->row ?? '' }}{{ $bookingSeat->seat->number ?? $bookingSeat->seat->name ?? 'N/A' }}
+                                {{ $bookingSeat->seat->seat_number }}
                             </span>
                         @endforeach
                     </div>
+                </div>
+            </div>
+        @endif
+
+        <!-- Foods Information -->
+        @if($booking->bookingFoods && $booking->bookingFoods->count() > 0)
+            <div style="margin-top: 2rem;">
+                <h3 style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--admin-primary);">
+                    <i class="fas fa-utensils"></i> Thức ăn & đồ uống đã đặt
+                </h3>
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px;">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #e5e7eb;">
+                                <th style="padding: 0.5rem; text-align: left;">Tên món</th>
+                                <th style="padding: 0.5rem; text-align: center;">Số lượng</th>
+                                <th style="padding: 0.5rem; text-align: right;">Đơn giá</th>
+                                <th style="padding: 0.5rem; text-align: right;">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($booking->bookingFoods as $bookingFood)
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 0.5rem;">{{ $bookingFood->food->name }}</td>
+                                    <td style="padding: 0.5rem; text-align: center;">{{ $bookingFood->quantity }}</td>
+                                    <td style="padding: 0.5rem; text-align: right;">{{ number_format($bookingFood->price) }} VNĐ</td>
+                                    <td style="padding: 0.5rem; text-align: right; font-weight: 600;">
+                                        {{ number_format($bookingFood->price * $bookingFood->quantity) }} VNĐ
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         @endif

@@ -51,7 +51,8 @@ class BookingAdminController extends Controller
             'user',
             'showtime.movie',
             'showtime.room.cinema',
-            'bookingSeats.seat'
+            'bookingSeats.seat',
+            'bookingFoods.food'
         ])->findOrFail($id);
 
         return view('admin.bookings.show', compact('booking'));

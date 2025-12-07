@@ -52,7 +52,7 @@
                                 <td>{{ $booking->user->name ?? 'N/A' }}</td>
                                 <td>{{ $booking->showtime->movie->title ?? 'N/A' }}</td>
                                 <td>{{ $booking->showtime->room->cinema->name ?? 'N/A' }}</td>
-                                <td>{{ $booking->showtime->start_time->format('d/m/Y H:i') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($booking->showtime->date_start . ' ' . $booking->showtime->start_time)->format('d/m/Y H:i') }}</td>
                                 <td>{{ number_format($booking->total_price ?? 0) }} VNĐ</td>
                                 <td>
                                     @if($booking->status == 1)

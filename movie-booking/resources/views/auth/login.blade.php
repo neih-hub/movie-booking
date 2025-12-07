@@ -1,29 +1,32 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-4">
+<link rel="stylesheet" href="{{ asset('css/auth-login.css') }}">
 
-      <div class="card shadow-sm">
-        <div class="card-header text-center fw-bold">
-          Đăng nhập
-        </div>
-
-        <div class="card-body">
+<div class="login-wrapper">
+  <div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="col-md-5 col-lg-4">
+        
+        <div class="login-card">
+          
+          <div class="login-header">
+            <h1 class="login-title">🎬 Cinema</h1>
+            <p class="login-subtitle">Đăng nhập để tiếp tục</p>
+          </div>
 
           {{-- Hiển thị lỗi --}}
           @if($errors->any())
-          <div class="alert alert-danger py-2">
+          <div class="alert-custom alert-danger">
             @foreach($errors->all() as $err)
-            <div>{{ $err }}</div>
+            <div>• {{ $err }}</div>
             @endforeach
           </div>
           @endif
 
           {{-- đăng kí thành công --}}
           @if(session('success'))
-          <div class="alert alert-success py-2">
+          <div class="alert-custom alert-success">
             {{ session('success') }}
           </div>
           @endif
@@ -31,27 +34,45 @@
           <form action="{{ route('login') }}" method="POST">
             @csrf
 
-            <div class="mb-3">
+            <div class="form-group">
+              <input 
+                type="email" 
+                name="email" 
+                class="form-input" 
+                placeholder=" "
+                required
+                autocomplete="email"
+              >
               <label class="form-label">Email</label>
-              <input type="email" name="email" class="form-control" required>
+              <span class="input-icon">📧</span>
             </div>
 
-            <div class="mb-3">
+            <div class="form-group">
+              <input 
+                type="password" 
+                name="password" 
+                class="form-input" 
+                placeholder=" "
+                required
+                autocomplete="current-password"
+              >
               <label class="form-label">Mật khẩu</label>
-              <input type="password" name="password" class="form-control" required>
+              <span class="input-icon">🔒</span>
             </div>
 
-            <button class="btn btn-primary w-100">Đăng nhập</button>
+            <button type="submit" class="btn-login">
+              Đăng nhập
+            </button>
 
-            <div class="text-center mt-3">
-              <a href="{{ route('register') }}">Chưa có tài khoản? Đăng ký</a>
+            <div class="register-link">
+              <a href="{{ route('register') }}">Chưa có tài khoản? Đăng ký ngay</a>
             </div>
 
           </form>
 
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
 </div>
