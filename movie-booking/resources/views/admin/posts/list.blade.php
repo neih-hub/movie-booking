@@ -28,7 +28,7 @@
             <tr>
                 <td>
                     @if($p->thumbnail)
-                        <img src="{{ asset($p->thumbnail) }}" width="70">
+                        <img src="{{ asset($p->thumbnail) }}" width="70" class="img-thumbnail">
                     @else
                         <span class="text-muted small">—</span>
                     @endif

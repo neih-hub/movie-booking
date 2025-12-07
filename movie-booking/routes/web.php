@@ -85,6 +85,18 @@ Route::get('/movie/{id}', [MovieController::class, 'show'])
 
 /*
 |--------------------------------------------------------------------------
+| POSTS CLIENT
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
+
+Route::get('/post/{id}', [App\Http\Controllers\PostController::class, 'show'])
+    ->whereNumber('id')
+    ->name('post.show');
+
+/*
+|--------------------------------------------------------------------------
 | USER PROFILE
 |--------------------------------------------------------------------------
 */

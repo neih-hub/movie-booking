@@ -65,6 +65,9 @@
     {{-- =================== MOVIE TABS =================== --}}
     <div class="movie-tabs-container">
 
+        {{-- Section Title --}}
+        <h3 class="section-title-with-bar">DANH MỤC PHIM</h3>
+
         {{-- Tab Navigation --}}
         <div class="movie-tabs">
             <button class="tab-btn active" data-tab="now-showing">Đang chiếu</button>
@@ -169,54 +172,121 @@
     </div>
 
     {{-- =================== GÓC ĐIỆN ẢNH =================== --}}
-    @if(isset($latestPosts) && $latestPosts->count() > 0)
-    <div class="blog-section mt-5">
+@if(isset($latestPosts) && $latestPosts->count() > 0)
+<div class="blog-section mt-5">
 
-        {{-- Header --}}
-        <div class="section-header mb-3 d-flex justify-content-between align-items-center">
-            <h3 class="fw-bold">GÓC ĐIỆN ẢNH</h3>
-
-            <div class="section-tabs">
-                <button class="blog-tab active">Bình luận phim</button>
-                <button class="blog-tab">Blog điện ảnh</button>
-            </div>
+    {{-- Header --}}
+    <div class="blog-section-header">
+        <h3 class="blog-section-title">GÓC ĐIỆN ẢNH</h3>
+        
+        <div class="blog-tabs">
+            <button class="blog-tab-btn active" data-blog-tab="all">Tất cả</button>
+            <button class="blog-tab-btn" data-blog-tab="review">Review phim</button>
+            <button class="blog-tab-btn" data-blog-tab="news">Tin tức</button>
+            <button class="blog-tab-btn" data-blog-tab="article">Bài viết</button>
         </div>
+    </div>
 
+    {{-- Tab Content: Tất cả --}}
+    <div class="blog-tab-content active" id="blog-all">
         <div class="blog-grid">
-
-            {{-- Featured post --}}
-            @if($latestPosts->first())
+            @php
+                $firstPost = $latestPosts->first();
+            @endphp
+            
+            @if($firstPost)
             <div class="blog-featured">
-                <a href="{{ route('post.show', $latestPosts[0]->slug) }}">
-                    <img src="{{ asset($latestPosts[0]->thumbnail) }}" class="featured-img">
+                <a href="{{ route('post.show', $firstPost->id) }}">
+                    <img src="{{ asset($firstPost->thumbnail) }}" class="featured-img">
                 </a>
 
                 <div class="blog-content">
                     <h4 class="blog-title">
-                        <a href="{{ route('post.show', $latestPosts[0]->slug) }}">
-                            {{ $latestPosts[0]->title }}
+                        <a href="{{ route('post.show', $firstPost->id) }}">
+                            {{ $firstPost->title }}
                         </a>
                     </h4>
 
                     <div class="blog-meta">
-                        <span><i class="bi bi-eye"></i> {{ $latestPosts[0]->views }}</span>
-                        <span><i class="bi bi-calendar"></i> {{ $latestPosts[0]->published_at->format('d/m/Y') }}</span>
+                        <span class="badge bg-info">{{ ucfirst($firstPost->category) }}</span>
+                        <span><i class="bi bi-eye"></i> {{ $firstPost->views }}</span>
+                        <span><i class="bi bi-calendar"></i> {{ $firstPost->published_at->format('d/m/Y') }}</span>
                     </div>
                 </div>
             </div>
             @endif
 
-            {{-- Smaller posts --}}
             <div class="blog-list">
                 @foreach($latestPosts->skip(1)->take(3) as $post)
                 <div class="blog-item">
-                    <a href="{{ route('post.show', $post->slug) }}">
+                    <a href="{{ route('post.show', $post->id) }}">
                         <img src="{{ asset($post->thumbnail) }}" class="blog-thumb">
                     </a>
 
                     <div class="blog-info">
                         <h5 class="blog-item-title">
-                            <a href="{{ route('post.show', $post->slug) }}">
+                            <a href="{{ route('post.show', $post->id) }}">
+                                {{ $post->title }}
+                            </a>
+                        </h5>
+
+                        <div class="blog-meta small">
+                            <span class="badge bg-info">{{ ucfirst($post->category) }}</span>
+                            <i class="bi bi-eye"></i> {{ $post->views }}
+                            &nbsp;&nbsp;
+                            <i class="bi bi-calendar"></i> {{ $post->published_at->format('d/m/Y') }}
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- Tab Content: Review phim --}}
+    <div class="blog-tab-content" id="blog-review">
+        <div class="blog-grid">
+            @php
+                $reviewPosts = $latestPosts->where('category', 'review');
+                $firstReview = $reviewPosts->first();
+            @endphp
+            
+            @if($firstReview)
+            <div class="blog-featured">
+                <a href="{{ route('post.show', $firstReview->id) }}">
+                    <img src="{{ asset($firstReview->thumbnail) }}" class="featured-img">
+                </a>
+
+                <div class="blog-content">
+                    <h4 class="blog-title">
+                        <a href="{{ route('post.show', $firstReview->id) }}">
+                            {{ $firstReview->title }}
+                        </a>
+                    </h4>
+
+                    <div class="blog-meta">
+                        <span><i class="bi bi-eye"></i> {{ $firstReview->views }}</span>
+                        <span><i class="bi bi-calendar"></i> {{ $firstReview->published_at->format('d/m/Y') }}</span>
+                    </div>
+                </div>
+            </div>
+            @else
+            <div class="text-center py-5">
+                <i class="bi bi-film" style="font-size: 3rem; color: #ccc;"></i>
+                <p class="text-muted mt-3">Chưa có bài bình luận phim</p>
+            </div>
+            @endif
+
+            <div class="blog-list">
+                @foreach($reviewPosts->skip(1)->take(3) as $post)
+                <div class="blog-item">
+                    <a href="{{ route('post.show', $post->id) }}">
+                        <img src="{{ asset($post->thumbnail) }}" class="blog-thumb">
+                    </a>
+
+                    <div class="blog-info">
+                        <h5 class="blog-item-title">
+                            <a href="{{ route('post.show', $post->id) }}">
                                 {{ $post->title }}
                             </a>
                         </h5>
@@ -230,18 +300,138 @@
                 </div>
                 @endforeach
             </div>
-
         </div>
-
-        {{-- View more --}}
-        <div class="text-center mt-3">
-            <a href="{{ route('posts.index') }}" class="btn-view-more">
-                Xem thêm <i class="bi bi-arrow-right"></i>
-            </a>
-        </div>
-
     </div>
-    @endif
+
+    {{-- Tab Content: Blog điện ảnh --}}
+    <div class="blog-tab-content" id="blog-news">
+        <div class="blog-grid">
+            @php
+                $newsPosts = $latestPosts->where('category', 'news');
+                $firstNews = $newsPosts->first();
+            @endphp
+            
+            @if($firstNews)
+            <div class="blog-featured">
+                <a href="{{ route('post.show', $firstNews->id) }}">
+                    <img src="{{ asset($firstNews->thumbnail) }}" class="featured-img">
+                </a>
+
+                <div class="blog-content">
+                    <h4 class="blog-title">
+                        <a href="{{ route('post.show', $firstNews->id) }}">
+                            {{ $firstNews->title }}
+                        </a>
+                    </h4>
+
+                    <div class="blog-meta">
+                        <span><i class="bi bi-eye"></i> {{ $firstNews->views }}</span>
+                        <span><i class="bi bi-calendar"></i> {{ $firstNews->published_at->format('d/m/Y') }}</span>
+                    </div>
+                </div>
+            </div>
+            @else
+            <div class="text-center py-5">
+                <i class="bi bi-newspaper" style="font-size: 3rem; color: #ccc;"></i>
+                <p class="text-muted mt-3">Chưa có bài viết blog điện ảnh</p>
+            </div>
+            @endif
+
+            <div class="blog-list">
+                @foreach($newsPosts->skip(1)->take(3) as $post)
+                <div class="blog-item">
+                    <a href="{{ route('post.show', $post->id) }}">
+                        <img src="{{ asset($post->thumbnail) }}" class="blog-thumb">
+                    </a>
+
+                    <div class="blog-info">
+                        <h5 class="blog-item-title">
+                            <a href="{{ route('post.show', $post->id) }}">
+                                {{ $post->title }}
+                            </a>
+                        </h5>
+
+                        <div class="blog-meta small">
+                            <i class="bi bi-eye"></i> {{ $post->views }}
+                            &nbsp;&nbsp;
+                            <i class="bi bi-calendar"></i> {{ $post->published_at->format('d/m/Y') }}
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- Tab Content: Bài viết --}}
+    <div class="blog-tab-content" id="blog-article">
+        <div class="blog-grid">
+            @php
+                $articlePosts = $latestPosts->where('category', 'article');
+                $firstArticle = $articlePosts->first();
+            @endphp
+            
+            @if($firstArticle)
+            <div class="blog-featured">
+                <a href="{{ route('post.show', $firstArticle->id) }}">
+                    <img src="{{ asset($firstArticle->thumbnail) }}" class="featured-img">
+                </a>
+
+                <div class="blog-content">
+                    <h4 class="blog-title">
+                        <a href="{{ route('post.show', $firstArticle->id) }}">
+                            {{ $firstArticle->title }}
+                        </a>
+                    </h4>
+
+                    <div class="blog-meta">
+                        <span><i class="bi bi-eye"></i> {{ $firstArticle->views }}</span>
+                        <span><i class="bi bi-calendar"></i> {{ $firstArticle->published_at->format('d/m/Y') }}</span>
+                    </div>
+                </div>
+            </div>
+            @else
+            <div class="text-center py-5">
+                <i class="bi bi-book" style="font-size: 3rem; color: #ccc;"></i>
+                <p class="text-muted mt-3">Chưa có bài viết</p>
+            </div>
+            @endif
+
+            <div class="blog-list">
+                @foreach($articlePosts->skip(1)->take(3) as $post)
+                <div class="blog-item">
+                    <a href="{{ route('post.show', $post->id) }}">
+                        <img src="{{ asset($post->thumbnail) }}" class="blog-thumb">
+                    </a>
+
+                    <div class="blog-info">
+                        <h5 class="blog-item-title">
+                            <a href="{{ route('post.show', $post->id) }}">
+                                {{ $post->title }}
+                            </a>
+                        </h5>
+
+                        <div class="blog-meta small">
+                            <i class="bi bi-eye"></i> {{ $post->views }}
+                            &nbsp;&nbsp;
+                            <i class="bi bi-calendar"></i> {{ $post->published_at->format('d/m/Y') }}
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- View more --}}
+    <div class="text-center mt-3">
+        <a href="{{ route('posts.index') }}" class="btn-view-more">
+            Xem thêm <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+
+</div>
+@endif
 
 </div>
 @endsection

@@ -101,4 +101,30 @@ document.addEventListener("DOMContentLoaded", function () {
   ['now-showing', 'coming-soon'].forEach(initLoadMore);
   
   console.log('Movie tabs initialized');
+  
+  // =====================
+  // BLOG TABS SWITCHING
+  // =====================
+  
+  const blogTabBtns = document.querySelectorAll('.blog-tab-btn');
+  const blogTabContents = document.querySelectorAll('.blog-tab-content');
+  
+  blogTabBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const tabId = 'blog-' + this.dataset.blogTab;
+      
+      // Remove active from all blog tabs and contents
+      blogTabBtns.forEach(b => b.classList.remove('active'));
+      blogTabContents.forEach(c => c.classList.remove('active'));
+      
+      // Add active to clicked tab and corresponding content
+      this.classList.add('active');
+      const targetContent = document.getElementById(tabId);
+      if (targetContent) {
+        targetContent.classList.add('active');
+      }
+    });
+  });
+  
+  console.log('Blog tabs initialized');
 });

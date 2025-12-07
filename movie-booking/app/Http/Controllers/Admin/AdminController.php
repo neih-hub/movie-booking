@@ -8,6 +8,7 @@ use App\Models\Movie;
 use App\Models\Cinema;
 use App\Models\Booking;
 use App\Models\Food;
+use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +22,7 @@ class AdminController extends Controller
         $totalCinemas = Cinema::count();
         $totalBookings = Booking::count();
         $totalFoods = Food::count();
+        $totalPosts = Post::count();
 
         // Get recent bookings (safe eager load)
         $recentBookings = Booking::with(['user', 'showtime.movie'])
@@ -44,6 +46,7 @@ class AdminController extends Controller
             'totalBookings',
             'recentBookings',
             'totalFoods',
+            'totalPosts',
         ));
     }
 }

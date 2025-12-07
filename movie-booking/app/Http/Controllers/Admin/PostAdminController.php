@@ -38,7 +38,7 @@ class PostAdminController extends Controller
         // handle thumbnail
         if ($request->hasFile('thumbnail')) {
             $path = $request->file('thumbnail')->store('posts','public');
-            $data['thumbnail'] = '/storage/'.$path;
+            $data['thumbnail'] = 'storage/'.$path;
         }
 
         $data['author_id'] = auth()->id();
@@ -78,11 +78,12 @@ class PostAdminController extends Controller
         if ($request->hasFile('thumbnail')) {
             // remove old
             if ($post->thumbnail) {
-                $old = str_replace('/storage/','', $post->thumbnail);
+                // Handle both old format (/storage/...) and new format (storage/...)
+                $old = str_replace(['/storage/', 'storage/'], '', $post->thumbnail);
                 Storage::disk('public')->delete($old);
             }
             $path = $request->file('thumbnail')->store('posts','public');
-            $data['thumbnail'] = '/storage/'.$path;
+            $data['thumbnail'] = 'storage/'.$path;
         }
 
         if (empty($data['slug'])) {
@@ -102,7 +103,8 @@ class PostAdminController extends Controller
     {
         $post = Post::findOrFail($id);
         if ($post->thumbnail) {
-            $old = str_replace('/storage/','', $post->thumbnail);
+            // Handle both old format (/storage/...) and new format (storage/...)
+            $old = str_replace(['/storage/', 'storage/'], '', $post->thumbnail);
             Storage::disk('public')->delete($old);
         }
         $post->delete();

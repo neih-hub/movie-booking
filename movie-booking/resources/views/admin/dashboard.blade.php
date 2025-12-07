@@ -72,6 +72,18 @@
       </div>
     </div>
 
+    <div class="stat-card secondary">
+      <div class="stat-content">
+        <div class="stat-info">
+          <div class="stat-label">Tổng bài viết</div>
+          <div class="stat-value">{{ number_format($totalPosts ?? 0) }}</div>
+        </div>
+        <div class="stat-icon">
+          <i class="bi bi-newspaper"></i>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
@@ -174,6 +186,11 @@
       <a href="{{ route('admin.foods.list') }}" class="quick-action-btn btn-info">
         <i class="bi bi-shop"></i>
         <span>Quản lý đồ ăn</span>
+      </a>
+
+      <a href="{{ route('admin.posts.create') }}" class="quick-action-btn" style="background: linear-gradient(135deg, #b76cc9ff 0%, #764ba2 100%); color: white;">
+        <i class="bi bi-plus-circle"></i>
+        <span>Thêm bài viết</span>
       </a>
 
     </div>

@@ -23,10 +23,10 @@ class HomeController extends Controller
             ->orderBy('release_date')
             ->get();
 
-        // Góc điện ảnh – lấy 4 bài viết mới nhất
+        // Góc điện ảnh – lấy 10 bài viết mới nhất (cho cả 2 tabs)
         $latestPosts = Post::published()
             ->orderBy('published_at', 'desc')
-            ->take(4)
+            ->take(10)
             ->get();
 
         return view('home.index', [
