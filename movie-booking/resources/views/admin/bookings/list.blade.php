@@ -67,15 +67,20 @@
                                         <i class="fas fa-eye"></i>
                                     </a>
 
-                                    @if($booking->status == 1)
-                                        <form action="{{ route('admin.bookings.cancel', $booking->id) }}" method="POST"
-                                            style="display: inline;" onsubmit="return confirm('Bạn có chắc muốn hủy vé này?')">
-                                            @csrf
-                                            <button type="submit" class="btn btn-warning btn-sm">
+                                    {{-- Toggle Cancel/Restore button --}}
+                                    <form action="{{ route('admin.bookings.cancel', $booking->id) }}" method="POST"
+                                        style="display: inline;" onsubmit="return confirm('{{ $booking->status == 1 ? 'Bạn có chắc muốn hủy vé này?' : 'Bạn có chắc muốn khôi phục vé này?' }}')">
+                                        @csrf
+                                        @if($booking->status == 1)
+                                            <button type="submit" class="btn btn-warning btn-sm" title="Hủy vé">
                                                 <i class="fas fa-ban"></i>
                                             </button>
-                                        </form>
-                                    @endif
+                                        @else
+                                            <button type="submit" class="btn btn-success btn-sm" title="Khôi phục vé">
+                                                <i class="fas fa-undo"></i>
+                                            </button>
+                                        @endif
+                                    </form>
 
                                     <form action="{{ route('admin.bookings.delete', $booking->id) }}" method="POST"
                                         style="display: inline;" onsubmit="return confirm('Bạn có chắc muốn xóa đặt vé này?')">

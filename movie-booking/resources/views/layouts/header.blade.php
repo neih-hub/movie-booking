@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+<link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
 
 <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 header-wrapper">
   <div class="container position-relative">
@@ -17,52 +18,72 @@
     {{-- Menu --}}
     <div class="collapse navbar-collapse" id="navbarContent">
 
+      <!-- Navigation Menu -->
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-center">
-
-        {{-- Mua vé --}}
+        <!-- Mua vé button -->
         <li class="nav-item mx-3">
           <a href="/booking" class="btn btn-warning fw-bold px-4 py-2 rounded-3 buy-btn">
             ⭐ Mua Vé
           </a>
         </li>
 
-        {{-- Phim --}}
         <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Phim</a>
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            Phim
+          </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/movies">Đang Chiếu</a></li>
-            <li><a class="dropdown-item" href="/movies/coming">Sắp Chiếu</a></li>
+            <li>
+              <a class="dropdown-item" href="/movies?filter=now_showing">
+                Đang chiếu
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/movies?filter=coming_soon">
+                Sắp chiếu
+              </a>
+            </li>
           </ul>
         </li>
 
-        {{-- Star Shop --}}
         <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Star Shop</a>
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            Rạp / Giá vé
+          </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Ưu đãi</a></li>
-            <li><a class="dropdown-item" href="#">Thẻ thành viên</a></li>
+            @if(isset($cinemas) && $cinemas->count() > 0)
+              @foreach($cinemas as $cinema)
+              <li>
+                <a class="dropdown-item" href="{{ route('theater.show', $cinema->id) }}">
+                  {{ $cinema->name }}
+                </a>
+              </li>
+              @endforeach
+            @else
+              <li><a class="dropdown-item" href="#">Không có rạp</a></li>
+            @endif
           </ul>
         </li>
 
-        {{-- Góc Điện Ảnh --}}
-        <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Góc Điện Ảnh</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Blog</a></li>
-            <li><a class="dropdown-item" href="#">Review</a></li>
-          </ul>
+        <li class="nav-item mx-2">
+          <a href="/posts" class="nav-link {{ request()->is('posts*') ? 'active' : '' }}">
+            Góc Điện Ảnh
+          </a>
         </li>
-
-        {{-- Rạp/Giá Vé --}}
-        <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Rạp / Giá Vé</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/theaters">Danh sách rạp</a></li>
-            <li><a class="dropdown-item" href="/prices">Giá vé</a></li>
-          </ul>
-        </li>
-
       </ul>
+
+      {{-- Notifications Bell (for authenticated users) --}}
+      @if(Auth::check())
+      <div class="notification-bell me-3">
+        <a href="{{ route('notifications.index') }}" class="nav-link position-relative">
+          <i class="bi bi-bell fs-4"></i>
+          @if(Auth::user()->notifications()->unread()->count() > 0)
+          <span class="notification-badge">
+            {{ Auth::user()->notifications()->unread()->count() }}
+          </span>
+          @endif
+        </a>
+      </div>
+      @endif
 
       {{-- Search --}}
       <div class="search-container d-flex align-items-center me-3">

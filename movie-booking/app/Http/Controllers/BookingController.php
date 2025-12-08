@@ -14,7 +14,16 @@ use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
-    // Display booking form
+    // Display movie selection page (new flow from header)
+    public function index()
+    {
+        $movies = \App\Models\Movie::orderBy('title')->get();
+        $cinemas = \App\Models\Cinema::orderBy('name')->get();
+
+        return view('bookings.index', compact('movies', 'cinemas'));
+    }
+
+    // Display booking form (direct flow from movie page)
     public function create($showtime_id)
     {
         $showtime = Showtime::with(['movie', 'room.cinema', 'room.seats'])
@@ -128,6 +137,19 @@ class BookingController extends Controller
             }
 
             DB::commit();
+
+            // Create notification for booking success
+            \App\Models\Notification::create([
+                'user_id' => Auth::id(),
+                'type' => 'booking_success',
+                'message' => "Bạn vừa đặt thành công vé xem phim {$showtime->movie->title} với giá " . number_format($totalPrice) . "đ",
+                'data' => [
+                    'movie_id' => $showtime->movie_id,
+                    'movie_title' => $showtime->movie->title,
+                    'booking_id' => $booking->id,
+                    'total_price' => $totalPrice
+                ]
+            ]);
 
             return redirect()->route('booking.success', $booking->id)
                 ->with('success', 'Đặt vé thành công!');

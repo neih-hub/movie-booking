@@ -3,7 +3,7 @@
 @section('content')
 <div class="container py-4">
 
-    {{-- =================== SEARCH BOX =================== --}}
+    {{--đặt vé nhanh --}}
     <div class="search-box mb-5">
         <div class="row g-3">
 

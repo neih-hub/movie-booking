@@ -2,6 +2,10 @@
 
 @section('title', 'Góc Điện Ảnh')
 
+@section('head')
+<link rel="stylesheet" href="{{ asset('css/posts.css') }}">
+@endsection
+
 @section('content')
 <div class="container py-5">
     <!-- Back Button -->
@@ -114,49 +118,4 @@
     </div>
     @endif
 </div>
-
-<style>
-.post-card {
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.post-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-.post-card .card-img-top {
-    height: 200px;
-    object-fit: cover;
-    transition: opacity 0.3s;
-}
-
-.post-card:hover .card-img-top {
-    opacity: 0.9;
-}
-
-.post-card .card-title a {
-    transition: color 0.2s;
-}
-
-.post-card .card-title a:hover {
-    color: #0d6efd !important;
-}
-
-.nav-pills .nav-link {
-    color: #6c757d;
-    border-radius: 20px;
-}
-
-.nav-pills .nav-link.active {
-    background-color: #0d6efd;
-}
-
-.page-header {
-    border-bottom: 3px solid #0d6efd;
-    padding-bottom: 1rem;
-}
-</style>
 @endsection

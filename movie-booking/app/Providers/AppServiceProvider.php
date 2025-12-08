@@ -19,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Share cinemas with header layout
+        view()->composer('layouts.header', function ($view) {
+            $cinemas = \App\Models\Cinema::orderBy('name')->get();
+            $view->with('cinemas', $cinemas);
+        });
     }
 }

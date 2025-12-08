@@ -1,0 +1,124 @@
+/* Booking Selection Page Styles */
+
+.booking-selection-container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.selection-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.selection-header h1 {
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.selection-header p {
+    color: #64748b;
+    font-size: 1rem;
+}
+
+.selection-form .form-label {
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.5rem;
+}
+
+.selection-form select {
+    height: 50px;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.selection-form select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.showtime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.showtime-grid:has(.empty-state) {
+    grid-template-columns: 1fr;
+}
+
+.showtime-btn {
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.showtime-btn:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.showtime-btn.selected {
+    border-color: #3b82f6;
+    background: #3b82f6;
+    color: #fff;
+}
+
+.showtime-time {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.showtime-price {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.btn-continue {
+    width: 100%;
+    max-width: 300px;
+    margin: 2rem auto;
+    display: block;
+    height: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #94a3b8;
+    min-width: 100%;
+}
+
+.empty-state p {
+    margin: 0;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
+}

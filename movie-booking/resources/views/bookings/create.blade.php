@@ -53,12 +53,11 @@
                     <input type="hidden" name="showtime_id" value="{{ $showtime->id }}">
                     <div id="seatHiddenInputs"></div>
 <div id="foodHiddenInputs"></div>
-                    <!-- Step 1: Confirmation -->
+                    <!-- xác nhận -->
                     <div class="step-content active" data-step="1">
                         <h2 class="step-title">Xác nhận thông tin</h2>
                         
                         <div class="movie-info">
-                            {{-- ĐÃ SỬA: image -> uploads/movies --}}
                             <img src="{{ asset($showtime->movie->poster) }}" 
                                 alt="{{ $showtime->movie->title }}" 
                                class="movie-poster">
@@ -545,8 +544,6 @@ Object.values(selectedFoods).forEach((food, index) => {
     foodContainer.appendChild(qtyInput);
 });
 
-
-    // ✅ SUBMIT THỰC SỰ
     this.submit();
 });
 

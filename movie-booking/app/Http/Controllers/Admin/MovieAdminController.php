@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class MovieAdminController extends Controller
 {
-    // LIST
+    // danh sách phim
    public function list()
 {
     $movies = Movie::all();
@@ -21,7 +21,7 @@ class MovieAdminController extends Controller
         return view('admin.movies.create');
     }
 
-    // STORE
+    // lưu phim
     public function store(Request $request)
     {
         $data = $request->all();
@@ -44,14 +44,14 @@ class MovieAdminController extends Controller
             ->with('success', 'Thêm phim thành công!');
     }
 
-    // EDIT PAGE
+    // chỉnh sửa phim
     public function edit($id)
     {
         $movie = Movie::findOrFail($id);
         return view('admin.movies.edit', compact('movie'));
     }
 
-    // UPDATE
+    // cập nhật phim
     public function update(Request $request, $id)
     {
         $movie = Movie::findOrFail($id);
@@ -75,7 +75,7 @@ class MovieAdminController extends Controller
         return back()->with('success', 'Cập nhật phim thành công!');
     }
 
-    // DELETE
+    // xóa phim
     public function destroy($id)
     {
         Movie::destroy($id);

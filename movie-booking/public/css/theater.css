@@ -1,0 +1,144 @@
+/* Theater Detail Page Styles */
+
+.cinema-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    border-radius: 16px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+}
+
+.cinema-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.cinema-address {
+    font-size: 1rem;
+    margin-bottom: 0;
+    opacity: 0.9;
+}
+
+.cinema-selector select {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cinema-selector select:hover {
+    border-color: #667eea;
+}
+
+.cinema-selector select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.section-title {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.movie-showtime-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.movie-showtime-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.movie-title {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.movie-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.date-group {
+    border-left: 4px solid #667eea;
+    padding-left: 1rem;
+}
+
+.date-header {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.showtime-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.showtime-btn {
+    min-width: 120px;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid #e2e8f0;
+}
+
+.showtime-btn:hover {
+    background: #667eea;
+    border-color: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.showtime-time {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.showtime-room {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+}
+
+.showtime-price {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #3b82f6;
+    margin-top: 0.25rem;
+}
+
+.showtime-btn:hover .showtime-room,
+.showtime-btn:hover .showtime-price {
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cinema-title {
+        font-size: 1.5rem;
+    }
+
+    .cinema-selector {
+        margin-top: 1rem;
+    }
+
+    .showtime-btn {
+        min-width: 100px;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .showtime-time {
+        font-size: 1rem;
+    }
+}

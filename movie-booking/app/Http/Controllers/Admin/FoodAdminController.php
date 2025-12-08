@@ -22,13 +22,13 @@ class FoodAdminController extends Controller
         return view('admin.foods.create', compact('foods', 'search')); // view tên create.blade.php hiển thị danh sách
     }
 
-    // Form thêm (riêng)
+    // thêm món ăn
     public function create()
     {
         return view('admin.foods.create_form');
     }
 
-    // Lưu thêm
+    // lưu món ăn
     public function store(Request $request)
 {
     $data = $request->validate([
@@ -41,13 +41,12 @@ class FoodAdminController extends Controller
     if ($request->hasFile('image')) {
         $file = $request->file('image');
         $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
-        // ensure folder exists
+        // Đảm bảo thư mục tồn tại
         if (!file_exists(public_path('uploads/foods'))) {
             mkdir(public_path('uploads/foods'), 0755, true);
         }
         $moved = $file->move(public_path('uploads/foods'), $filename);
-        // debug nếu cần:
-        // if (!$moved) { return back()->with('error', 'Không thể lưu file'); }
+        if (!$moved) { return back()->with('error', 'Không thể lưu file'); }
         $data['image'] = $filename; // lưu chỉ tên file
     }
 
@@ -58,7 +57,7 @@ class FoodAdminController extends Controller
 
 
 
-    // Form edit
+    // chỉnh sửa món ăn
     public function edit($id)
     {
         $food = Food::findOrFail($id);
@@ -70,7 +69,7 @@ class FoodAdminController extends Controller
 {
     $food = Food::findOrFail($id);
 
-    // Validate
+    // Xác thực dữ liệu món
     $data = $request->validate([
         'name'  => 'required|string|max:255',
         'price' => 'required|numeric|min:0',
@@ -86,7 +85,6 @@ class FoodAdminController extends Controller
         if (!file_exists($uploadPath)) {
             mkdir($uploadPath, 0755, true);
         }
-
         // Xóa ảnh cũ nếu tồn tại
         if ($food->image && file_exists(public_path('uploads/foods/' . $food->image))) {
             unlink(public_path('uploads/foods/' . $food->image));
@@ -103,7 +101,6 @@ class FoodAdminController extends Controller
 
     // Cập nhật DB
     $food->update($data);
-
     return redirect()->route('admin.foods.list')->with('success', 'Cập nhật món ăn thành công!');
 }
 

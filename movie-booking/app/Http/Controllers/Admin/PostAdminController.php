@@ -11,17 +11,20 @@ use Carbon\Carbon;
 
 class PostAdminController extends Controller
 {
+    // danh sách bài viết
     public function list()
     {
         $posts = Post::with('author')->orderBy('created_at','desc')->paginate(15);
         return view('admin.posts.list', compact('posts'));
     }
 
+    // tạo bài viết
     public function create()
     {
         return view('admin.posts.create');
     }
 
+    // lưu bài viết
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -54,12 +57,14 @@ class PostAdminController extends Controller
         return redirect()->route('admin.posts.list')->with('success','Tạo bài viết thành công');
     }
 
+    // chỉnh sửa bài viết
     public function edit($id)
     {
         $post = Post::findOrFail($id);
         return view('admin.posts.edit', compact('post'));
     }
 
+    // cập nhật bài viết
     public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
@@ -99,11 +104,12 @@ class PostAdminController extends Controller
         return redirect()->route('admin.posts.list')->with('success','Cập nhật bài viết thành công');
     }
 
+    // xóa bài viết
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
         if ($post->thumbnail) {
-            // Handle both old format (/storage/...) and new format (storage/...)
+            // Xử lý cả định dạng cũ (/storage/...) và định dạng mới (storage/...).
             $old = str_replace(['/storage/', 'storage/'], '', $post->thumbnail);
             Storage::disk('public')->delete($old);
         }
@@ -111,7 +117,7 @@ class PostAdminController extends Controller
         return back()->with('success','Xóa bài viết thành công');
     }
 
-    // optional upload endpoint for rich editor
+    // Endpoint upload tùy chọn cho trình soạn thảo rich text
     public function uploadImage(Request $request)
 {
     if (!$request->hasFile('file')) {

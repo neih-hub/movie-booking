@@ -72,6 +72,10 @@ Route::prefix('api')->name('api.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
+// Movie selection page (must be before the route with parameter)
+Route::get('/booking', [BookingController::class, 'index'])
+    ->name('booking.index');
+
 Route::get('/booking/{showtime_id}', [BookingController::class, 'create'])
     ->whereNumber('showtime_id')
     ->name('booking.create');
@@ -112,6 +116,15 @@ Route::get('/post/{id}', [App\Http\Controllers\PostController::class, 'show'])
 
 /*
 |--------------------------------------------------------------------------
+| THEATER DETAIL
+|--------------------------------------------------------------------------
+*/
+Route::get('/theaters/{cinema_id}', [App\Http\Controllers\CinemaController::class, 'show'])
+    ->whereNumber('cinema_id')
+    ->name('theater.show');
+
+/*
+|--------------------------------------------------------------------------
 | USER PROFILE
 |--------------------------------------------------------------------------
 */
@@ -120,6 +133,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar');
+
+    // Notifications
+    Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])
+        ->name('notifications.index');
+    Route::post('/notifications/{id}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])
+        ->name('notifications.read');
+    Route::post('/notifications/read-all', [App\Http\Controllers\NotificationController::class, 'markAllAsRead'])
+        ->name('notifications.readAll');
 
 });
 
