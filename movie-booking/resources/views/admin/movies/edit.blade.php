@@ -91,7 +91,12 @@
                         'Lịch sử','Phiêu lưu - Hành động','Anime'
                     ];
                     
-                    $selectedGenres = $movie->genre ?? [];
+                    $selectedGenres = $movie->genre;
+                    if (is_string($selectedGenres)) {
+                        $selectedGenres = explode(',', $selectedGenres);
+                        $selectedGenres = array_map('trim', $selectedGenres);
+                    }
+                    $selectedGenres = $selectedGenres ?? [];
                 @endphp
 
                 <div id="genre-wrapper" class="genre-container">

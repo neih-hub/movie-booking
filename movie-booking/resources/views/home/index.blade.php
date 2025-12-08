@@ -333,7 +333,7 @@
             @else
             <div class="text-center py-5">
                 <i class="bi bi-newspaper" style="font-size: 3rem; color: #ccc;"></i>
-                <p class="text-muted mt-3">Chưa có bài viết blog điện ảnh</p>
+                <p class="text-muted mt-3">Chưa có bài viết</p>
             </div>
             @endif
 

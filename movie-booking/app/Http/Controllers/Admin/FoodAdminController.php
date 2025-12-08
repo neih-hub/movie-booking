@@ -19,7 +19,7 @@ class FoodAdminController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('admin.foods.create', compact('foods', 'search')); // LƯU Ý: view tên create.blade.php hiển thị danh sách
+        return view('admin.foods.create', compact('foods', 'search')); // view tên create.blade.php hiển thị danh sách
     }
 
     // Form thêm (riêng)
@@ -75,7 +75,7 @@ class FoodAdminController extends Controller
         'name'  => 'required|string|max:255',
         'price' => 'required|numeric|min:0',
         'total' => 'required|numeric|min:0',
-        'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048'
+        'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
     ]);
 
     // Nếu có upload ảnh mới

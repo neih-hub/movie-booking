@@ -25,7 +25,11 @@ class MovieAdminController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['genre'] = $request->genre; // JSON string
+        if ($request->genre) {
+            $data['genre'] = array_map('trim', explode(',', $request->genre));
+        } else {
+            $data['genre'] = [];
+        }
 
         if ($request->hasFile('poster')) {
             $file = $request->file('poster');
@@ -53,7 +57,11 @@ class MovieAdminController extends Controller
         $movie = Movie::findOrFail($id);
 
         $data = $request->all();
-        $data['genre'] = $request->genre; // JSON string
+        if ($request->genre) {
+            $data['genre'] = array_map('trim', explode(',', $request->genre));
+        } else {
+            $data['genre'] = [];
+        }
 
         if ($request->hasFile('poster')) {
             $file = $request->file('poster');

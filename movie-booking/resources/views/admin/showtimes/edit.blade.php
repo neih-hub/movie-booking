@@ -57,7 +57,8 @@
                 <div class="form-group">
                     <label class="form-label">Thời gian chiếu <span style="color: red;">*</span></label>
                     <input type="datetime-local" name="start_time" class="form-control"
-                        value="{{ old('start_time', $showtime->start_time->format('Y-m-d\TH:i')) }}" required>
+                        value="{{ old('start_time', $showtime->start_time ? \Carbon\Carbon::parse($showtime->start_time)->format('Y-m-d\TH:i') : '') }}"
+ required>
                 </div>
 
                 <div class="form-group">
