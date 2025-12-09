@@ -9,7 +9,7 @@
             <h2 class="card-title">
                 <i class="fas fa-clock"></i> Danh sách suất chiếu
             </h2>
-            <a href="{{ route('admin.showtimes.create') }}" class="btn btn-success">
+            <a href="{{ route('admin.showtimes.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Thêm suất chiếu
             </a>
         </div>

@@ -9,7 +9,7 @@
             <h2 class="card-title">
                 <i class="fas fa-building"></i> Danh sách rạp chiếu
             </h2>
-            <a href="{{ route('admin.cinemas.create') }}" class="btn btn-success">
+            <a href="{{ route('admin.cinemas.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Thêm rạp mới
             </a>
         </div>

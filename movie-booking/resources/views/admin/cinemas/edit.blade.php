@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <button class="btn btn-success mt-3">
+        <button class="btn btn-success mt-3" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
             <i class="fas fa-save"></i> Lưu thay đổi
         </button>
     </form>

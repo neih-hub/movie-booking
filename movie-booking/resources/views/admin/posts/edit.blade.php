@@ -83,7 +83,7 @@
         </div>
 
         <div class="mt-4" style="display: flex; gap: 10px;">
-            <button type="submit" class="btn btn-success">
+            <button type="submit" class="btn btn-primary">
                 <i class="bi bi-save"></i> Cập nhật
             </button>
             <a href="{{ route('admin.posts.list') }}" class="btn btn-danger">

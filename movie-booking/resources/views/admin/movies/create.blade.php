@@ -133,7 +133,7 @@
 
         {{-- ================= BUTTONS ================= --}}
         <div class="form-actions">
-            <button type="submit" class="btn btn-success btn-lg">
+            <button type="submit" class="btn btn-primary btn-lg">
                 <i class="fas fa-save"></i> Lưu phim
             </button>
 

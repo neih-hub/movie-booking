@@ -157,15 +157,15 @@
     padding: 8px 16px;
     border-radius: 20px;
     background: transparent;
-    border: 1px solid #e50914;
-    color: #e50914;
+    border: 1px solid #fecfef;
+    color: #ff9a9e;
     font-weight: 600;
     transition: 0.25s;
     text-decoration: none;
 }
 
 .btn-view-more:hover {
-    background: #e50914;
+    background: linear-gradient(to left, #ff9a9e, #fecfef);
     color: white;
 }
 

@@ -34,7 +34,7 @@
 
 .section-header i {
   font-size: 1.25rem;
-  color: #3b82f6;
+  color: #ff9a9e;
 }
 
 .section-header h3 {
@@ -73,8 +73,8 @@
 }
 
 .form-control:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #ff9a9e;
+  box-shadow: 0 0 0 3px rgba(255, 154, 158, 0.1);
   outline: none;
 }
 
@@ -120,10 +120,10 @@ button.genre-btn i {
 /* Hover effect */
 button.genre-btn:hover,
 .genre-btn:hover {
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  border-color: #93c5fd;
+  background: linear-gradient(135deg, #fff0f1 0%, #fff5f6 100%);
+  border-color: #ff9a9e;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 4px 8px rgba(255, 154, 158, 0.15);
 }
 
 button.genre-btn:hover i {
@@ -133,11 +133,11 @@ button.genre-btn:hover i {
 /* Active state */
 button.genre-btn.active,
 .genre-btn.active {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
   color: #ffffff;
-  border-color: #2563eb;
+  border-color: #ff9a9e;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 154, 158, 0.3);
 }
 
 button.genre-btn.active i {
@@ -147,7 +147,7 @@ button.genre-btn.active i {
 
 /* Focus outline */
 button.genre-btn:focus {
-  outline: 2px solid rgba(59, 130, 246, 0.3);
+  outline: 2px solid rgba(255, 154, 158, 0.3);
   outline-offset: 2px;
 }
 

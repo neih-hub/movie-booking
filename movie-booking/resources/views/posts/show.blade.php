@@ -3,6 +3,8 @@
 @section('title', $post->title)
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/post-show.css') }}">
+
 <div class="container py-5">
     <div class="row">
         <!-- Main Content -->
@@ -114,7 +116,7 @@
                 <!-- Back to Posts -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <a href="{{ route('posts.index') }}" class="btn btn-outline-primary w-100">
+                        <a href="{{ route('posts.index') }}" class="btn btn-outline-primary w-100" >
                             <i class="bi bi-arrow-left"></i> Quay lại danh sách
                         </a>
                     </div>
@@ -143,43 +145,4 @@
         </div>
     </div>
 </div>
-
-<style>
-.post-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-.post-content img {
-    max-width: 100%;
-    height: auto;
-    margin: 1.5rem 0;
-    border-radius: 8px;
-}
-
-.post-content h2, .post-content h3 {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
-
-.post-content p {
-    margin-bottom: 1.2rem;
-}
-
-.post-thumbnail img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    max-height: 500px;
-}
-
-.related-posts .card {
-    transition: transform 0.2s;
-}
-
-.related-posts .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-</style>
 @endsection

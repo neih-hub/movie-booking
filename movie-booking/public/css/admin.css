@@ -1,16 +1,16 @@
 /* Admin Panel Styles */
 :root {
-    --admin-primary: #f7941e;
-    --admin-primary-dark: #e67e22;
-    --admin-secondary: #ff6b35;
+    --admin-primary: #ff9a9e;
+    --admin-primary-dark: #ff8085;
+    --admin-secondary: #fecfef;
     --admin-success: #10b981;
     --admin-danger: #ef4444;
     --admin-warning: #f59e0b;
     --admin-info: #3b82f6;
-    --admin-dark: #1e293b;
+    --admin-dark: #1f2937;
     --admin-light: #f8fafc;
-    --admin-sidebar: #0f172a;
-    --admin-sidebar-hover: #1e293b;
+    --admin-sidebar: #ffffff;
+    --admin-sidebar-hover: #fff0f1;
 }
 
 * {
@@ -21,7 +21,7 @@
 
 body.admin-body {
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f7941e 0%, #e67e22 100%);
+    background: #f3f4f6;
     min-height: 100vh;
 }
 
@@ -35,7 +35,7 @@ body.admin-body {
 .admin-sidebar {
     width: 260px;
     background: var(--admin-sidebar);
-    color: white;
+    color: var(--admin-dark);
     position: fixed;
     height: 100vh;
     overflow-y: auto;
@@ -75,7 +75,7 @@ body.admin-body {
     display: flex;
     align-items: center;
     padding: 0.875rem 1.5rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: #64748b;
     text-decoration: none;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
@@ -83,10 +83,10 @@ body.admin-body {
 
 .nav-link:hover,
 .nav-link.active {
-    background: var(--admin-sidebar-hover);
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
     color: white;
     border-left-color: var(--admin-primary);
-    box-shadow: inset 0 0 15px rgba(247, 148, 30, 0.2);
+    box-shadow: 0 4px 12px rgba(255, 154, 158, 0.3);
 }
 
 .nav-link i {
@@ -106,7 +106,7 @@ body.admin-body {
 
 /* Top Header */
 .admin-header {
-    background: white;
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
     padding: 1.25rem 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -197,7 +197,7 @@ body.admin-body {
     margin-bottom: 1rem;
     background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
     color: white;
-    box-shadow: 0 4px 10px rgba(247, 148, 30, 0.3);
+    box-shadow: 0 4px 10px rgba(255, 154, 158, 0.3);
 }
 
 .stat-card.success .stat-icon {
@@ -278,14 +278,14 @@ body.admin-body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-dark));
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
     color: white;
-    box-shadow: 0 3px 8px rgba(247, 148, 30, 0.4);
+    box-shadow: 0 3px 8px rgba(255, 154, 158, 0.4);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(247, 148, 30, 0.5);
+    box-shadow: 0 5px 15px rgba(255, 154, 158, 0.5);
 }
 
 .btn-success {
@@ -333,7 +333,7 @@ body.admin-body {
 }
 
 .admin-table thead {
-    background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-dark));
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
     color: white;
 }
 
@@ -422,7 +422,7 @@ body.admin-body {
 .form-control:focus {
     outline: none;
     border-color: var(--admin-primary);
-    box-shadow: 0 0 0 3px rgba(247, 148, 30, 0.1);
+    box-shadow: 0 0 0 3px rgba(255, 154, 158, 0.1);
 }
 
 .form-select {
@@ -487,19 +487,19 @@ nav[role="navigation"] a {
 
 /* Hover effect - using admin theme colors */
 nav[role="navigation"] a:hover {
-    background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-dark));
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
     color: white;
     border-color: var(--admin-primary);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(247, 148, 30, 0.4);
+    box-shadow: 0 4px 12px rgba(255, 154, 158, 0.4);
 }
 
 /* Active page */
 nav[role="navigation"] span[aria-current="page"] {
-    background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-dark));
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
     color: white;
     border: 2px solid var(--admin-primary);
-    box-shadow: 0 4px 12px rgba(247, 148, 30, 0.5);
+    box-shadow: 0 4px 12px rgba(255, 154, 158, 0.5);
     font-weight: 600;
 }
 
@@ -523,7 +523,7 @@ nav[role="navigation"] a[rel="next"] {
 
 nav[role="navigation"] a[rel="prev"]:hover,
 nav[role="navigation"] a[rel="next"]:hover {
-    background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-dark));
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
     border-color: var(--admin-primary);
 }
 

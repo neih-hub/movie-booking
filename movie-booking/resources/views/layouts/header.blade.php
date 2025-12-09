@@ -26,7 +26,6 @@
             ⭐ Mua Vé
           </a>
         </li>
-
         <li class="nav-item dropdown mx-2">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
             Phim

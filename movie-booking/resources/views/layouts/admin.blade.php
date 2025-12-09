@@ -101,8 +101,6 @@
         <span>Quản lý bài viết</span>
     </a>
 </li>
-
-
                 <li class="nav-item"
                     style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
                     <a href="/" class="nav-link">
@@ -115,7 +113,7 @@
                     <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
                         @csrf
                         <button type="submit" class="nav-link"
-                            style="width: 100%; background: none; border: none; text-align: left; cursor: pointer;">
+                            style="width: 100%; background: none; border: none; text-align: left; cursor: pointer; color:black">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Đăng xuất</span>
                         </button>

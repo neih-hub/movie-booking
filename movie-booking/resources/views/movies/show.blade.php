@@ -80,7 +80,7 @@
                                                     </div>
                                                     <div>
                                                         <a href="{{ route('booking.create', $showtime->id) }}" 
-                                                           class="btn btn-primary">
+                                                           class="btn btn-primary" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); border: #ff9a9e">
                                                             <i class="bi bi-ticket-perforated"></i> Đặt vé
                                                         </a>
                                                     </div>
@@ -110,7 +110,7 @@
     }
 
     .card-header {
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
     }
 
     .border {
@@ -118,8 +118,8 @@
     }
 
     .border:hover {
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
-        border-color: #3b82f6 !important;
+        box-shadow: 0 4px 12px rgba(255, 154, 158, 0.2);
+        border-color: #ff9a9e !important;
     }
 </style>
 @endsection

@@ -37,7 +37,7 @@
             <input type="file" name="image" class="form-control" accept="image/*">
         </div>
 
-        <button class="btn btn-success"><i class="bi bi-save"></i> Lưu</button>
+        <button class="btn btn-primary"><i class="bi bi-save"></i> Lưu</button>
     </form>
 </div>
 

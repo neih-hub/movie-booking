@@ -40,7 +40,7 @@
                     <h3>Danh sách phòng chiếu</h3>
                 </div>
                 <div id="rooms_grid" class="rooms-grid">
-                    <!-- Rooms will be loaded via JavaScript -->
+                    <!-- js load ghế của phòng-->
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
 
 @push('scripts')
 <script>
-    // Pass cinemas data to JavaScript
+    // gửi dữ liệu cinema cho js
     window.cinemasData = @json($cinemas);
 </script>
 <script src="{{ asset('js/rooms-manage.js') }}"></script>

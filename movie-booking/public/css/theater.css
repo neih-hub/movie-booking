@@ -1,11 +1,11 @@
 /* Theater Detail Page Styles */
 
 .cinema-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #fad0c4    0%, #fecfef  100%);
     padding: 2rem;
     border-radius: 16px;
     color: white;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 20px rgba(255, 154, 158, 0.3);
 }
 
 .cinema-title {
@@ -31,12 +31,12 @@
 }
 
 .cinema-selector select:hover {
-    border-color: #667eea;
+    border-color: #ff9a9e;
 }
 
 .cinema-selector select:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #ff9a9e;
+    box-shadow: 0 0 0 3px rgba(255, 154, 158, 0.1);
 }
 
 .section-title {
@@ -68,7 +68,7 @@
 }
 
 .date-group {
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #ff9a9e;
     padding-left: 1rem;
 }
 
@@ -93,11 +93,11 @@
 }
 
 .showtime-btn:hover {
-    background: #667eea;
-    border-color: #667eea;
+    background: #ff9a9e;
+    border-color: #ff9a9e;
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 154, 158, 0.3);
 }
 
 .showtime-time {
@@ -114,7 +114,7 @@
 .showtime-price {
     font-size: 0.875rem;
     font-weight: 600;
-    color: #3b82f6;
+    color: #ff9a9e;
     margin-top: 0.25rem;
 }
 

@@ -62,7 +62,7 @@
 
         </div>
 
-        <button type="submit" class="btn btn-success mt-4">
+        <button type="submit" class="btn btn-primary mt-4">
             <i class="bi bi-save"></i> Lưu bài viết
         </button>
 

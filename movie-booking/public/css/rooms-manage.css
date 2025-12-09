@@ -21,7 +21,7 @@
 }
 
 .cinema-selector label i {
-    color: #3b82f6;
+    color: #ff9a9e;
     font-size: 1.25rem;
 }
 
@@ -34,8 +34,8 @@
 }
 
 .cinema-selector select:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #ff9a9e;
+    box-shadow: 0 0 0 3px rgba(255, 154, 158, 0.1);
     outline: none;
 }
 
@@ -55,7 +55,7 @@
 
 .rooms-section-title i {
     font-size: 1.5rem;
-    color: #3b82f6;
+    color: #ff9a9e;
 }
 
 .rooms-section-title h3 {
@@ -73,13 +73,13 @@
 
 /* ==================== ROOM CARD ==================== */
 .room-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
     border-radius: 16px;
     padding: 2rem;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 154, 158, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -97,7 +97,7 @@
 
 .room-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 20px rgba(255, 154, 158, 0.4);
 }
 
 .room-card-content {

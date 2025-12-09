@@ -98,7 +98,7 @@
                         Ghế sẽ được tạo tự động theo định dạng: A1, A2, B1, B2, ...
                     </div>
 
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-primary">
                         <i class="fas fa-magic"></i> Tạo hàng loạt
                     </button>
                 </form>

@@ -74,7 +74,7 @@
             </div>
 
             <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> Lưu
                 </button>
                 <a href="{{ route('admin.showtimes.list') }}" class="btn btn-danger">
