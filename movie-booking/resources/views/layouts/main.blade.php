@@ -12,6 +12,10 @@
   {{-- Bootstrap Icons --}}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
+  {{-- Google Fonts --}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nabla&family=Poetsen+One&display=swap" rel="stylesheet">
   {{-- CSS Header / Footer --}}
   <link rel="stylesheet" href="{{ asset('css/header.css') }}">
   <link rel="stylesheet" href="/css/footer.css"> 
@@ -22,6 +26,9 @@
 
   {{-- CSS được push từ view --}}
   @stack('styles')
+
+  {{-- Custom head content từ view --}}
+  @yield('head')
 </head>
 
 <body>

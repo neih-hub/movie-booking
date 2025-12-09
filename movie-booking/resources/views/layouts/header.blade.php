@@ -7,7 +7,7 @@
     {{-- Logo --}}
     <a class="navbar-brand d-flex align-items-center" href="/">
       <img src="/image/logo.png" height="42" alt="Galaxy Logo">
-      <!-- <span class="ms-2 brand-text">HubVerse</span> -->
+      <span class="ms-2 brand-text">HubVerse</span>
     </a>
 
     {{-- Mobile Toggle --}}

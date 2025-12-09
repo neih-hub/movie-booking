@@ -49,11 +49,11 @@
               </a>
             </li>
 
-            <li class="nav-item" role="presentation">
+            <!-- <li class="nav-item" role="presentation">
               <a class="nav-link custom-tab" id="notifications-tab" data-bs-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
                 Thông báo
               </a>
-            </li>
+            </li> -->
 
             <li class="nav-item" role="presentation">
               <a class="nav-link custom-tab" id="history-tab" data-bs-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">

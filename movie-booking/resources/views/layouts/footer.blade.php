@@ -1,4 +1,4 @@
-<footer class="footer bg-dark text-light pt-5 pb-4">
+<footer class="footer text-light pt-5 pb-4" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
 
     <div class="container">
 

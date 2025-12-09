@@ -3,62 +3,66 @@
 @section('content')
 <div class="container py-4">
 
-    {{--đặt vé nhanh --}}
-    <div class="search-box mb-5">
-        <div class="row g-3">
+    {{-- Đặt vé nhanh --}}
+    <div class="quick-booking-section mb-5">
+        <h3 class="section-title-with-bar">ĐẶT VÉ NHANH</h3>
+        
+        <div class="quick-booking-card">
+            <div class="row g-3">
 
-            {{-- 1. Chọn phim --}}
-            <div class="col-md-3">
-                <label class="fw-bold">1. Chọn phim</label>
-                <select id="movie" class="form-select">
-                    <option value="">-- Chọn phim --</option>
-                    @foreach($nowShowing as $m)
-                        <option value="{{ $m->id }}">{{ $m->title }}</option>
-                    @endforeach
-                </select>
+                {{-- 1. Chọn phim --}}
+                <div class="col-md-3">
+                    <label class="quick-booking-label">1. Chọn phim</label>
+                    <select id="movie" class="form-select">
+                        <option value="">-- Chọn phim --</option>
+                        @foreach($nowShowing as $m)
+                            <option value="{{ $m->id }}">{{ $m->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- 2. Chọn rạp --}}
+                <div class="col-md-3">
+                    <label class="quick-booking-label">2. Chọn rạp</label>
+                    <select id="cinema" class="form-select">
+                        <option value="">-- Chọn rạp --</option>
+                        @foreach($cinemas as $c)
+                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- 3. Chọn phòng --}}
+                <div class="col-md-3">
+                    <label class="quick-booking-label">3. Chọn phòng</label>
+                    <select id="room" class="form-select">
+                        <option value="">-- Chọn phòng --</option>
+                    </select>
+                </div>
+
+                {{-- 4. Ngày chiếu --}}
+                <div class="col-md-3">
+                    <label class="quick-booking-label">4. Ngày chiếu</label>
+                    <select id="date_start" class="form-select">
+                        <option value="">-- Chọn ngày --</option>
+                    </select>
+                </div>
+
+                {{-- 5. Suất chiếu --}}
+                <div class="col-md-3 mt-3">
+                    <label class="quick-booking-label">5. Suất chiếu</label>
+                    <select id="showtime" class="form-select">
+                        <option value="">-- Chọn suất --</option>
+                    </select>
+                </div>
+
             </div>
 
-            {{-- 2. Chọn rạp --}}
-            <div class="col-md-3">
-                <label class="fw-bold">2. Chọn rạp</label>
-                <select id="cinema" class="form-select">
-                    <option value="">-- Chọn rạp --</option>
-                    @foreach($cinemas as $c)
-                        <option value="{{ $c->id }}">{{ $c->name }}</option>
-                    @endforeach
-                </select>
+            <div class="text-center mt-4">
+                <button id="btnBuy" class="btn-quick-book">
+                    <i class="bi bi-ticket-perforated"></i> Mua Vé Nhanh
+                </button>
             </div>
-
-            {{-- 3. Chọn phòng --}}
-            <div class="col-md-3">
-                <label class="fw-bold">3. Chọn phòng</label>
-                <select id="room" class="form-select">
-                    <option value="">-- Chọn phòng --</option>
-                </select>
-            </div>
-
-            {{-- 4. Ngày chiếu --}}
-            <div class="col-md-3">
-                <label class="fw-bold">4. Ngày chiếu</label>
-                <select id="date_start" class="form-select">
-                    <option value="">-- Chọn ngày --</option>
-                </select>
-            </div>
-
-            {{-- 5. Suất chiếu --}}
-            <div class="col-md-3 mt-3">
-                <label class="fw-bold">5. Suất chiếu</label>
-                <select id="showtime" class="form-select">
-                    <option value="">-- Chọn suất --</option>
-                </select>
-            </div>
-
-        </div>
-
-        <div class="text-end mt-4">
-            <button id="btnBuy" class="btn btn-success px-4">
-                <i class="bi bi-ticket-perforated"></i> Mua Vé Nhanh
-            </button>
         </div>
     </div>
 
