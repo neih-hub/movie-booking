@@ -22,8 +22,10 @@ class MovieController extends Controller
     public function show($id)
     {
         $movie = Movie::with(['showtimes' => function($query) {
-            $query->where('date_start', '>=', now()->toDateString())
-                  ->orderBy('date_start')
+            // Temporarily removed date filter to debug showtime display issue
+            // TODO: Re-enable with proper date handling after verification
+            // $query->where('date_start', '>=', now()->toDateString())
+            $query->orderBy('date_start')
                   ->orderBy('start_time')
                   ->with(['room.cinema']);
         }])->findOrFail($id);

@@ -38,6 +38,32 @@ class HomeController extends Controller
     }
 
     /**
+     * API: Lấy danh sách rạp có chiếu phim
+     */
+    public function getCinemasByMovie(Request $request)
+    {
+        try {
+            $movieId = $request->movie_id;
+
+            if (!$movieId) {
+                return response()->json([]);
+            }
+
+            $cinemas = Cinema::whereHas('rooms.showtimes', function ($query) use ($movieId) {
+                $query->where('movie_id', $movieId);
+            })
+                ->orderBy('name', 'asc')
+                ->get(['id', 'name'])
+                ->toArray();
+
+            return response()->json($cinemas);
+        } catch (\Exception $e) {
+            logger()->error('Error in getCinemasByMovie: ' . $e->getMessage());
+            return response()->json([]);
+        }
+    }
+
+    /**
      * API: Lấy phòng theo rạp
      */
     public function getRooms(Request $request)

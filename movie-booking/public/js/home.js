@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // RESET FUNCTIONS
   // =====================
 
+  function resetCinemas() {
+    cinema.innerHTML = `<option value="">-- Chọn rạp --</option>`;
+  }
+
   function resetRooms() {
     room.innerHTML = `<option value="">-- Chọn phòng --</option>`;
   }
@@ -20,6 +24,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function resetShowtimes() {
     showtime.innerHTML = `<option value="">-- Chọn suất --</option>`;
+  }
+
+  // =====================
+  // LOAD RẠP THEO PHIM
+  // =====================
+
+  function loadCinemasByMovie() {
+    resetCinemas();
+    resetRooms();
+    resetDates();
+    resetShowtimes();
+
+    if (!movie.value) return;
+
+    console.log('Loading cinemas for movie:', movie.value);
+
+    fetch(`${window.baseUrl}/api/cinemas-by-movie?movie_id=${movie.value}`)
+      .then(res => res.json())
+      .then(cinemas => {
+        console.log('Cinemas received:', cinemas);
+        
+        if (cinemas && cinemas.length > 0) {
+          cinemas.forEach(c => {
+            cinema.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+          });
+        } else {
+          console.warn('No cinemas found for this movie');
+          cinema.innerHTML = `<option value="">Phim chưa có lịch chiếu</option>`;
+        }
+      })
+      .catch(err => {
+        console.error('Error loading cinemas:', err);
+        cinema.innerHTML = `<option value="">Lỗi tải dữ liệu</option>`;
+      });
   }
 
   // =====================
@@ -35,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log('Loading rooms for cinema:', cinema.value);
 
-    fetch(`/api/rooms?cinema_id=${cinema.value}`)
+    fetch(`${window.baseUrl}/api/rooms?cinema_id=${cinema.value}`)
       .then(res => res.json())
       .then(rooms => {
         console.log('Rooms received:', rooms);
@@ -67,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log('Loading dates for:', { movie_id: movie.value, room_id: room.value });
 
-    fetch(`/api/dates?movie_id=${movie.value}&room_id=${room.value}`)
+    fetch(`${window.baseUrl}/api/dates?movie_id=${movie.value}&room_id=${room.value}`)
       .then(res => res.json())
       .then(dates => {
         console.log('Dates received:', dates);
@@ -102,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       date_start: date.value 
     });
 
-    fetch(`/api/showtimes?movie_id=${movie.value}&room_id=${room.value}&date_start=${date.value}`)
+    fetch(`${window.baseUrl}/api/showtimes?movie_id=${movie.value}&room_id=${room.value}&date_start=${date.value}`)
       .then(res => res.json())
       .then(showtimes => {
         console.log('Showtimes received:', showtimes);
@@ -130,9 +168,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // EVENT LISTENERS
   // =====================
 
+  movie.addEventListener("change", loadCinemasByMovie);
+
   cinema.addEventListener("change", loadRooms);
   
-  movie.addEventListener("change", loadDates);
   room.addEventListener("change", loadDates);
 
   date.addEventListener("change", loadShowtimes);
@@ -146,6 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Vui lòng chọn suất chiếu!");
       return;
     }
-    window.location.href = "/booking/" + showtime.value;
+    window.location.href = `${window.baseUrl}/booking/${showtime.value}`;
   };
 });

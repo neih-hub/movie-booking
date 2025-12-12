@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cinema;
 use App\Models\Showtime;
+use Illuminate\Support\Facades\Log;
 
 class CinemaController extends Controller
 {
@@ -20,14 +21,29 @@ class CinemaController extends Controller
         $cinemas = Cinema::orderBy('name')->get();
         
         // Get showtimes for this cinema (upcoming only)
+        // Debug: Log current date for comparison
+        \Log::info('Theater Page Debug', [
+            'cinema_id' => $cinema_id,
+            'current_date' => now()->toDateString(),
+            'timezone' => config('app.timezone')
+        ]);
+        
         $showtimes = Showtime::whereHas('room', function($query) use ($cinema_id) {
                 $query->where('cinema_id', $cinema_id);
             })
             ->with(['movie', 'room'])
-            ->where('date_start', '>=', now()->toDateString())
+            // Temporarily removed date filter to debug showtime display issue
+            // TODO: Re-enable with proper date handling after verification
+            // ->where('date_start', '>=', now()->toDateString())
             ->orderBy('date_start')
             ->orderBy('start_time')
             ->get();
+        
+        // Debug: Log showtimes found
+        \Log::info('Showtimes found', [
+            'count' => $showtimes->count(),
+            'dates' => $showtimes->pluck('date_start')->unique()->toArray()
+        ]);
         
         // Group by movie and date
         $groupedShowtimes = $showtimes->groupBy(function($showtime) {

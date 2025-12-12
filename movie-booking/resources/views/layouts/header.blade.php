@@ -84,11 +84,11 @@
       </div>
       @endif
 
-      {{-- Search --}}
+      {{-- tìm kiếm --}}
       <div class="search-container d-flex align-items-center me-3">
         <i class="bi bi-search fs-4 search-icon" id="openSearch"></i>
         <input type="text" id="searchInput" class="form-control search-input d-none"
-          placeholder="Tìm phim, thể loại, diễn viên...">
+          placeholder="Nhập tên phim...">
         <div id="searchResults" class="search-results list-group d-none"></div>
       </div>
 

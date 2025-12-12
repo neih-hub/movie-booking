@@ -441,6 +441,10 @@
 @endsection
 
 @section('scripts')
+<script>
+    // Define base URL for API calls
+    window.baseUrl = "{{ url('/') }}";
+</script>
 <script src="{{ asset('js/home.js') }}"></script>
 <script src="{{ asset('js/home-tabs.js') }}"></script>
 @endsection

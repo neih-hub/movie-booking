@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-// CLIENT CONTROLLERS
+// CONTROLLERS KHÁCH HÀNG
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ShowtimeController;
@@ -13,7 +13,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 
-// ADMIN CONTROLLERS
+// CONTROLLERS QUẢN TRỊ
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Admin\MovieAdminController;
@@ -40,6 +40,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 */
 Route::prefix('api')->name('api.')->group(function () {
 
+    // Lấy rạp theo phim
+    Route::get('/cinemas-by-movie', [HomeController::class, 'getCinemasByMovie'])->name('cinemas-by-movie');
+
     // Lấy phòng theo rạp
     Route::get('/rooms', [HomeController::class, 'getRooms'])->name('rooms');
 
@@ -49,18 +52,18 @@ Route::prefix('api')->name('api.')->group(function () {
     // Lấy suất chiếu theo ngày + phòng + phim
     Route::get('/showtimes', [HomeController::class, 'searchShowtime'])->name('showtimes');
 
-    // Auto complete tìm phim
+    // Tự động gợi ý tìm phim
     Route::get('/search-movie', function (Request $req) {
         return \App\Models\Movie::where('title', 'like', "%{$req->query}%")
             ->take(5)
             ->get(['id', 'title']);
     })->name('search-movie');
 
-    // Get seats for showtime
+    // đặt ghế cho suất chiếu
     Route::get('/seats/{showtime_id}', [BookingController::class, 'getSeats'])
         ->name('seats');
 
-    // Get available foods
+    // lấy thức ăn có sẵn trong csdl
     Route::get('/foods', [BookingController::class, 'getFoods'])
         ->name('foods');
 
@@ -72,7 +75,7 @@ Route::prefix('api')->name('api.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-// Movie selection page (must be before the route with parameter)
+// Trang chọn phim (phải đặt trước route có tham số)
 Route::get('/booking', [BookingController::class, 'index'])
     ->name('booking.index');
 
@@ -96,7 +99,8 @@ Route::get('/booking/success/{id}', [BookingController::class, 'success'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/movies', [MovieController::class, 'index'])->name('movies.list');
+Route::get('/movies', [MovieController::class, 'index'])
+->name('movies.list');
 
 Route::get('/movie/{id}', [MovieController::class, 'show'])
     ->whereNumber('id')
@@ -134,7 +138,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar');
 
-    // Notifications
+    // Thông báo
     Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])
         ->name('notifications.index');
     Route::post('/notifications/{id}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])
@@ -189,7 +193,7 @@ Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        // ===================== POSTS (NEW) =====================
+        // ===================== BÀI VIẾT (MỚI) =====================
 Route::prefix('posts')->name('posts.')->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\PostAdminController::class, 'list'])->name('list');
     Route::get('/create', [App\Http\Controllers\Admin\PostAdminController::class, 'create'])->name('create');
@@ -202,7 +206,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
 });
 
 
-    // Dashboard
+    // Bảng điều khiển
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
     /*

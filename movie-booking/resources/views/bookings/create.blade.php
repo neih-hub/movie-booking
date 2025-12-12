@@ -50,6 +50,27 @@
             <div class="booking-main">
                 <form id="bookingForm" action="{{ route('booking.store') }}" method="POST">
                     @csrf
+                    
+                    {{-- Display validation errors --}}
+                    @if($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <h5><i class="bi bi-exclamation-triangle"></i> Có lỗi xảy ra:</h5>
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+                    
+                    @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i> {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+                    
                     <input type="hidden" name="showtime_id" value="{{ $showtime->id }}">
                     <div id="seatHiddenInputs"></div>
 <div id="foodHiddenInputs"></div>
