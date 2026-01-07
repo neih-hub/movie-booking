@@ -81,9 +81,7 @@ class PostAdminController extends Controller
         ]);
 
         if ($request->hasFile('thumbnail')) {
-            // remove old
             if ($post->thumbnail) {
-                // Handle both old format (/storage/...) and new format (storage/...)
                 $old = str_replace(['/storage/', 'storage/'], '', $post->thumbnail);
                 Storage::disk('public')->delete($old);
             }

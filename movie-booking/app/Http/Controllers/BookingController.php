@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
-    // Display movie selection page (new flow from header)
     public function index()
     {
         $movies = \App\Models\Movie::orderBy('title')->get();
@@ -22,8 +21,6 @@ class BookingController extends Controller
 
         return view('bookings.index', compact('movies', 'cinemas'));
     }
-
-    // Display booking form (direct flow from movie page)
     public function create($showtime_id)
     {
         $showtime = Showtime::with(['movie', 'room.cinema', 'room.seats'])
@@ -32,12 +29,10 @@ class BookingController extends Controller
         return view('bookings.create', compact('showtime'));
     }
 
-    // Get available seats for a showtime (API)
     public function getSeats($showtime_id)
     {
         $showtime = Showtime::with('room.seats')->findOrFail($showtime_id);
         
-        // Get all booked seat IDs for this showtime
         $bookedSeatIds = BookingSeat::whereHas('booking', function($query) use ($showtime_id) {
             $query->where('showtime_id', $showtime_id);
         })->pluck('seat_id')->toArray();
@@ -57,14 +52,12 @@ class BookingController extends Controller
         ]);
     }
 
-    // Get available foods (API)
     public function getFoods()
     {
         $foods = Food::where('total', '>', 0)->get();
         return response()->json($foods);
     }
 
-    // Store booking
     public function store(Request $request)
     {
         $request->validate([
@@ -81,12 +74,9 @@ class BookingController extends Controller
 
             $showtime = Showtime::findOrFail($request->showtime_id);
             
-            // Check if user is authenticated
             if (!Auth::check()) {
                 return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để đặt vé!');
             }
-
-            // Calculate total price
             $seatPrice = $showtime->price * count($request->seat_ids);
             $foodPrice = 0;
 
@@ -101,15 +91,13 @@ class BookingController extends Controller
 
             $totalPrice = $seatPrice + $foodPrice;
 
-            // Create booking
             $booking = Booking::create([
                 'user_id' => Auth::id(),
                 'showtime_id' => $request->showtime_id,
                 'total_price' => $totalPrice,
-                'status' => 1 // Active
+                'status' => 1
             ]);
 
-            // Create booking seats
             foreach ($request->seat_ids as $seatId) {
                 BookingSeat::create([
                     'booking_id' => $booking->id,
@@ -118,7 +106,6 @@ class BookingController extends Controller
                 ]);
             }
 
-            // Create booking foods
             if ($request->has('foods') && is_array($request->foods)) {
                 foreach ($request->foods as $foodItem) {
                     $food = Food::find($foodItem['id']);
@@ -130,7 +117,6 @@ class BookingController extends Controller
                             'price' => $food->price
                         ]);
 
-                        // Update food stock
                         $food->decrement('total', $foodItem['quantity']);
                     }
                 }
@@ -138,11 +124,10 @@ class BookingController extends Controller
 
             DB::commit();
 
-            // Create notification for booking success
             \App\Models\Notification::create([
                 'user_id' => Auth::id(),
                 'type' => 'booking_success',
-                'message' => "Bạn vừa đặt thành công vé xem phim {$showtime->movie->title} với giá " . number_format($totalPrice) . "đ",
+                'message' => "Bạn vừa đặt thành công vé xem phim {$showtime->movie->title} với giá " . number_format($totalPrice) . " đ",
                 'data' => [
                     'movie_id' => $showtime->movie_id,
                     'movie_title' => $showtime->movie->title,
@@ -160,7 +145,6 @@ class BookingController extends Controller
         }
     }
 
-    // Success page
     public function success($id)
     {
         $booking = Booking::with([
@@ -170,7 +154,6 @@ class BookingController extends Controller
             'bookingFoods.food'
         ])->findOrFail($id);
 
-        // Check if user owns this booking
         if ($booking->user_id !== Auth::id()) {
             abort(403);
         }

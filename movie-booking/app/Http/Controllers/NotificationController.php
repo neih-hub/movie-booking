@@ -7,9 +7,6 @@ use App\Models\Notification;
 
 class NotificationController extends Controller
 {
-    /**
-     * Display notifications page
-     */
     public function index()
     {
         $notifications = auth()->user()
@@ -19,10 +16,6 @@ class NotificationController extends Controller
             
         return view('profile.notifications', compact('notifications'));
     }
-    
-    /**
-     * Mark notification as read
-     */
     public function markAsRead($id)
     {
         $notification = auth()->user()
@@ -33,10 +26,6 @@ class NotificationController extends Controller
         
         return back();
     }
-    
-    /**
-     * Mark all as read
-     */
     public function markAllAsRead()
     {
         auth()->user()
@@ -46,10 +35,6 @@ class NotificationController extends Controller
             
         return back()->with('success', 'Đã đánh dấu tất cả thông báo là đã đọc');
     }
-    
-    /**
-     * Get unread count (for AJAX)
-     */
     public function unreadCount()
     {
         $count = auth()->user()

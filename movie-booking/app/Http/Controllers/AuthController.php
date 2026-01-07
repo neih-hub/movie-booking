@@ -9,17 +9,13 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    // =========================
-    // HIỂN THỊ FORM ĐĂNG KÝ
-    // =========================
+    //HIỂN THỊ FORM ĐĂNG KÝ
     public function showRegister()
     {
         return view('auth.register');
     }
 
-    // =========================
-    // XỬ LÝ ĐĂNG KÝ
-    // =========================
+    //XỬ LÝ ĐĂNG KÝ
     public function register(Request $request)
     {
         try {
@@ -31,41 +27,32 @@ class AuthController extends Controller
             $user = User::create([
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => 1, // Default role is user
-                'status' => 1, // Default status is active
+                'role' => 1,
+                'status' => 1, 
             ]);
 
-            // Log user in after registration
             Auth::login($user);
-
-            // Redirect to profile to complete registration
             return redirect('/profile')->with('success', 'Đăng ký thành công! Vui lòng hoàn thiện thông tin cá nhân.');
         } catch (\Exception $e) {
-            // Log error to Laravel log file
             \Log::error('Registration failed: ' . $e->getMessage());
 
             return back()->withErrors(['error' => 'Đăng ký thất bại: ' . $e->getMessage()])->withInput();
         }
     }
 
-    // =========================
-    // HIỂN THỊ FORM ĐĂNG NHẬP
-    // =========================
+    //HIỂN THỊ FORM ĐĂNG NHẬP
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    // =========================
     // XỬ LÝ ĐĂNG NHẬP
-    // =========================
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
 
-            // Nếu chưa cập nhật tên, phone hoặc address → bắt cập nhật
             if (!Auth::user()->name || !Auth::user()->phone || !Auth::user()->address) {
                 return redirect('/profile');
             }
@@ -76,18 +63,14 @@ class AuthController extends Controller
         return back()->withErrors(['email' => 'Sai email hoặc mật khẩu']);
     }
 
-    // =========================
-    // ĐĂNG XUẤT
-    // =========================
+    //ĐĂNG XUẤT
     public function logout()
     {
         Auth::logout();
         return redirect('/');
     }
 
-    // =========================
-    // HIỂN THỊ TRANG PROFILE
-    // =========================
+    //HIỂN THỊ TRANG PROFILE
     public function showProfile()
     {
         return view('auth.profile');

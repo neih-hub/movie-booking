@@ -9,19 +9,10 @@ use Illuminate\Support\Facades\Log;
 
 class CinemaController extends Controller
 {
-    /**
-     * Display cinema details with showtimes
-     */
     public function show($cinema_id)
     {
-        // Load cinema info
         $cinema = Cinema::findOrFail($cinema_id);
-        
-        // Get all cinemas for dropdown
         $cinemas = Cinema::orderBy('name')->get();
-        
-        // Get showtimes for this cinema (upcoming only)
-        // Debug: Log current date for comparison
         \Log::info('Theater Page Debug', [
             'cinema_id' => $cinema_id,
             'current_date' => now()->toDateString(),
@@ -32,20 +23,13 @@ class CinemaController extends Controller
                 $query->where('cinema_id', $cinema_id);
             })
             ->with(['movie', 'room'])
-            // Temporarily removed date filter to debug showtime display issue
-            // TODO: Re-enable with proper date handling after verification
-            // ->where('date_start', '>=', now()->toDateString())
             ->orderBy('date_start')
             ->orderBy('start_time')
             ->get();
-        
-        // Debug: Log showtimes found
         \Log::info('Showtimes found', [
             'count' => $showtimes->count(),
             'dates' => $showtimes->pluck('date_start')->unique()->toArray()
         ]);
-        
-        // Group by movie and date
         $groupedShowtimes = $showtimes->groupBy(function($showtime) {
             return $showtime->movie_id;
         })->map(function($movieShowtimes) {

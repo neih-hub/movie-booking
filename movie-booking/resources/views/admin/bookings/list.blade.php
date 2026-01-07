@@ -67,7 +67,7 @@
                                         <i class="fas fa-eye"></i>
                                     </a>
 
-                                    {{-- Toggle Cancel/Restore button --}}
+                                    {{-- Cancel/Restore--}}
                                     <form action="{{ route('admin.bookings.cancel', $booking->id) }}" method="POST"
                                         style="display: inline;" onsubmit="return confirm('{{ $booking->status == 1 ? 'Bạn có chắc muốn hủy vé này?' : 'Bạn có chắc muốn khôi phục vé này?' }}')">
                                         @csrf

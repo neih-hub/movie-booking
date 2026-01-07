@@ -30,7 +30,7 @@ class AdminController extends Controller
             ->take(10)
             ->get();
 
-        // doanh thu — nếu tên cột không khớp thì trả về 0
+        // doanh thu - nếu tên cột không khớp thì trả về 0
         $totalRevenue = Booking::sum('total_price') ?? 0;
 
         // phim phổ biến

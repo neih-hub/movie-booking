@@ -10,9 +10,6 @@ use App\Models\Post;
 
 class HomeController extends Controller
 {
-    /**
-     * Trang chủ
-     */
     public function index()
     {
         // Phim đang chiếu
@@ -23,7 +20,7 @@ class HomeController extends Controller
             ->orderBy('release_date')
             ->get();
 
-        // Góc điện ảnh – lấy 10 bài viết mới nhất (cho cả 2 tabs)
+        // Góc điện ảnh – lấy 10 bài viết mới nhất
         $latestPosts = Post::published()
             ->orderBy('published_at', 'desc')
             ->take(10)
@@ -37,9 +34,6 @@ class HomeController extends Controller
         ]);
     }
 
-    /**
-     * API: Lấy danh sách rạp có chiếu phim
-     */
     public function getCinemasByMovie(Request $request)
     {
         try {
@@ -63,9 +57,6 @@ class HomeController extends Controller
         }
     }
 
-    /**
-     * API: Lấy phòng theo rạp
-     */
     public function getRooms(Request $request)
     {
         try {
@@ -87,9 +78,6 @@ class HomeController extends Controller
         }
     }
 
-    /**
-     * API: Lấy danh sách ngày chiếu theo phim + phòng
-     */
     public function getDates(Request $request)
     {
         try {
@@ -115,9 +103,6 @@ class HomeController extends Controller
         }
     }
 
-    /**
-     * API: Lấy suất chiếu theo phim + phòng + ngày
-     */
     public function searchShowtime(Request $request)
     {
         try {

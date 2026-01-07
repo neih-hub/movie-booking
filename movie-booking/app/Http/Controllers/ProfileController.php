@@ -14,8 +14,6 @@ class ProfileController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
-        
-        // Load user bookings with relationships
         $bookings = Booking::where('user_id', $user->id)
             ->with([
                 'showtime.movie',

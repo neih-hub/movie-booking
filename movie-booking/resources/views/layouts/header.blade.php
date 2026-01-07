@@ -32,7 +32,7 @@
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="/movies?filter=now_showing">
+              <a class="dropdown-item" href="/movies?filter=now_showing" id="now_showing">
                 Đang chiếu
               </a>
             </li>

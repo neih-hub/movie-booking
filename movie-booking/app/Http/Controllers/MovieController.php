@@ -7,24 +7,15 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
-    // ============================
-    // DANH SÁCH PHIM
-    // ============================
     public function index()
     {
         $movies = Movie::orderBy('created_at', 'desc')->get();
         return view('movies.index', compact('movies'));
     }
 
-    // ============================
-    // XEM CHI TIẾT PHIM THEO SLUG
-    // ============================
     public function show($id)
     {
         $movie = Movie::with(['showtimes' => function($query) {
-            // Temporarily removed date filter to debug showtime display issue
-            // TODO: Re-enable with proper date handling after verification
-            // $query->where('date_start', '>=', now()->toDateString())
             $query->orderBy('date_start')
                   ->orderBy('start_time')
                   ->with(['room.cinema']);
@@ -33,10 +24,6 @@ class MovieController extends Controller
         return view('movies.show', compact('movie'));
     }
 
-
-    // ============================
-    // TÌM KIẾM NHANH GỢI Ý (AJAX)
-    // ============================
     public function search(Request $req)
     {
         $query = $req->query;

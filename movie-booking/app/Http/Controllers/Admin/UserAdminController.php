@@ -11,14 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class UserAdminController extends Controller
 {
-    // ============================
-    // DANH SÁCH USER + TÌM KIẾM
-    // ============================
     public function list(Request $request)
     {
         $query = User::query();
-
-        // Search name + email
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -26,13 +21,9 @@ class UserAdminController extends Controller
                     ->orWhere('email', 'like', "%$search%");
             });
         }
-
-        // Filter role (0 = admin, 1 = user)
         if ($request->filled('role')) {
             $query->where('role', $request->role);
         }
-
-        // Filter status
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
@@ -41,19 +32,11 @@ class UserAdminController extends Controller
 
         return view('admin.users.list', compact('users'));
     }
-
-    // ============================
-    // FORM SỬA USER
-    // ============================
     public function edit($id)
     {
         $user = User::findOrFail($id);
         return view('admin.users.edit', compact('user'));
     }
-
-    // ============================
-    // CẬP NHẬT USER
-    // ============================
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -73,8 +56,7 @@ class UserAdminController extends Controller
             'name', 'email', 'role', 'status',
             'phone', 'address', 'birthday', 'gender'
         ]);
-
-        // Avatar upload
+        // cập nhật avt
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $name = time() . "_" . $file->getClientOriginalName();
@@ -82,7 +64,7 @@ class UserAdminController extends Controller
             $data['avatar'] = 'uploads/avatars/' . $name;
         }
 
-        // Update password (nếu nhập)
+        // cập nhật password (nếu nhập)
         if ($request->filled('password')) {
             $request->validate([
                 'password' => 'min:6|confirmed',
@@ -95,10 +77,6 @@ class UserAdminController extends Controller
 
         return back()->with('success', 'Cập nhật người dùng thành công!');
     }
-
-    // ============================
-    // KHÓA / MỞ USER
-    // ============================
     public function toggleStatus($id)
     {
         $user = User::findOrFail($id);
@@ -109,22 +87,13 @@ class UserAdminController extends Controller
         $msg = $user->status ? "Đã kích hoạt người dùng!" : "Đã khóa người dùng!";
         return back()->with('success', $msg);
     }
-
-    // ============================
-    // XÓA USER (KHÔNG CHO XÓA CHÍNH MÌNH)
-    // ============================
     public function destroy($id)
-{
-    $user = User::findOrFail($id);
+    {
+        $user = User::findOrFail($id);
 
-    if ($user->id == Auth::id()) {
-        return back()->with('error', 'Bạn không thể xóa tài khoản của chính bạn!');
-    }
-
-    $user->delete();
-
-    return back()->with('success', 'Xóa người dùng thành công!');
-
+        if ($user->id == Auth::id()) {
+            return back()->with('error', 'Bạn không thể xóa tài khoản của chính bạn!');
+        }
 
         $user->delete();
 

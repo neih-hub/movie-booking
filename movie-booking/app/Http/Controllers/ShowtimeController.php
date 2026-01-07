@@ -10,9 +10,6 @@ use App\Models\Cinema;
 
 class ShowtimeController extends Controller
 {
-    /**
-     * Hiển thị thông tin chi tiết của 1 suất chiếu
-     */
     public function show($id)
     {
         $showtime = Showtime::with(['movie', 'room.cinema'])
@@ -21,11 +18,6 @@ class ShowtimeController extends Controller
         return view('showtime.show', compact('showtime'));
     }
 
-
-    /**
-     * Lấy danh sách suất chiếu theo phim (dùng nếu cần)
-     * URL: /showtimes/movie/{movie_id}
-     */
     public function getShowtimesByMovie($movieId)
     {
         $movie = Movie::findOrFail($movieId);
@@ -41,12 +33,6 @@ class ShowtimeController extends Controller
             'showtimes' => $showtimes,
         ]);
     }
-
-
-    /**
-     * API lấy suất chiếu theo phim + rạp + ngày (nếu bạn muốn dùng ở ngoài)
-     * ĐÃ CÓ trong HomeController nhưng để ở đây phòng trường hợp bạn muốn tách file
-     */
     public function filter(Request $request)
     {
         $movieId = $request->movie_id;

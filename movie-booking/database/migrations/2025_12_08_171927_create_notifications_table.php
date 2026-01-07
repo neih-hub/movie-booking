@@ -19,7 +19,6 @@ return new class extends Migration
             $table->json('data')->nullable(); // Store movie_id, booking_id, price, etc.
             $table->boolean('is_read')->default(false);
             $table->timestamps();
-            
             $table->index(['user_id', 'is_read']);
             $table->index('created_at');
         });

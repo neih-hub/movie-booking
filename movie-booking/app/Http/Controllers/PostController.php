@@ -10,8 +10,6 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $query = Post::published()->orderBy('published_at','desc');
-        
-        // Filter by category if provided
         if ($request->has('category')) {
             $query->where('category', $request->category);
         }
@@ -25,11 +23,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::published()->findOrFail($id);
-
-        // increase views (atomic)
         $post->increment('views');
-
-        // Lấy các bài viết liên quan (cùng category)
         $relatedPosts = Post::published()
             ->where('category', $post->category)
             ->where('id', '!=', $post->id)

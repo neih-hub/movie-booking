@@ -132,9 +132,7 @@
                         <div class="screen"></div>
                         
                         <div class="seat-container-wrapper">
-                            <div id="seatGrid" class="seat-grid-10col">
-                                <!-- Seats will be loaded here via JavaScript -->
-                            </div>
+                            <div id="seatGrid" class="seat-grid-10col">                            </div>
                         </div>
                         
                         <div class="seat-legend">
@@ -177,7 +175,7 @@
                             
                             <div class="payment-info">
                                 <i class="bi bi-info-circle-fill"></i>
-                                <p>Đây là mã QR demo. Quét để chuyển đến trang Facebook.</p>
+                                <!-- <p>Đây là mã QR demo. Quét để chuyển đến trang Facebook.</p> -->
                             </div>
                         </div>
                     </div>

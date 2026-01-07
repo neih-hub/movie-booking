@@ -16,7 +16,7 @@ class RoomAdminController extends Controller
         return view('admin.rooms.manage', compact('cinemas'));
     }
 
-    // hiển thị ghế theo dạng hexagon
+    // hiển thị ghế
     public function showSeatsHoneycomb($id)
     {
         $room = Room::with(['seats', 'cinema'])->findOrFail($id);

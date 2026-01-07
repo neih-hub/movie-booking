@@ -33,7 +33,7 @@ class FoodAdminController extends Controller
 {
     $data = $request->validate([
         'name'  => 'required|string|max:255',
-        'price' => 'required|numeric|min:0',
+        'price' => 'required|numeric|min:10000',
         'total' => 'required|numeric|min:0',
         'image' => 'nullable|image|max:2048'
     ]);
@@ -57,6 +57,7 @@ class FoodAdminController extends Controller
 
 
 
+
     // chỉnh sửa món ăn
     public function edit($id)
     {
@@ -72,7 +73,7 @@ class FoodAdminController extends Controller
     // Xác thực dữ liệu món
     $data = $request->validate([
         'name'  => 'required|string|max:255',
-        'price' => 'required|numeric|min:0',
+        'price' => 'required|numeric|min:10000',
         'total' => 'required|numeric|min:0',
         'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
     ]);
