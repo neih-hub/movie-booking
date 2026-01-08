@@ -250,7 +250,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Configuration
         const showtimeId = {{ $showtime->id }};
         const seatPrice = {{ $showtime->price }};
         let currentStep = 1;
@@ -258,15 +257,11 @@
         let selectedFoods = {};
         let allSeats = [];
         let allFoods = [];
-
-        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             loadSeats();
             loadFoods();
             updateStepIndicator();
         });
-
-        // Load seats from API
         async function loadSeats() {
             try {
                 const response = await fetch(`/api/seats/${showtimeId}`);
@@ -278,7 +273,6 @@
             }
         }
 
-        // Render seats in grid of 10 per row
         function renderSeats() {
             const seatGrid = document.getElementById('seatGrid');
             seatGrid.innerHTML = '';
@@ -287,13 +281,9 @@
                 seatGrid.innerHTML = '<p class="text-center text-muted">Đang tải ghế...</p>';
                 return;
             }
-
-            // Sort seats by seat_number
             const sortedSeats = [...allSeats].sort((a, b) => {
                 return a.seat_number.localeCompare(b.seat_number);
             });
-
-            // Create rows of 10 seats
             let currentRow = document.createElement('div');
             currentRow.className = 'seat-row-10';
             
@@ -311,21 +301,17 @@
 
                 currentRow.appendChild(seatDiv);
 
-                // Create new row after every 10 seats
                 if ((index + 1) % 10 === 0) {
                     seatGrid.appendChild(currentRow);
                     currentRow = document.createElement('div');
                     currentRow.className = 'seat-row-10';
                 }
             });
-
-            // Append remaining seats if any
             if (currentRow.children.length > 0) {
                 seatGrid.appendChild(currentRow);
             }
         }
 
-        // Toggle seat selection
         function toggleSeat(seatId, seatElement) {
             const index = selectedSeats.indexOf(seatId);
             
@@ -336,11 +322,11 @@
                 selectedSeats.push(seatId);
                 seatElement.classList.add('selected');
             }
+            // if(selectedSeats.length >=2)
+            //     alert('Vui lòng chọn tối đa 2 ghế');
 
             updateSummary();
         }
-
-        // Load foods from API
         async function loadFoods() {
             try {
                 const response = await fetch('/api/foods');
@@ -351,7 +337,6 @@
             }
         }
 
-        // Render foods
         function renderFoods() {
             const foodGrid = document.getElementById('foodGrid');
             foodGrid.innerHTML = '';
@@ -377,7 +362,6 @@
             });
         }
 
-        // Update food quantity
         function updateFoodQty(foodId, change) {
             const input = document.getElementById(`food-${foodId}`);
             let currentQty = parseInt(input.value) || 0;
@@ -403,10 +387,7 @@
 
             updateSummary();
         }
-
-        // Update summary panel
         function updateSummary() {
-            // Update seat summary
             const seatSummary = document.getElementById('seatSummary');
             const seatList = document.getElementById('seatList');
             
@@ -430,7 +411,6 @@
                 seatSummary.style.display = 'none';
             }
 
-            // Update food summary
             const foodSummary = document.getElementById('foodSummary');
             const foodList = document.getElementById('foodList');
             const foodItems = Object.values(selectedFoods);
@@ -446,8 +426,6 @@
             } else {
                 foodSummary.style.display = 'none';
             }
-
-            // Update total price
             const seatTotal = selectedSeats.length * seatPrice;
             const foodTotal = foodItems.reduce((sum, food) => sum + (food.price * food.quantity), 0);
             const total = seatTotal + foodTotal;
@@ -455,12 +433,9 @@
             document.getElementById('totalPrice').textContent = formatPrice(total) + ' đ';
         }
 
-        // Format price
         function formatPrice(price) {
             return new Intl.NumberFormat('vi-VN').format(price);
         }
-
-        // Step navigation
         document.getElementById('nextBtn').addEventListener('click', function() {
             if (currentStep === 2 && selectedSeats.length === 0) {
                 alert('Vui lòng chọn ít nhất 1 ghế!');
@@ -488,24 +463,19 @@
             showStep(currentStep);
         });
 
-        // Show specific step
         function showStep(step) {
-            // Hide all steps
             document.querySelectorAll('.step-content').forEach(content => {
                 content.classList.remove('active');
             });
 
-            // Show current step
             document.querySelector(`.step-content[data-step="${step}"]`).classList.add('active');
 
-            // Update buttons
             document.getElementById('prevBtn').style.display = step > 1 ? 'block' : 'none';
             document.getElementById('nextBtn').style.display = step < 4 ? 'block' : 'none';
             document.getElementById('skipFoodBtn').style.display = step === 3 ? 'block' : 'none';
             document.getElementById('submitBtn').style.display = step === 4 ? 'block' : 'none';
         }
 
-        // Update step indicator
         function updateStepIndicator() {
             const progress = ((currentStep - 1) / 3) * 100;
             document.getElementById('stepProgress').style.width = progress + '%';
@@ -522,7 +492,6 @@
             });
         }
 
-        // Form submission
       document.getElementById('bookingForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -530,8 +499,6 @@
         alert('Vui lòng chọn ít nhất 1 ghế!');
         return;
     }
-
-    // ====== SEATS ======
     const seatContainer = document.getElementById('seatHiddenInputs');
     seatContainer.innerHTML = '';
 
@@ -542,9 +509,6 @@
         input.value = seatId;
         seatContainer.appendChild(input);
     });
-
-    // ====== FOODS (CHUẨN ARRAY CHO LARAVEL) ======
-    // ====== FOODS (ĐÚNG CHUẨN LARAVEL) ======
 const foodContainer = document.getElementById('foodHiddenInputs');
 foodContainer.innerHTML = '';
 
