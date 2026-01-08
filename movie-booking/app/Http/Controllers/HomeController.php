@@ -30,7 +30,7 @@ class HomeController extends Controller
             'nowShowing'   => $nowShowing,
             'comingSoon'   => $comingSoon,
             'cinemas'      => Cinema::orderBy('name')->get(),
-            'latestPosts'  => $latestPosts,   // 🔥 để hiển thị Góc điện ảnh
+            'latestPosts'  => $latestPosts,
         ]);
     }
 
@@ -61,13 +61,21 @@ class HomeController extends Controller
     {
         try {
             $cinemaId = $request->cinema_id;
+            $movieId = $request->movie_id;
 
             if (!$cinemaId) {
                 return response()->json([]);
             }
 
-            $rooms = \App\Models\Room::where('cinema_id', $cinemaId)
-                ->orderBy('name', 'asc')
+            $query = \App\Models\Room::where('cinema_id', $cinemaId);
+            
+            if ($movieId) {
+                $query->whereHas('showtimes', function ($q) use ($movieId) {
+                    $q->where('movie_id', $movieId);
+                });
+            }
+
+            $rooms = $query->orderBy('name', 'asc')
                 ->get(['id', 'name'])
                 ->toArray();
 

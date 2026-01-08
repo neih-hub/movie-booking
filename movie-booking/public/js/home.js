@@ -69,11 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
     resetDates();
     resetShowtimes();
 
-    if (!cinema.value) return;
+    if (!cinema.value || !movie.value) return;
 
-    console.log('Loading rooms for cinema:', cinema.value);
+    console.log('Loading rooms for cinema:', cinema.value, 'and movie:', movie.value);
 
-    fetch(`${window.baseUrl}/api/rooms?cinema_id=${cinema.value}`)
+    fetch(`${window.baseUrl}/api/rooms?cinema_id=${cinema.value}&movie_id=${movie.value}`)
       .then(res => res.json())
       .then(rooms => {
         console.log('Rooms received:', rooms);
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         } else {
           console.warn('No rooms found');
-          room.innerHTML = `<option value="">Rạp chưa có phòng</option>`;
+          room.innerHTML = `<option value="">Không có phòng chiếu phim này</option>`;
         }
       })
       .catch(err => {
