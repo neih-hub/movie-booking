@@ -16,12 +16,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Check if user is authenticated
         if (!Auth::check()) {
             return redirect('/login')->with('error', 'Vui lòng đăng nhập để tiếp tục.');
         }
 
-        // Check if user is admin (role = 0)
         if (Auth::user()->role !== 0) {
             return redirect('/')->with('error', 'Bạn không có quyền truy cập trang này.');
         }
