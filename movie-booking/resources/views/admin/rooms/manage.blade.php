@@ -18,7 +18,6 @@
             </a>
         </div>
 
-        {{-- Cinema Selector --}}
         <div class="cinema-selector">
             <label for="cinema_select">
                 <i class="bi bi-building"></i>
@@ -32,7 +31,6 @@
             </select>
         </div>
 
-        {{-- Rooms Container --}}
         <div id="rooms_container" style="display: none;">
             <div class="rooms-section">
                 <div class="rooms-section-title">

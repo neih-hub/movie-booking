@@ -1,6 +1,3 @@
-/* public/css/rooms-manage.css */
-
-/* ==================== CINEMA SELECTOR ==================== */
 .cinema-selector {
     background: #ffffff;
     border: 2px solid #e5e7eb;
@@ -39,7 +36,6 @@
     outline: none;
 }
 
-/* ==================== ROOMS SECTION ==================== */
 .rooms-section {
     margin-top: 2rem;
 }
@@ -71,7 +67,6 @@
     gap: 1.5rem;
 }
 
-/* ==================== ROOM CARD ==================== */
 .room-card {
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
     border-radius: 16px;
@@ -91,7 +86,7 @@
     right: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -170,7 +165,6 @@
     transform: translateY(-2px);
 }
 
-/* ==================== EMPTY STATE ==================== */
 .empty-rooms {
     text-align: center;
     padding: 4rem 2rem;

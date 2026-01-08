@@ -1,7 +1,5 @@
-/* Theater Detail Page Styles */
-
 .cinema-header {
-    background: linear-gradient(135deg, #fad0c4    0%, #fecfef  100%);
+    background: linear-gradient(135deg, #fad0c4 0%, #fecfef 100%);
     padding: 2rem;
     border-radius: 16px;
     color: white;
@@ -123,7 +121,7 @@
     color: white;
 }
 
-/* Responsive */
+/* rrsponsive */
 @media (max-width: 768px) {
     .cinema-title {
         font-size: 1.5rem;

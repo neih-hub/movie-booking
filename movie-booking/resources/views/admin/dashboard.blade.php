@@ -4,12 +4,11 @@
 @section('page-title', 'Dashboard')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 @endpush
 
 @section('content')
 
-  <!-- Statistics Cards -->
   <div class="stats-grid">
 
     <div class="stat-card">
@@ -87,7 +86,6 @@
   </div>
 
 
-  <!-- Recent Bookings -->
   <div class="content-card">
     <div class="card-header">
       <h2 class="card-title">
@@ -152,8 +150,6 @@
     @endif
   </div>
 
-
-  <!-- Quick Actions -->
   <div class="content-card">
     <div class="card-header">
       <h2 class="card-title">
@@ -188,7 +184,8 @@
         <span>Quản lý đồ ăn</span>
       </a>
 
-      <a href="{{ route('admin.posts.create') }}" class="quick-action-btn" style="background: linear-gradient(135deg, #b76cc9ff 0%, #764ba2 100%); color: white;">
+      <a href="{{ route('admin.posts.create') }}" class="quick-action-btn"
+        style="background: linear-gradient(135deg, #b76cc9ff 0%, #764ba2 100%); color: white;">
         <i class="bi bi-plus-circle"></i>
         <span>Thêm bài viết</span>
       </a>

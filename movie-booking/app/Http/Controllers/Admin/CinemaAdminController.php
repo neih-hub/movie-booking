@@ -11,20 +11,17 @@ use App\Http\Controllers\Controller;
 
 class CinemaAdminController extends Controller
 {
-    // danh sách rạp
     public function list()
     {
         $cinemas = Cinema::withCount('rooms')->orderBy('created_at', 'desc')->paginate(15);
         return view('admin.cinemas.list', compact('cinemas'));
     }
 
-    // tạo rạp mới
     public function create()
     {
         return view('admin.cinemas.create');
     }
 
-    // lưu rạp chiếu, mỗi khi tạo 1 rạp chiếu thì tạo 3 phòng chiếu và 30 ghế cho mỗi phòng chiếu
     public function store(Request $request)
     {
         $request->validate([
@@ -33,10 +30,9 @@ class CinemaAdminController extends Controller
             'city' => 'required|string|max:255',
         ]);
 
-        // tạo rạp
         $cinema = Cinema::create($request->only(['name', 'address', 'city']));
-
-        // 3 phòng A,B,B mỗi khi tạo 1 rạp
+        //mỗi khi tạo 1 rạp chiếu thì tạo 3 phòng chiếu và 30 ghế cho mỗi phòng chiếu
+        //3 phòng A,B,B mỗi khi tạo 1 rạp
         $rooms = ['A', 'B', 'C'];
 
         foreach ($rooms as $r) {
@@ -46,12 +42,12 @@ class CinemaAdminController extends Controller
                 'total_seats' => 30,
             ]);
 
-            // tạo ghế từ 1 tới 30
+            //tạo ghế từ 1 tới 30
             for ($i = 1; $i <= 30; $i++) {
                 $label = $r . str_pad($i, 2, '0', STR_PAD_LEFT);
                 Seat::create([
                     'room_id' => $room->id,
-                    'seat_number' => $label,  // A01, A02...
+                    'seat_number' => $label,  //A01, A02
                     'type' => 'normal',
                 ]);
             }
@@ -61,7 +57,7 @@ class CinemaAdminController extends Controller
             ->with('success', 'Thêm rạp chiếu thành công!');
     }
 
-        // Form chỉnh sửa (hiển thị danh sách phòng bên trong)
+    //hiển thị danh sách phòng bên trong
     public function edit($id)
     {
         $cinema = Cinema::findOrFail($id);
@@ -75,7 +71,6 @@ class CinemaAdminController extends Controller
         return view('admin.cinemas.seats', compact('room'));
     }
 
-    // cập nhật rạp 
     public function update(Request $request, $id)
     {
         $cinema = Cinema::findOrFail($id);
@@ -91,11 +86,10 @@ class CinemaAdminController extends Controller
         return back()->with('success', 'Cập nhật rạp chiếu thành công!');
     }
 
-    // xóa rạp
     public function destroy($id)
     {
         $cinema = Cinema::findOrFail($id);
-        $cinema->delete(); // luôn xóa phòng và cả ghế
+        $cinema->delete(); //xóa phòng voiws ghế luôn
 
         return back()->with('success', 'Xóa rạp chiếu thành công!');
     }

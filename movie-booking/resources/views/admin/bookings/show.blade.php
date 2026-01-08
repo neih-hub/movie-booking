@@ -15,7 +15,6 @@
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-            <!-- User Information -->
             <div>
                 <h3 style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--admin-primary);">
                     <i class="fas fa-user"></i> Thông tin người dùng
@@ -27,7 +26,6 @@
                 </div>
             </div>
 
-            <!-- Movie & Showtime Information -->
             <div>
                 <h3 style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--admin-primary);">
                     <i class="fas fa-film"></i> Thông tin phim & suất chiếu
@@ -41,7 +39,6 @@
                 </div>
             </div>
 
-            <!-- Booking Information -->
             <div>
                 <h3 style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--admin-primary);">
                     <i class="fas fa-ticket-alt"></i> Thông tin đặt vé
@@ -64,7 +61,6 @@
             </div>
         </div>
 
-        <!-- Seats Information -->
         @if($booking->bookingSeats && $booking->bookingSeats->count() > 0)
             <div style="margin-top: 2rem;">
                 <h3 style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--admin-primary);">
@@ -82,7 +78,6 @@
             </div>
         @endif
 
-        <!-- Foods Information -->
         @if($booking->bookingFoods && $booking->bookingFoods->count() > 0)
             <div style="margin-top: 2rem;">
                 <h3 style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--admin-primary);">
@@ -115,7 +110,7 @@
             </div>
         @endif
 
-        <!-- Actions -->
+        <!-- action -->
         <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #f1f5f9; display: flex; gap: 1rem;">
             @if($booking->status == 1)
                 <form action="{{ route('admin.bookings.cancel', $booking->id) }}" method="POST"

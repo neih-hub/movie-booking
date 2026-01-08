@@ -4,14 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("searchInput");
   const results = document.getElementById("searchResults");
 
-  // CLICK ICON → MỞ INPUT
   icon.addEventListener("click", function () {
 
     input.classList.toggle("active");
 
     if (input.classList.contains("active")) {
       input.classList.remove("d-none");
-      results.classList.add("d-none"); // ẩn kết quả khi mới mở
+      results.classList.add("d-none"); //ẩn kết quả khi mới mở
       input.focus();
     } else {
       input.classList.add("d-none");
@@ -20,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // TÌM KIẾM
+  //tìm kiếm
   input.addEventListener("keyup", function () {
 
     let keyword = this.value.trim();

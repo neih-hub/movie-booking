@@ -11,38 +11,34 @@ use App\Http\Controllers\Controller;
 
 class ShowtimeAdminController extends Controller
 {
-    // List all showtimes with filters
     public function list(Request $request)
     {
         $query = Showtime::with(['movie', 'room.cinema']);
 
-        // Filter by movie
+        //lọc theo phim
         if ($request->has('movie_id') && $request->movie_id) {
             $query->where('movie_id', $request->movie_id);
         }
 
-        // Filter by cinema
+        //lọc theo rạp
         if ($request->has('cinema_id') && $request->cinema_id) {
             $query->whereHas('room', function ($q) use ($request) {
                 $q->where('cinema_id', $request->cinema_id);
             });
         }
 
-        // Filter by date
+        //lọc theo ngày
         if ($request->has('date') && $request->date) {
             $query->whereDate('start_time', $request->date);
         }
 
         $showtimes = $query->orderBy('start_time', 'desc')->paginate(15);
 
-        // Get movies and cinemas for filter dropdowns
         $movies = Movie::orderBy('title')->get();
         $cinemas = Cinema::orderBy('name')->get();
 
         return view('admin.showtimes.list', compact('showtimes', 'movies', 'cinemas'));
     }
-
-    // Show create form
     public function create()
     {
         $movies = Movie::orderBy('title')->get();
@@ -51,16 +47,15 @@ class ShowtimeAdminController extends Controller
         return view('admin.showtimes.create', compact('movies', 'cinemas'));
     }
 
-    // Store new showtime
     public function store(Request $request)
     {
         $request->validate([
-    'movie_id' => 'required|exists:movies,id',
-    'room_id' => 'required|exists:rooms,id',
-    'date_start' => 'required|date',
-    'start_time' => 'required|date_format:H:i',
-    'price' => 'required|numeric|min:0',
-]);
+            'movie_id' => 'required|exists:movies,id',
+            'room_id' => 'required|exists:rooms,id',
+            'date_start' => 'required|date',
+            'start_time' => 'required|date_format:H:i',
+            'price' => 'required|numeric|min:0',
+        ]);
 
 
         Showtime::create($request->all());
@@ -68,7 +63,6 @@ class ShowtimeAdminController extends Controller
         return redirect()->route('admin.showtimes.list')->with('success', 'Thêm suất chiếu thành công!');
     }
 
-    // Show edit form
     public function edit($id)
     {
         $showtime = Showtime::with('room.cinema')->findOrFail($id);
@@ -78,7 +72,6 @@ class ShowtimeAdminController extends Controller
         return view('admin.showtimes.edit', compact('showtime', 'movies', 'cinemas'));
     }
 
-    // Update showtime
     public function update(Request $request, $id)
     {
         $showtime = Showtime::findOrFail($id);
@@ -95,7 +88,6 @@ class ShowtimeAdminController extends Controller
         return back()->with('success', 'Cập nhật suất chiếu thành công!');
     }
 
-    // Delete showtime
     public function destroy($id)
     {
         $showtime = Showtime::findOrFail($id);

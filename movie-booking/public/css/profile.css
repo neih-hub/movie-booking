@@ -1,4 +1,3 @@
-/* Profile wrapper with gradient background */
 .profile-wrapper {
   min-height: 100vh;
   background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
@@ -23,7 +22,7 @@
   z-index: 1;
 }
 
-/* Left column - Avatar card */
+/* cột trái */
 .avatar-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -40,6 +39,7 @@
     opacity: 0;
     transform: translateX(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -59,7 +59,7 @@
   object-fit: cover;
   border: 4px solid transparent;
   background: linear-gradient(white, white) padding-box,
-              linear-gradient(135deg, #ff9a9e, #fecfef) border-box;
+    linear-gradient(135deg, #ff9a9e, #fecfef) border-box;
   box-shadow: 0 8px 24px rgba(255, 154, 158, 0.3);
   transition: all 0.3s ease;
 }
@@ -108,7 +108,7 @@
   font-size: 0.95rem;
 }
 
-/* Right column - Content card */
+/* cột phải */
 .content-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -124,13 +124,13 @@
     opacity: 0;
     transform: translateX(30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-/* Custom tabs */
 .custom-tabs {
   border-bottom: 2px solid #e5e7eb;
   margin-bottom: 2rem;
@@ -179,13 +179,13 @@
     width: 0;
     left: 50%;
   }
+
   to {
     width: 100%;
     left: 0;
   }
 }
 
-/* Form styling */
 .form-section-title {
   font-size: 1.25rem;
   font-weight: 700;
@@ -255,7 +255,6 @@
   box-shadow: 0 0 0 3px rgba(255, 154, 158, 0.1);
 }
 
-/* Submit button */
 .btn-submit-custom {
   padding: 0.75rem 2.5rem;
   background: linear-gradient(135deg, #ff9a9e, #fecfef);
@@ -278,7 +277,6 @@
   transform: translateY(0);
 }
 
-/* Alert styling */
 .alert-custom-success {
   background: rgba(34, 197, 94, 0.1);
   border: 2px solid #22c55e;
@@ -294,6 +292,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -307,7 +306,6 @@
   display: block;
 }
 
-/* Empty state */
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
@@ -325,7 +323,7 @@
   color: #9ca3af;
 }
 
-/* Responsive */
+/* responsive */
 @media (max-width: 768px) {
   .profile-wrapper {
     padding: 2rem 0;

@@ -8,12 +8,11 @@ use App\Http\Controllers\Controller;
 
 class MovieAdminController extends Controller
 {
-    // danh sách phim
-   public function list()
-{
-    $movies = Movie::all();
-    return view('admin.movies.list', compact('movies'));
-}
+    public function list()
+    {
+        $movies = Movie::all();
+        return view('admin.movies.list', compact('movies'));
+    }
 
 
     public function create()
@@ -21,7 +20,6 @@ class MovieAdminController extends Controller
         return view('admin.movies.create');
     }
 
-    // lưu phim
     public function store(Request $request)
     {
         $data = $request->all();
@@ -33,9 +31,9 @@ class MovieAdminController extends Controller
 
         if ($request->hasFile('poster')) {
             $file = $request->file('poster');
-            $name = time().'_'.$file->getClientOriginalName();
+            $name = time() . '_' . $file->getClientOriginalName();
             $file->move('uploads/posters', $name);
-            $data['poster'] = 'uploads/posters/'.$name;
+            $data['poster'] = 'uploads/posters/' . $name;
         }
 
         Movie::create($data);
@@ -44,14 +42,12 @@ class MovieAdminController extends Controller
             ->with('success', 'Thêm phim thành công!');
     }
 
-    // chỉnh sửa phim
     public function edit($id)
     {
         $movie = Movie::findOrFail($id);
         return view('admin.movies.edit', compact('movie'));
     }
 
-    // cập nhật phim
     public function update(Request $request, $id)
     {
         $movie = Movie::findOrFail($id);
@@ -65,9 +61,9 @@ class MovieAdminController extends Controller
 
         if ($request->hasFile('poster')) {
             $file = $request->file('poster');
-            $name = time().'_'.$file->getClientOriginalName();
+            $name = time() . '_' . $file->getClientOriginalName();
             $file->move('uploads/posters', $name);
-            $data['poster'] = 'uploads/posters/'.$name;
+            $data['poster'] = 'uploads/posters/' . $name;
         }
 
         $movie->update($data);
@@ -75,7 +71,6 @@ class MovieAdminController extends Controller
         return back()->with('success', 'Cập nhật phim thành công!');
     }
 
-    // xóa phim
     public function destroy($id)
     {
         Movie::destroy($id);

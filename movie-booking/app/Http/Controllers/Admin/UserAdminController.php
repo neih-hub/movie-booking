@@ -42,19 +42,25 @@ class UserAdminController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
-            'name'      => 'required|string|max:255',
-            'email'     => 'required|email|unique:users,email,' . $id,
-            'role'      => 'required|in:0,1',
-            'status'    => 'required|in:0,1',
-            'phone'     => 'nullable|string|max:20',
-            'address'   => 'nullable|string|max:255',
-            'birthday'  => 'nullable|date',
-            'gender'    => 'nullable|in:male,female,other',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'role' => 'required|in:0,1',
+            'status' => 'required|in:0,1',
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'birthday' => 'nullable|date',
+            'gender' => 'nullable|in:male,female,other',
         ]);
 
         $data = $request->only([
-            'name', 'email', 'role', 'status',
-            'phone', 'address', 'birthday', 'gender'
+            'name',
+            'email',
+            'role',
+            'status',
+            'phone',
+            'address',
+            'birthday',
+            'gender'
         ]);
         // cập nhật avt
         if ($request->hasFile('avatar')) {
@@ -64,7 +70,7 @@ class UserAdminController extends Controller
             $data['avatar'] = 'uploads/avatars/' . $name;
         }
 
-        // cập nhật password (nếu nhập)
+        //cập nhật password
         if ($request->filled('password')) {
             $request->validate([
                 'password' => 'min:6|confirmed',
@@ -81,7 +87,7 @@ class UserAdminController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $user->status = $user->status == 1 ? 0 : 1; // toggle
+        $user->status = $user->status == 1 ? 0 : 1;// 1=bật 0 = tắt
         $user->save();
 
         $msg = $user->status ? "Đã kích hoạt người dùng!" : "Đã khóa người dùng!";

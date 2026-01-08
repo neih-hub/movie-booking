@@ -10,21 +10,18 @@ use Illuminate\Http\Request;
 
 class SeatAdminController extends Controller
 {
-    // danh sách ghế
     public function list()
     {
         $cinemas = Cinema::with('rooms.seats')->get();
         return view('admin.seats.list', compact('cinemas'));
     }
 
-    // tạo ghế
     public function create()
     {
         $rooms = Room::with('cinema')->get();
         return view('admin.seats.create', compact('rooms'));
     }
 
-    // lưu ghế
     public function store(Request $request)
     {
         $request->validate([
@@ -71,7 +68,6 @@ class SeatAdminController extends Controller
         return redirect()->route('admin.seats.list')->with('success', "Đã tạo {$totalSeats} ghế thành công!");
     }
 
-    // xóa ghế
     public function destroy($id)
     {
         $seat = Seat::findOrFail($id);

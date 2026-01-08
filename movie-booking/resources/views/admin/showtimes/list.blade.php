@@ -14,7 +14,7 @@
             </a>
         </div>
 
-        <!-- Filters -->
+        <!-- filters -->
         <form method="GET" action="{{ route('admin.showtimes.list') }}" class="search-bar">
             <select name="movie_id" class="form-select">
                 <option value="">Tất cả phim</option>

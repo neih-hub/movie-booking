@@ -12,25 +12,25 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Phim đang chiếu
+        //phim đang chiếu
         $nowShowing = Movie::orderBy('title')->get();
 
-        // Phim sắp chiếu
+        //phim sắp chiếu
         $comingSoon = Movie::where('release_date', '>', today())
             ->orderBy('release_date')
             ->get();
 
-        // Góc điện ảnh – lấy 10 bài viết mới nhất
+        //góc điện ảnh
         $latestPosts = Post::published()
             ->orderBy('published_at', 'desc')
             ->take(10)
             ->get();
 
         return view('home.index', [
-            'nowShowing'   => $nowShowing,
-            'comingSoon'   => $comingSoon,
-            'cinemas'      => Cinema::orderBy('name')->get(),
-            'latestPosts'  => $latestPosts,   // 🔥 để hiển thị Góc điện ảnh
+            'nowShowing' => $nowShowing,
+            'comingSoon' => $comingSoon,
+            'cinemas' => Cinema::orderBy('name')->get(),
+            'latestPosts' => $latestPosts,
         ]);
     }
 
@@ -82,7 +82,7 @@ class HomeController extends Controller
     {
         try {
             $movieId = $request->movie_id;
-            $roomId  = $request->room_id;
+            $roomId = $request->room_id;
 
             if (!$movieId || !$roomId) {
                 return response()->json([]);
@@ -106,8 +106,8 @@ class HomeController extends Controller
     public function searchShowtime(Request $request)
     {
         try {
-            $movieId   = $request->movie_id;
-            $roomId    = $request->room_id;
+            $movieId = $request->movie_id;
+            $roomId = $request->room_id;
             $dateStart = $request->date_start;
 
             if (!$movieId || !$roomId || !$dateStart) {
@@ -121,12 +121,12 @@ class HomeController extends Controller
                 ->get()
                 ->map(function ($showtime) {
                     return [
-                        'id'         => $showtime->id,
-                        'movie_id'   => $showtime->movie_id,
-                        'room_id'    => $showtime->room_id,
+                        'id' => $showtime->id,
+                        'movie_id' => $showtime->movie_id,
+                        'room_id' => $showtime->room_id,
                         'date_start' => $showtime->date_start,
                         'start_time' => substr($showtime->start_time, 0, 5), // HH:MM
-                        'price'      => $showtime->price,
+                        'price' => $showtime->price,
                     ];
                 });
 

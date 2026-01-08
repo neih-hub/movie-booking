@@ -9,7 +9,6 @@ use App\Models\Booking;
 
 class ProfileController extends Controller
 {
-    // TRANG PROFILE
     public function index()
     {
         /** @var User $user */
@@ -23,11 +22,10 @@ class ProfileController extends Controller
             ])
             ->orderBy('created_at', 'desc')
             ->get();
-        
+
         return view('profile.profile', compact('user', 'bookings'));
     }
 
-    // CẬP NHẬT THÔNG TIN
     public function update(Request $request)
     {
         $request->validate([
@@ -40,12 +38,11 @@ class ProfileController extends Controller
 
         /** @var User $user */
         $user = Auth::user();
-        $user->update($request->only('name','phone','address','birthday','gender'));
+        $user->update($request->only('name', 'phone', 'address', 'birthday', 'gender'));
 
         return back()->with('success', 'Cập nhật thông tin thành công!');
     }
 
-    // CẬP NHẬT AVATAR
     public function updateAvatar(Request $request)
     {
         $request->validate([
@@ -53,12 +50,12 @@ class ProfileController extends Controller
         ]);
 
         $file = $request->file('avatar');
-        $fileName = time().'_'.$file->getClientOriginalName();
+        $fileName = time() . '_' . $file->getClientOriginalName();
         $file->move(public_path('uploads/avatar'), $fileName);
 
         /** @var User $user */
         $user = Auth::user();
-        $user->avatar = 'uploads/avatar/'.$fileName;
+        $user->avatar = 'uploads/avatar/' . $fileName;
         $user->save();
 
         return back()->with('success', 'Cập nhật ảnh đại diện thành công!');

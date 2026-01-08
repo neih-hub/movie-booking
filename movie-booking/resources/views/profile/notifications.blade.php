@@ -61,7 +61,6 @@
             @endforelse
         </div>
 
-        <!-- Pagination -->
         @if($notifications->hasPages())
         <div class="mt-4">
             {{ $notifications->links() }}

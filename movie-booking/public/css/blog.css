@@ -1,8 +1,4 @@
-/* ===========================
-   GÓC ĐIỆN ẢNH – CGV STYLE
-   =========================== */
-
-/* Section Title */
+/* section title */
 .blog-section {
     margin-top: 50px;
 }
@@ -15,7 +11,7 @@
     text-transform: uppercase;
 }
 
-/* Tabs */
+/* tab */
 .section-tabs {
     display: flex;
     gap: 12px;
@@ -36,16 +32,14 @@
     color: white;
 }
 
-/* ===========================
-   BLOG GRID
-   =========================== */
+
 .blog-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: 25px;
 }
 
-/* FEATURED POST (Bài lớn bên trái) */
+/* bài lớn bên trái */
 .blog-featured {
     position: relative;
     border-radius: 12px;
@@ -70,7 +64,7 @@
     left: 0;
     padding: 18px;
     width: 100%;
-    background: linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.75), transparent);
 }
 
 .blog-title {
@@ -95,9 +89,7 @@
     margin-right: 4px;
 }
 
-/* ===========================
-   SMALL POSTS (3 bài bên phải)
-   =========================== */
+/* 3 bài bên phải */
 
 .blog-list {
     display: flex;
@@ -148,9 +140,7 @@
     margin-top: 5px;
 }
 
-/* ===========================
-   VIEW MORE BUTTON
-   =========================== */
+
 
 .btn-view-more {
     display: inline-block;
@@ -169,10 +159,7 @@
     color: white;
 }
 
-/* ===========================
-   RESPONSIVE
-   =========================== */
-
+/* responsive */
 @media (max-width: 992px) {
     .blog-grid {
         grid-template-columns: 1fr;
@@ -187,7 +174,7 @@
     .blog-title {
         font-size: 18px;
     }
-    
+
     .blog-item img.blog-thumb {
         width: 90px;
         height: 65px;

@@ -11,7 +11,7 @@
             </h2>
         </div>
 
-        <!-- Search and Filter -->
+        <!-- filter -->
         <form method="GET" action="{{ route('admin.users.list') }}" class="search-bar">
             <input type="text" name="search" class="form-control" placeholder="Tìm kiếm theo tên hoặc email..."
                 value="{{ request('search') }}">
@@ -33,7 +33,6 @@
             </button>
         </form>
 
-        <!-- Users Table -->
         @if($users->count() > 0)
             <div style="overflow-x: auto;">
                 <table class="admin-table">
@@ -61,7 +60,8 @@
                                             alt="{{ $user->name }}">
                                     @endif
                                 </td>
-                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->name }}
+                                </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @if($user->role == 0)
@@ -77,19 +77,20 @@
                                         <span class="badge badge-danger">Bị khóa</span>
                                     @endif
                                 </td>
-                                <td>{{ $user->created_at->format('d/m/Y') }}</td>
+                                <td>{{ $user->created_at->format('d/m/Y') }}
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+                                        <i class="fas fa-edit"></i> </a>
 
                                     <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST"
                                         style="display: inline;">
                                         @csrf
-                                        <button type="submit"
+                                        <button type=" submit"
                                             class="btn {{ $user->status == 1 ? 'btn-warning' : 'btn-success' }} btn-sm"
                                             title="{{ $user->status == 1 ? 'Khóa' : 'Mở khóa' }}">
-                                            <i class="fas fa-{{ $user->status == 1 ? 'lock' : 'unlock' }}"></i>
+                                            <i class="fas fa-{{ $user->status == 1 ? 'lock' : 'unlock' }}">
+                                            </i>
                                         </button>
                                     </form>
 
@@ -109,12 +110,8 @@
                 </table>
             </div>
 
-            <!-- Pagination -->
             <div class="pagination">
                 {{ $users->links() }}
-            </div>
-        @else
-            <p style="text-align: center; color: #64748b; padding: 2rem;">Không tìm thấy người dùng nào</p>
+        </div> @else <p style="text-align: center; color: #64748b; padding: 2rem;">Không tìm thấy người dùng nào</p>
         @endif
-    </div>
-@endsection
+</div> @endsection

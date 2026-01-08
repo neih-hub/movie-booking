@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap');
 
 .header-wrapper {
-  background: linear-gradient(135deg, #ff9a9e  0%, #fecfef 25%, #fecfef 50%, #fad0c4 100%  ) !important;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 25%, #fecfef 50%, #fad0c4 100%) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1) !important;
   transition: all 0.3s ease;
 }
 
-/* Logo styling */
 .navbar-brand {
   transition: transform 0.3s ease;
 }
@@ -24,6 +23,7 @@
 .navbar-brand:hover img {
   filter: drop-shadow(0 4px 12px rgba(255, 154, 158, 0.3));
 }
+
 .brand-text {
   font-family: 'Poetsen One', sans-serif !important;
   font-weight: 800;
@@ -41,7 +41,6 @@
   letter-spacing: 0px;
 }
 
-/* Buy ticket button */
 .buy-btn {
   background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%) !important;
   border: none !important;
@@ -56,7 +55,6 @@
   background: linear-gradient(135deg, #fecfef 0%, #ff9a9e 100%) !important;
 }
 
-/* Navigation links */
 .nav-link {
   color: #000000 !important;
   font-weight: 600;
@@ -88,7 +86,6 @@
   width: 80%;
 }
 
-/* Dropdown menu */
 .dropdown-menu {
   border: none;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -103,6 +100,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -122,7 +120,6 @@
   transform: translateX(5px);
 }
 
-/* Search container */
 .search-container {
   position: relative;
 }
@@ -168,7 +165,6 @@
   z-index: 1000;
 }
 
-/* User dropdown */
 .user-greeting {
   color: #ffffff !important;
   font-weight: 700;
@@ -183,7 +179,6 @@
   color: #ffffff !important;
 }
 
-/* Auth links */
 .auth-link {
   font-weight: 600;
   transition: all 0.3s ease;
@@ -197,7 +192,6 @@
   color: #ffffff !important;
 }
 
-/* Mobile toggle */
 .navbar-toggler {
   border: 2px solid white;
   border-radius: 8px;
@@ -208,7 +202,7 @@
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
 }
 
-/* Responsive */
+/* responsive */
 @media (max-width: 991px) {
   .navbar-nav {
     padding: 1rem 0;

@@ -6,7 +6,6 @@
 
 @section('content')
     <div class="row">
-        <!-- Single Seat Creation -->
         <div class="col-md-6">
             <div class="content-card">
                 <h5 class="mb-3"><i class="fas fa-chair"></i> Thêm ghế đơn lẻ</h5>
@@ -52,7 +51,6 @@
             </div>
         </div>
 
-        <!-- Bulk Seat Creation -->
         <div class="col-md-6">
             <div class="content-card">
                 <h5 class="mb-3"><i class="fas fa-layer-group"></i> Tạo ghế hàng loạt</h5>

@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 
 class BookingAdminController extends Controller
 {
-    //danh sách vé
     public function list(Request $request)
     {
         $query = Booking::with(['user', 'showtime.movie', 'showtime.room.cinema']);
@@ -22,7 +21,7 @@ class BookingAdminController extends Controller
             });
         }
 
-        // bộ lọc theo phim
+        // lọc theo phim
         if ($request->has('movie_id') && $request->movie_id) {
             $query->whereHas('showtime', function ($q) use ($request) {
                 $q->where('movie_id', $request->movie_id);
@@ -34,7 +33,7 @@ class BookingAdminController extends Controller
             $query->whereDate('created_at', $request->date);
         }
 
-        // lọc theo trạng thái (nếu không chọn hoặc chọn "Tất cả" thì bỏ qua điều kiện này)
+        // lọc theo trạng thái
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
@@ -57,13 +56,13 @@ class BookingAdminController extends Controller
 
         return view('admin.bookings.show', compact('booking'));
     }
-// nút hủy vé: 
+    // nút hủy vé
     public function cancel($id)
     {
         try {
             $booking = Booking::with('showtime.movie', 'user')->findOrFail($id);
-            
-            // hoạt động=1, hủy = 0;
+
+            // hoạt động=1, hủy = 0
             if ($booking->status == 1) {
                 // hủy vé
                 \Log::info('Cancelling booking', [
@@ -73,7 +72,6 @@ class BookingAdminController extends Controller
                     'movie' => $booking->showtime->movie->title ?? 'Unknown'
                 ]);
 
-                // thông báo hủy
                 $notification = \App\Models\Notification::create([
                     'user_id' => $booking->user_id,
                     'type' => 'booking_cancelled',
@@ -84,7 +82,7 @@ class BookingAdminController extends Controller
                         'booking_id' => $booking->id
                     ]
                 ]);
-                
+
                 \Log::info('Cancellation notification created', [
                     'notification_id' => $notification->id,
                     'for_user_id' => $notification->user_id
@@ -94,7 +92,7 @@ class BookingAdminController extends Controller
                 $booking->save();
 
                 return back()->with('success', 'Đã hủy đặt vé thành công và gửi thông báo đến user!');
-                
+
             } else {
                 // khôi phục vé
                 \Log::info('Restoring booking', [
@@ -104,7 +102,6 @@ class BookingAdminController extends Controller
                     'movie' => $booking->showtime->movie->title ?? 'Unknown'
                 ]);
 
-                // thông báo khôi phục
                 $notification = \App\Models\Notification::create([
                     'user_id' => $booking->user_id,
                     'type' => 'booking_restored',
@@ -115,7 +112,7 @@ class BookingAdminController extends Controller
                         'booking_id' => $booking->id
                     ]
                 ]);
-                
+
                 \Log::info('Restoration notification created', [
                     'notification_id' => $notification->id,
                     'for_user_id' => $notification->user_id
@@ -126,7 +123,7 @@ class BookingAdminController extends Controller
 
                 return back()->with('success', 'Đã khôi phục đặt vé thành công và gửi thông báo đến user!');
             }
-            
+
         } catch (\Exception $e) {
             \Log::error('Error toggling booking status: ' . $e->getMessage(), [
                 'booking_id' => $id,
@@ -136,7 +133,6 @@ class BookingAdminController extends Controller
         }
     }
 
-    // xóa vé
     public function destroy($id)
     {
         $booking = Booking::findOrFail($id);

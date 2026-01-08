@@ -19,7 +19,6 @@
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
 
-                {{-- Chọn phim --}}
                 <div class="form-group">
                     <label class="form-label">Phim <span style="color: red;">*</span></label>
                     <select name="movie_id" class="form-select" required>
@@ -32,7 +31,6 @@
                     </select>
                 </div>
 
-                {{-- Chọn rạp --}}
                 <div class="form-group">
                     <label class="form-label">Rạp chiếu <span style="color: red;">*</span></label>
                     <select name="cinema_id" id="cinema_select" class="form-select" required>
@@ -43,7 +41,6 @@
                     </select>
                 </div>
 
-                {{-- Chọn phòng --}}
                 <div class="form-group">
                     <label class="form-label">Phòng chiếu <span style="color: red;">*</span></label>
                     <select name="room_id" id="room_select" class="form-select" required>
@@ -51,25 +48,20 @@
                     </select>
                 </div>
 
-                {{-- Ngày chiếu --}}
                 <div class="form-group">
                     <label class="form-label">Ngày chiếu <span style="color: red;">*</span></label>
-                    <input type="date" name="date_start" class="form-control"
-                           value="{{ old('date_start') }}" required>
+                    <input type="date" name="date_start" class="form-control" value="{{ old('date_start') }}" required>
                 </div>
 
-                {{-- Giờ chiếu --}}
                 <div class="form-group">
                     <label class="form-label">Giờ chiếu <span style="color: red;">*</span></label>
-                    <input type="time" name="start_time" class="form-control"
-                           value="{{ old('start_time') }}" required>
+                    <input type="time" name="start_time" class="form-control" value="{{ old('start_time') }}" required>
                 </div>
 
-                {{-- Giá vé --}}
                 <div class="form-group">
                     <label class="form-label">Giá vé (VNĐ) <span style="color: red;">*</span></label>
-                    <input type="number" name="price" class="form-control"
-                           value="{{ old('price', 50000) }}" min="0" required>
+                    <input type="number" name="price" class="form-control" value="{{ old('price', 50000) }}" min="0"
+                        required>
                 </div>
             </div>
 
@@ -87,18 +79,15 @@
 
 @section('scripts')
     <script>
-        // Load phòng theo rạp (AJAX)
         const cinemaSelect = document.getElementById('cinema_select');
         const roomSelect = document.getElementById('room_select');
 
-        // Debug: Log khi trang load
         console.log('Admin Showtime Create page loaded');
 
         cinemaSelect.addEventListener('change', function () {
             const cinemaId = this.value;
             console.log('Selected cinema ID:', cinemaId);
-            
-            // Reset dropdown phòng
+
             roomSelect.innerHTML = '<option value="">Đang tải...</option>';
 
             if (!cinemaId) {
@@ -106,14 +95,13 @@
                 return;
             }
 
-            // Gọi API lấy danh sách phòng
             fetch(`/api/rooms?cinema_id=${cinemaId}`)
                 .then(res => res.json())
                 .then(rooms => {
                     console.log('Rooms received:', rooms);
-                    
+
                     roomSelect.innerHTML = '<option value="">Chọn phòng</option>';
-                    
+
                     if (rooms && rooms.length > 0) {
                         rooms.forEach(room => {
                             const option = document.createElement('option');

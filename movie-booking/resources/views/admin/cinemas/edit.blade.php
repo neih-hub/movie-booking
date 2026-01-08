@@ -15,7 +15,6 @@
         </a>
     </div>
 
-    {{-- FORM UPDATE --}}
     <form action="{{ route('admin.cinemas.update', $cinema->id) }}" method="POST">
         @csrf
 
@@ -42,7 +41,6 @@
     </form>
 
 
-    {{-- DANH SÁCH PHÒNG --}}
     <hr class="my-4">
 
     <h3 style="font-weight:600;">Danh sách phòng</h3>

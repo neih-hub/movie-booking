@@ -1,7 +1,5 @@
-// public/js/rooms-manage.js
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Get cinemas data from window object (set by Blade)
+document.addEventListener('DOMContentLoaded', function () {
     const cinemas = window.cinemasData || [];
     const cinemaSelect = document.getElementById('cinema_select');
     const roomsContainer = document.getElementById('rooms_container');
@@ -73,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        // Delete button handler
         const deleteBtn = roomCard.querySelector('.delete-btn');
         deleteBtn.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -93,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Click to view seats
         roomCard.addEventListener('click', function () {
             window.location.href = `/admin/rooms/${room.id}/seats-honeycomb`;
         });

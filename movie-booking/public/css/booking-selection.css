@@ -1,12 +1,10 @@
-/* Booking Selection Page Styles */
-
 .booking-selection-container {
     max-width: 900px;
     margin: 60px auto;
     padding: 2rem;
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .selection-header {

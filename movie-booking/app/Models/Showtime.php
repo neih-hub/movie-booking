@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Showtime extends Model
 {
     protected $fillable = [
-        'movie_id', 'room_id', 'date_start', 'start_time', 'price'
+        'movie_id',
+        'room_id',
+        'date_start',
+        'start_time',
+        'price'
     ];
 
     public function movie()

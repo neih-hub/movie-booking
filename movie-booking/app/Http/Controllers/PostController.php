@@ -9,11 +9,11 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Post::published()->orderBy('published_at','desc');
+        $query = Post::published()->orderBy('published_at', 'desc');
         if ($request->has('category')) {
             $query->where('category', $request->category);
         }
-        
+
         $posts = $query->paginate(9);
         $currentCategory = $request->get('category');
 

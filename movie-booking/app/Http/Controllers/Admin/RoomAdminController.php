@@ -9,19 +9,17 @@ use App\Http\Controllers\Controller;
 
 class RoomAdminController extends Controller
 {
-    // danh sách phòng chiếu
     public function manage()
     {
         $cinemas = Cinema::with('rooms')->get();
         return view('admin.rooms.manage', compact('cinemas'));
     }
 
-    // hiển thị ghế
     public function showSeatsHoneycomb($id)
     {
         $room = Room::with(['seats', 'cinema'])->findOrFail($id);
 
-        $seatsPerRow = $room->seats_per_row ?? 10; // mặc định 10 ghế/hàng
+        $seatsPerRow = $room->seats_per_row ?? 10; //mặc định 10 ghế/hàng
         $seatRows = [];
 
         foreach ($room->seats as $seat) {
@@ -41,13 +39,13 @@ class RoomAdminController extends Controller
         }
 
 
-        // Lấy thông tin booking cho mỗi ghế
+        //thông tin booking cho mỗi ghế
         $seatsWithBookings = [];
         foreach ($room->seats as $seat) {
             $bookingData = null;
-            
+
             try {
-                // Tìm booking gần nhất cho ghế này
+                //tìm booking gần nhất cho ghế này
                 $bookingSeat = \App\Models\BookingSeat::where('seat_id', $seat->id)
                     ->with(['booking.user'])
                     ->latest()
@@ -65,7 +63,6 @@ class RoomAdminController extends Controller
                     ];
                 }
             } catch (\Exception $e) {
-                // Nếu có lỗi, chỉ đặt booking thành null
                 $bookingData = null;
             }
 
@@ -80,22 +77,17 @@ class RoomAdminController extends Controller
 
         return view('admin.rooms.seats_honeycomb', compact('room', 'seatRows', 'seatsWithBookings'));
     }
-
-    // danh sách phòng chiếu
     public function list()
     {
         $rooms = Room::with('cinema')->orderBy('created_at', 'desc')->get();
         return view('admin.rooms.list', compact('rooms'));
     }
 
-    // tạo phòng chiếu
     public function create()
     {
         $cinemas = Cinema::all();
         return view('admin.rooms.create', compact('cinemas'));
     }
-
-    // lưu phòng chiếu
     public function store(Request $request)
     {
         $request->validate([
@@ -108,8 +100,7 @@ class RoomAdminController extends Controller
 
         $room = Room::create($request->all());
 
-        // tự tạo ghế cho room mới
-
+        //tự tạo ghế cho room mới
         for ($i = 1; $i <= $request->total_seats; $i++) {
             $label = $room->name . str_pad($i, 2, '0', STR_PAD_LEFT);
             \App\Models\Seat::create([
@@ -122,7 +113,6 @@ class RoomAdminController extends Controller
         return redirect()->route('admin.rooms.manage')->with('success', 'Phòng chiếu đã được tạo thành công!');
     }
 
-    // chỉnh sửa phòng chiếu
     public function edit($id)
     {
         $room = Room::findOrFail($id);
@@ -130,15 +120,14 @@ class RoomAdminController extends Controller
         return view('admin.rooms.edit', compact('room', 'cinemas'));
     }
 
-    // cập nhật phòng chiếu
     public function update(Request $request, $id)
     {
         $request->validate([
             'cinema_id' => 'required|exists:cinemas,id',
             'name' => 'required|string|max:255',
             'total_seats' => 'required|integer|min:1',
-            'seats_per_row' => 'nullable|integer|min:1',
-            'rows' => 'nullable|integer|min:1',
+            'seats_per_row' => 'required|integer|min:1',
+            'rows' => 'required|integer|min:1',
         ]);
 
         $room = Room::findOrFail($id);
@@ -147,7 +136,7 @@ class RoomAdminController extends Controller
 
         $room->update($request->all());
 
-        // đồng bộ hoá ghê
+        //đồng bộ ghê
         if ($newTotalSeats > $oldTotalSeats) {
             for ($i = $oldTotalSeats + 1; $i <= $newTotalSeats; $i++) {
                 $label = $room->name . str_pad($i, 2, '0', STR_PAD_LEFT);
@@ -158,7 +147,7 @@ class RoomAdminController extends Controller
                 ]);
             }
         } elseif ($newTotalSeats < $oldTotalSeats) {
-            // xoá ghế dư
+            //xoá ghế dư
             $room->seats()->orderBy('seat_number', 'desc')
                 ->limit($oldTotalSeats - $newTotalSeats)
                 ->delete();
@@ -167,7 +156,6 @@ class RoomAdminController extends Controller
         return redirect()->route('admin.rooms.manage')->with('success', 'Phòng chiếu đã được cập nhật!');
     }
 
-    // xóa phòng chiếu
     public function destroy($id)
     {
         $room = Room::findOrFail($id);

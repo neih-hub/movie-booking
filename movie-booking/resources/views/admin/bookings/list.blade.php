@@ -11,7 +11,7 @@
             </h2>
         </div>
 
-        <!-- Search and Filters -->
+        <!-- filter -->
         <form method="GET" action="{{ route('admin.bookings.list') }}" class="search-bar">
             <input type="text" name="search" class="form-control" placeholder="Tìm theo tên hoặc email người dùng..."
                 value="{{ request('search') }}">
@@ -67,7 +67,7 @@
                                         <i class="fas fa-eye"></i>
                                     </a>
 
-                                    {{-- Cancel/Restore--}}
+                                    <!-- huỷ/khôi phục -->
                                     <form action="{{ route('admin.bookings.cancel', $booking->id) }}" method="POST"
                                         style="display: inline;" onsubmit="return confirm('{{ $booking->status == 1 ? 'Bạn có chắc muốn hủy vé này?' : 'Bạn có chắc muốn khôi phục vé này?' }}')">
                                         @csrf

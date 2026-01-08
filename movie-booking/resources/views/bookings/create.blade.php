@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Đặt Vé - {{ $showtime->movie->title }}</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -13,6 +14,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/booking.css') }}">
 </head>
+
 <body>
     <!-- Header -->
     @include('layouts.header')
@@ -23,22 +25,22 @@
         <!-- Step Indicator -->
         <div class="step-indicator">
             <div class="step-progress" id="stepProgress" style="width: 0%;"></div>
-            
+
             <div class="step-item active" data-step="1">
                 <div class="step-circle">1</div>
                 <div class="step-label">Xác nhận</div>
             </div>
-            
+
             <div class="step-item" data-step="2">
                 <div class="step-circle">2</div>
                 <div class="step-label">Chọn ghế</div>
             </div>
-            
+
             <div class="step-item" data-step="3">
                 <div class="step-circle">3</div>
                 <div class="step-label">Thức ăn</div>
             </div>
-            
+
             <div class="step-item" data-step="4">
                 <div class="step-circle">4</div>
                 <div class="step-label">Thanh toán</div>
@@ -50,7 +52,7 @@
             <div class="booking-main">
                 <form id="bookingForm" action="{{ route('booking.store') }}" method="POST">
                     @csrf
-                    
+
                     {{-- Display validation errors --}}
                     @if($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -63,59 +65,58 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     @endif
-                    
+
                     @if(session('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <i class="bi bi-exclamation-triangle"></i> {{ session('error') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     @endif
-                    
+
                     <input type="hidden" name="showtime_id" value="{{ $showtime->id }}">
                     <div id="seatHiddenInputs"></div>
-<div id="foodHiddenInputs"></div>
+                    <div id="foodHiddenInputs"></div>
                     <!-- xác nhận -->
                     <div class="step-content active" data-step="1">
                         <h2 class="step-title">Xác nhận thông tin</h2>
-                        
+
                         <div class="movie-info">
-                            <img src="{{ asset($showtime->movie->poster) }}" 
-                                alt="{{ $showtime->movie->title }}" 
-                               class="movie-poster">
+                            <img src="{{ asset($showtime->movie->poster) }}" alt="{{ $showtime->movie->title }}"
+                                class="movie-poster">
 
                             <div class="movie-details">
                                 <h3>{{ $showtime->movie->title }}</h3>
-                                
+
                                 <div class="info-row">
                                     <i class="bi bi-building"></i>
                                     <strong>Rạp:</strong>
                                     <span>{{ $showtime->room->cinema->name }}</span>
                                 </div>
-                                
+
                                 <div class="info-row">
                                     <i class="bi bi-door-open"></i>
                                     <strong>Phòng:</strong>
                                     <span>{{ $showtime->room->name }}</span>
                                 </div>
-                                
+
                                 <div class="info-row">
                                     <i class="bi bi-calendar"></i>
                                     <strong>Ngày chiếu:</strong>
                                     <span>{{ \Carbon\Carbon::parse($showtime->date_start)->format('d/m/Y') }}</span>
                                 </div>
-                                
+
                                 <div class="info-row">
                                     <i class="bi bi-clock"></i>
                                     <strong>Giờ chiếu:</strong>
                                     <span>{{ \Carbon\Carbon::parse($showtime->start_time)->format('H:i') }}</span>
                                 </div>
-                                
+
                                 <div class="info-row">
                                     <i class="bi bi-hourglass"></i>
                                     <strong>Thời lượng:</strong>
                                     <span>{{ $showtime->movie->duration }} phút</span>
                                 </div>
-                                
+
                                 <div class="info-row">
                                     <i class="bi bi-tag"></i>
                                     <strong>Giá vé:</strong>
@@ -128,13 +129,13 @@
                     <!-- Step 2: Seat Selection -->
                     <div class="step-content" data-step="2">
                         <h2 class="step-title">Chọn ghế ngồi</h2>
-                        
+
                         <div class="screen"></div>
-                        
+
                         <div class="seat-container-wrapper">
-                            <div id="seatGrid" class="seat-grid-10col">                            </div>
+                            <div id="seatGrid" class="seat-grid-10col"> </div>
                         </div>
-                        
+
                         <div class="seat-legend">
                             <div class="legend-item">
                                 <div class="legend-box available"></div>
@@ -154,7 +155,7 @@
                     <!-- Step 3: Food Selection -->
                     <div class="step-content" data-step="3">
                         <h2 class="step-title">Chọn thức ăn & đồ uống</h2>
-                        
+
                         <div class="food-grid" id="foodGrid">
                             <!-- Foods will be loaded here via JavaScript -->
                         </div>
@@ -163,16 +164,15 @@
                     <!-- Step 4: Payment -->
                     <div class="step-content" data-step="4">
                         <h2 class="step-title">Thanh toán</h2>
-                        
+
                         <div class="payment-section">
                             <p class="text-muted mb-4">Quét mã QR để hoàn tất thanh toán</p>
-                            
+
                             <div class="qr-container">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.facebook.com" 
-                                     alt="QR Code" 
-                                     class="qr-code">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.facebook.com"
+                                    alt="QR Code" class="qr-code">
                             </div>
-                            
+
                             <div class="payment-info">
                                 <i class="bi bi-info-circle-fill"></i>
                                 <!-- <p>Đây là mã QR demo. Quét để chuyển đến trang Facebook.</p> -->
@@ -185,15 +185,16 @@
                         <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
                             <i class="bi bi-arrow-left"></i> Quay lại
                         </button>
-                        
+
                         <button type="button" class="btn btn-primary" id="nextBtn">
                             Tiếp tục <i class="bi bi-arrow-right"></i>
                         </button>
-                        
-                        <button type="button" class="btn btn-primary skip-food-btn" id="skipFoodBtn" style="display: none;">
+
+                        <button type="button" class="btn btn-primary skip-food-btn" id="skipFoodBtn"
+                            style="display: none;">
                             <i class="bi bi-skip-forward"></i> Bỏ qua
                         </button>
-                        
+
                         <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">
                             <i class="bi bi-check-circle"></i> Hoàn tất đặt vé
                         </button>
@@ -220,11 +221,13 @@
                     </div>
                     <div class="summary-item">
                         <span class="summary-item-label">Ngày</span>
-                        <span class="summary-item-value">{{ \Carbon\Carbon::parse($showtime->date_start)->format('d/m/Y') }}</span>
+                        <span
+                            class="summary-item-value">{{ \Carbon\Carbon::parse($showtime->date_start)->format('d/m/Y') }}</span>
                     </div>
                     <div class="summary-item">
                         <span class="summary-item-label">Giờ</span>
-                        <span class="summary-item-value">{{ \Carbon\Carbon::parse($showtime->start_time)->format('H:i') }}</span>
+                        <span
+                            class="summary-item-value">{{ \Carbon\Carbon::parse($showtime->start_time)->format('H:i') }}</span>
                     </div>
                 </div>
 
@@ -248,7 +251,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         // Configuration
         const showtimeId = {{ $showtime->id }};
@@ -260,7 +263,7 @@
         let allFoods = [];
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             loadSeats();
             loadFoods();
             updateStepIndicator();
@@ -296,7 +299,7 @@
             // Create rows of 10 seats
             let currentRow = document.createElement('div');
             currentRow.className = 'seat-row-10';
-            
+
             sortedSeats.forEach((seat, index) => {
                 const seatDiv = document.createElement('div');
                 seatDiv.className = 'seat';
@@ -328,7 +331,7 @@
         // Toggle seat selection
         function toggleSeat(seatId, seatElement) {
             const index = selectedSeats.indexOf(seatId);
-            
+
             if (index > -1) {
                 selectedSeats.splice(index, 1);
                 seatElement.classList.remove('selected');
@@ -409,14 +412,14 @@
             // Update seat summary
             const seatSummary = document.getElementById('seatSummary');
             const seatList = document.getElementById('seatList');
-            
+
             if (selectedSeats.length > 0) {
                 seatSummary.style.display = 'block';
                 const seatNumbers = selectedSeats.map(id => {
                     const seat = allSeats.find(s => s.id === id);
                     return seat ? seat.seat_number : '';
                 }).join(', ');
-                
+
                 seatList.innerHTML = `
                     <div class="summary-item">
                         <span class="summary-item-label">${selectedSeats.length} ghế</span>
@@ -434,7 +437,7 @@
             const foodSummary = document.getElementById('foodSummary');
             const foodList = document.getElementById('foodList');
             const foodItems = Object.values(selectedFoods);
-            
+
             if (foodItems.length > 0) {
                 foodSummary.style.display = 'block';
                 foodList.innerHTML = foodItems.map(food => `
@@ -451,21 +454,20 @@
             const seatTotal = selectedSeats.length * seatPrice;
             const foodTotal = foodItems.reduce((sum, food) => sum + (food.price * food.quantity), 0);
             const total = seatTotal + foodTotal;
-            
+
             document.getElementById('totalPrice').textContent = formatPrice(total) + ' đ';
         }
 
-        // Format price
         function formatPrice(price) {
             return new Intl.NumberFormat('vi-VN').format(price);
         }
 
-        // Step navigation
-        document.getElementById('nextBtn').addEventListener('click', function() {
+        document.getElementById('nextBtn').addEventListener('click', function () {
             if (currentStep === 2 && selectedSeats.length === 0) {
                 alert('Vui lòng chọn ít nhất 1 ghế!');
                 return;
             }
+
 
             if (currentStep < 4) {
                 currentStep++;
@@ -474,7 +476,7 @@
             }
         });
 
-        document.getElementById('prevBtn').addEventListener('click', function() {
+        document.getElementById('prevBtn').addEventListener('click', function () {
             if (currentStep > 1) {
                 currentStep--;
                 updateStepIndicator();
@@ -482,30 +484,26 @@
             }
         });
 
-        document.getElementById('skipFoodBtn').addEventListener('click', function() {
+        document.getElementById('skipFoodBtn').addEventListener('click', function () {
             currentStep = 4;
             updateStepIndicator();
             showStep(currentStep);
         });
 
-        // Show specific step
         function showStep(step) {
-            // Hide all steps
             document.querySelectorAll('.step-content').forEach(content => {
                 content.classList.remove('active');
             });
 
-            // Show current step
             document.querySelector(`.step-content[data-step="${step}"]`).classList.add('active');
 
-            // Update buttons
+
             document.getElementById('prevBtn').style.display = step > 1 ? 'block' : 'none';
             document.getElementById('nextBtn').style.display = step < 4 ? 'block' : 'none';
             document.getElementById('skipFoodBtn').style.display = step === 3 ? 'block' : 'none';
             document.getElementById('submitBtn').style.display = step === 4 ? 'block' : 'none';
         }
 
-        // Update step indicator
         function updateStepIndicator() {
             const progress = ((currentStep - 1) / 3) * 100;
             document.getElementById('stepProgress').style.width = progress + '%';
@@ -513,7 +511,7 @@
             document.querySelectorAll('.step-item').forEach((item, index) => {
                 const stepNum = index + 1;
                 item.classList.remove('active', 'completed');
-                
+
                 if (stepNum < currentStep) {
                     item.classList.add('completed');
                 } else if (stepNum === currentStep) {
@@ -522,52 +520,57 @@
             });
         }
 
-        // Form submission
-      document.getElementById('bookingForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+        //form chọn ghế
+        document.getElementById('bookingForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-    if (selectedSeats.length === 0) {
-        alert('Vui lòng chọn ít nhất 1 ghế!');
-        return;
-    }
+            if (selectedSeats.length === 0) {
+                alert('Vui lòng chọn ít nhất 1 ghế!');
+                return;
+            }
 
-    // ====== SEATS ======
-    const seatContainer = document.getElementById('seatHiddenInputs');
-    seatContainer.innerHTML = '';
+            if (selectedSeats.length >= 2) {
+                alert('không được chọn nhiều hơn 2 ghế');
+                return;
+            }
 
-    selectedSeats.forEach(seatId => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'seat_ids[]';
-        input.value = seatId;
-        seatContainer.appendChild(input);
-    });
+            //ghế
+            const seatContainer = document.getElementById('seatHiddenInputs');
+            seatContainer.innerHTML = '';
 
-    // ====== FOODS (CHUẨN ARRAY CHO LARAVEL) ======
-    // ====== FOODS (ĐÚNG CHUẨN LARAVEL) ======
-const foodContainer = document.getElementById('foodHiddenInputs');
-foodContainer.innerHTML = '';
+            selectedSeats.forEach(seatId => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'seat_ids[]';
+                input.value = seatId;
+                seatContainer.appendChild(input);
+            });
 
-Object.values(selectedFoods).forEach((food, index) => {
-    const foodIdInput = document.createElement('input');
-    foodIdInput.type = 'hidden';
-    foodIdInput.name = `foods[${index}][id]`;
-    foodIdInput.value = food.id;
+            //đồ ăn
+            const foodContainer = document.getElementById('foodHiddenInputs');
+            foodContainer.innerHTML = '';
 
-    const qtyInput = document.createElement('input');
-    qtyInput.type = 'hidden';
-    qtyInput.name = `foods[${index}][quantity]`;
-    qtyInput.value = food.quantity;
+            Object.values(selectedFoods).forEach((food, index) => {
+                const foodIdInput = document.createElement('input');
+                foodIdInput.type = 'hidden';
+                foodIdInput.name = `foods[${index}][id]`;
+                foodIdInput.value = food.id;
 
-    foodContainer.appendChild(foodIdInput);
-    foodContainer.appendChild(qtyInput);
-});
+                const qtyInput = document.createElement('input');
+                qtyInput.type = 'hidden';
+                qtyInput.name = `foods[${index}][quantity]`;
+                qtyInput.value = food.quantity;
 
-    this.submit();
-});
+                foodContainer.appendChild(foodIdInput);
+                foodContainer.appendChild(qtyInput);
+            });
+
+            this.submit();
+        });
 
 
 
     </script>
 </body>
+
 </html>

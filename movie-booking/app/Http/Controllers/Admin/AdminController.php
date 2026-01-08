@@ -16,7 +16,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        // thống kê
+        //thống kê
         $totalUsers = User::count();
         $totalMovies = Movie::count();
         $totalCinemas = Cinema::count();
@@ -24,16 +24,18 @@ class AdminController extends Controller
         $totalFoods = Food::count();
         $totalPosts = Post::count();
 
-        // đặt chỗ ngồi gần đây
+        //đặt chỗ ngồi gần đây
         $recentBookings = Booking::with(['user', 'showtime.movie'])
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
 
-        // doanh thu - nếu tên cột không khớp thì trả về 0
+
+
+        //doanh thu
         $totalRevenue = Booking::sum('total_price') ?? 0;
 
-        // phim phổ biến
+        //phim phổ biến
         $popularMovies = Movie::withCount('showtimes')
             ->orderBy('showtimes_count', 'desc')
             ->take(5)
