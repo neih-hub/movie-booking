@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("searchInput");
   const results = document.getElementById("searchResults");
 
-  // CLICK ICON → MỞ INPUT
+
   icon.addEventListener("click", function () {
 
     input.classList.toggle("active");
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // TÌM KIẾM
   input.addEventListener("keyup", function () {
 
     let keyword = this.value.trim();

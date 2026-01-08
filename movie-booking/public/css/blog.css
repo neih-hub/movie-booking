@@ -1,8 +1,6 @@
-/* ===========================
-   GÓC ĐIỆN ẢNH – CGV STYLE
-   =========================== */
 
-/* Section Title */
+
+
 .blog-section {
     margin-top: 50px;
 }
@@ -15,7 +13,7 @@
     text-transform: uppercase;
 }
 
-/* Tabs */
+
 .section-tabs {
     display: flex;
     gap: 12px;
@@ -36,16 +34,14 @@
     color: white;
 }
 
-/* ===========================
-   BLOG GRID
-   =========================== */
+
 .blog-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: 25px;
 }
 
-/* FEATURED POST (Bài lớn bên trái) */
+
 .blog-featured {
     position: relative;
     border-radius: 12px;
@@ -95,9 +91,7 @@
     margin-right: 4px;
 }
 
-/* ===========================
-   SMALL POSTS (3 bài bên phải)
-   =========================== */
+
 
 .blog-list {
     display: flex;
@@ -148,9 +142,7 @@
     margin-top: 5px;
 }
 
-/* ===========================
-   VIEW MORE BUTTON
-   =========================== */
+
 
 .btn-view-more {
     display: inline-block;
@@ -169,9 +161,7 @@
     color: white;
 }
 
-/* ===========================
-   RESPONSIVE
-   =========================== */
+
 
 @media (max-width: 992px) {
     .blog-grid {

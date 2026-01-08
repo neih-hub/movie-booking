@@ -11,7 +11,7 @@
             </h2>
         </div>
 
-        <!-- Search and Filter -->
+        
         <form method="GET" action="{{ route('admin.users.list') }}" class="search-bar">
             <input type="text" name="search" class="form-control" placeholder="Tìm kiếm theo tên hoặc email..."
                 value="{{ request('search') }}">
@@ -33,7 +33,7 @@
             </button>
         </form>
 
-        <!-- Users Table -->
+        
         @if($users->count() > 0)
             <div style="overflow-x: auto;">
                 <table class="admin-table">
@@ -109,7 +109,7 @@
                 </table>
             </div>
 
-            <!-- Pagination -->
+            
             <div class="pagination">
                 {{ $users->links() }}
             </div>

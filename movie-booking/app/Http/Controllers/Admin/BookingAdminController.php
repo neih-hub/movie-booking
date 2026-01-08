@@ -34,12 +34,12 @@ class BookingAdminController extends Controller
             $query->whereDate('created_at', $request->date);
         }
 
-        // lọc theo trạng thái (nếu không chọn hoặc chọn "Tất cả" thì bỏ qua điều kiện này)
+        // lọc theo trạng thái 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        $bookings = $query->orderBy('total_price', 'desc')->paginate(15);
+        $bookings = $query->orderBy('created_at', 'desc')->paginate(15);
 
         return view('admin.bookings.list', compact('bookings'));
     }

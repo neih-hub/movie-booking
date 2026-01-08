@@ -15,7 +15,7 @@
             <p class="login-subtitle">Đăng nhập để tiếp tục</p>
           </div>
 
-          {{-- Hiển thị lỗi --}}
+          
           @if($errors->any())
           <div class="alert-custom alert-danger">
             @foreach($errors->all() as $err)
@@ -24,7 +24,7 @@
           </div>
           @endif
 
-          {{-- đăng kí thành công --}}
+          
           @if(session('success'))
           <div class="alert-custom alert-success">
             {{ session('success') }}

@@ -8,20 +8,20 @@
 
 @section('content')
 <div class="container py-5">
-    <!-- Back Button -->
+    
     <div class="mb-3">
         <a href="{{ route('home') }}" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left"></i> Quay lại trang chủ
         </a>
     </div>
 
-    <!-- Page Header -->
+    
     <div class="page-header mb-5">
         <h1 class="display-4 fw-bold mb-3">Góc Điện Ảnh</h1>
         <p class="lead text-muted">Khám phá thế giới điện ảnh qua những bài viết, review và tin tức mới nhất</p>
     </div>
 
-    <!-- Filter Tabs -->
+    
     <div class="mb-4">
         <ul class="nav nav-pills">
             <li class="nav-item">
@@ -47,7 +47,7 @@
         </ul>
     </div>
 
-    <!-- Posts Grid -->
+    
     <div class="row g-4">
         @forelse($posts as $post)
         <div class="col-md-6 col-lg-4">
@@ -111,7 +111,7 @@
         @endforelse
     </div>
 
-    <!-- Pagination -->
+    
     @if($posts->hasPages())
     <div class="mt-5">
         {{ $posts->links() }}

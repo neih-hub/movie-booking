@@ -6,21 +6,21 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Đặt Vé - {{ $showtime->movie->title }}</title>
     
-    <!-- Bootstrap CSS -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- Custom CSS -->
+    
     <link rel="stylesheet" href="{{ asset('css/booking.css') }}">
 </head>
 <body>
-    <!-- Header -->
+    
     @include('layouts.header')
 
     <div class="booking-container">
         <h1 class="text-center mb-4" style="font-weight: 700; color: #1e293b;">Đặt Vé Xem Phim</h1>
 
-        <!-- Step Indicator -->
+        
         <div class="step-indicator">
             <div class="step-progress" id="stepProgress" style="width: 0%;"></div>
             
@@ -46,12 +46,12 @@
         </div>
 
         <div class="booking-layout">
-            <!-- Main Content -->
+            
             <div class="booking-main">
                 <form id="bookingForm" action="{{ route('booking.store') }}" method="POST">
                     @csrf
                     
-                    {{-- Display validation errors --}}
+                    
                     @if($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <h5><i class="bi bi-exclamation-triangle"></i> Có lỗi xảy ra:</h5>
@@ -74,7 +74,7 @@
                     <input type="hidden" name="showtime_id" value="{{ $showtime->id }}">
                     <div id="seatHiddenInputs"></div>
 <div id="foodHiddenInputs"></div>
-                    <!-- xác nhận -->
+                    
                     <div class="step-content active" data-step="1">
                         <h2 class="step-title">Xác nhận thông tin</h2>
                         
@@ -125,7 +125,7 @@
                         </div>
                     </div>
 
-                    <!-- Step 2: Seat Selection -->
+                    
                     <div class="step-content" data-step="2">
                         <h2 class="step-title">Chọn ghế ngồi</h2>
                         
@@ -151,16 +151,16 @@
                         </div>
                     </div>
 
-                    <!-- Step 3: Food Selection -->
+                    
                     <div class="step-content" data-step="3">
                         <h2 class="step-title">Chọn thức ăn & đồ uống</h2>
                         
                         <div class="food-grid" id="foodGrid">
-                            <!-- Foods will be loaded here via JavaScript -->
+                            
                         </div>
                     </div>
 
-                    <!-- Step 4: Payment -->
+                    
                     <div class="step-content" data-step="4">
                         <h2 class="step-title">Thanh toán</h2>
                         
@@ -175,12 +175,12 @@
                             
                             <div class="payment-info">
                                 <i class="bi bi-info-circle-fill"></i>
-                                <!-- <p>Đây là mã QR demo. Quét để chuyển đến trang Facebook.</p> -->
+                                
                             </div>
                         </div>
                     </div>
 
-                    <!-- Navigation Buttons -->
+                    
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
                             <i class="bi bi-arrow-left"></i> Quay lại
@@ -201,7 +201,7 @@
                 </form>
             </div>
 
-            <!-- Summary Panel -->
+            
             <div class="booking-summary">
                 <div class="summary-header">
                     <h3>Thông tin đặt vé</h3>
@@ -246,7 +246,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>

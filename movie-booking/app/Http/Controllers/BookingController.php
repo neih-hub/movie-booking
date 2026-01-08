@@ -64,7 +64,7 @@ class BookingController extends Controller
             'showtime_id' => 'required|exists:showtimes,id',
             'seat_ids' => 'required|array|min:1',
             'seat_ids.*' => 'exists:seats,id',
-            'foods' => 'nullable|array',
+            'fods' => 'nullable|array',
             'foods.*.id' => 'exists:foods,id',
             'foods.*.quantity' => 'integer|min:1'
         ]);

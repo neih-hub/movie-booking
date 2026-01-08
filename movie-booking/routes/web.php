@@ -119,7 +119,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-// AUTH
+// kiểm tra đối tượng đăng nhập
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -143,7 +143,7 @@ Route::get('/create-admin', function () {
     return "Tạo admin thành công: " . $admin->email;
 });
 
-// ADMIN PANEL
+// admin panel
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')
@@ -162,7 +162,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
     // Bảng điều khiển
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
-    //USERS
+    //users
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', [UserAdminController::class, 'list'])->name('list');
         Route::get('/edit/{id}', [UserAdminController::class, 'edit'])->name('edit');
@@ -171,7 +171,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::post('/delete/{id}', [UserAdminController::class, 'destroy'])->name('delete');
     });
 
-    //MOVIES
+    //movies
     Route::prefix('movies')->name('movies.')->group(function () {
         Route::get('/', [MovieAdminController::class, 'list'])->name('list');
         Route::get('/create', [MovieAdminController::class, 'create'])->name('create');
@@ -181,7 +181,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::post('/delete/{id}', [MovieAdminController::class, 'destroy'])->name('delete');
     });
 
-    //CINEMAS
+    //cinemas
     Route::prefix('cinemas')->name('cinemas.')->group(function () {
         Route::get('/', [CinemaAdminController::class, 'list'])->name('list');
         Route::get('/create', [CinemaAdminController::class, 'create'])->name('create');
@@ -191,7 +191,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::post('/delete/{id}', [CinemaAdminController::class, 'destroy'])->name('delete');
     });
 
-    //ROOMS
+    //rooms
     Route::prefix('rooms')->name('rooms.')->group(function () {
 
         Route::get('/', [RoomAdminController::class, 'list'])->name('list');
@@ -206,7 +206,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
             ->name('seats.honeycomb');
     });
 
-    //SHOWTIMES
+    //showtimes
     Route::prefix('showtimes')->name('showtimes.')->group(function () {
         Route::get('/', [ShowtimeAdminController::class, 'list'])->name('list');
         Route::get('/create', [ShowtimeAdminController::class, 'create'])->name('create');
@@ -216,7 +216,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::post('/delete/{id}', [ShowtimeAdminController::class, 'destroy'])->name('delete');
     });
 
-    //BOOKINGS
+    //booking
     Route::prefix('bookings')->name('bookings.')->group(function () {
         Route::get('/', [BookingAdminController::class, 'list'])->name('list');
         Route::get('/show/{id}', [BookingAdminController::class, 'show'])->name('show');
@@ -224,11 +224,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::post('/delete/{id}', [BookingAdminController::class, 'destroy'])->name('delete');
     });
 
-    /*
-    |--------------------------------------------------------------------------
-    | FOODS
-    |--------------------------------------------------------------------------
-    */
+//food
     Route::prefix('foods')->name('foods.')->group(function () {
         Route::get('/', [FoodAdminController::class, 'list'])->name('list');
         Route::get('/create', [FoodAdminController::class, 'create'])->name('create');

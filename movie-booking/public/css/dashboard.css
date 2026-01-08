@@ -1,6 +1,6 @@
-/* public/css/dashboard.css */
 
-/* ==================== STATISTICS CARDS ==================== */
+
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -69,7 +69,7 @@
   background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, transparent 100%);
 }
 
-/* Stat Card Content Layout */
+
 .stat-content {
   display: flex;
   align-items: center;
@@ -136,12 +136,12 @@
   margin-bottom: 0.25rem;
 }
 
-/* ==================== CONTENT CARDS ==================== */
+
 .content-card {
   margin-bottom: 2rem;
 }
 
-/* ==================== QUICK ACTIONS ==================== */
+
 .quick-actions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -214,7 +214,7 @@
   color: #374151;
 }
 
-/* ==================== TABLE ENHANCEMENTS ==================== */
+
 .admin-table tbody tr {
   transition: all 0.2s ease;
 }
@@ -244,7 +244,7 @@
   color: white;
 }
 
-/* ==================== EMPTY STATE ==================== */
+
 .empty-state {
   text-align: center;
   color: #64748b;

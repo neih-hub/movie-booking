@@ -1,6 +1,6 @@
-/* Booking Flow CSS */
 
-/* ==================== LAYOUT ==================== */
+
+
 .booking-container {
     max-width: 1400px;
     margin: 2rem auto;
@@ -14,7 +14,7 @@
     margin-top: 2rem;
 }
 
-/* ==================== STEP INDICATOR ==================== */
+
 .step-indicator {
     display: flex;
     justify-content: space-between;
@@ -96,7 +96,7 @@
     color: #10b981;
 }
 
-/* ==================== MAIN CONTENT ==================== */
+
 .booking-main {
     background: white;
     border-radius: 16px;
@@ -131,7 +131,7 @@
     margin-bottom: 1.5rem;
 }
 
-/* ==================== STEP 1: CONFIRMATION ==================== */
+
 .movie-info {
     display: grid;
     grid-template-columns: 200px 1fr;
@@ -175,7 +175,7 @@
     color: #1e293b;
 }
 
-/* ==================== STEP 2: SEAT SELECTION ==================== */
+
 .seat-container-wrapper {
     padding: 1rem;
     background: #f8fafc;
@@ -270,7 +270,7 @@
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
 }
 
-/* ==================== STEP 3: FOOD SELECTION ==================== */
+
 .food-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -378,7 +378,7 @@
     border-color: #d1d5db;
 }
 
-/* ==================== STEP 4: PAYMENT ==================== */
+
 .payment-section {
     text-align: center;
     padding: 2rem;
@@ -420,7 +420,7 @@
     margin: 0;
 }
 
-/* ==================== SUMMARY PANEL ==================== */
+
 .booking-summary {
     background: white;
     border-radius: 16px;
@@ -503,7 +503,7 @@
     font-weight: 700;
 }
 
-/* ==================== BUTTONS ==================== */
+
 .btn-group {
     display: flex;
     gap: 1rem;
@@ -553,7 +553,7 @@
     border-color: #d1d5db;
 }
 
-/* ==================== RESPONSIVE ==================== */
+
 @media (max-width: 1024px) {
     .booking-layout {
         grid-template-columns: 1fr;

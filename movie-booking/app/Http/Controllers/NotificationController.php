@@ -12,7 +12,7 @@ class NotificationController extends Controller
         $notifications = auth()->user()
             ->notifications()
             ->orderBy('created_at', 'desc')
-            ->paginate(20);
+            ->paginate(7);
             
         return view('profile.notifications', compact('notifications'));
     }

@@ -15,7 +15,7 @@
         </a>
     </div>
 
-    <!-- Search -->
+    
     <form method="GET" action="{{ route('admin.foods.list') }}" style="margin-bottom: 1rem;">
         <div style="display: flex; gap: .5rem; max-width: 400px;">
             <input type="text" name="search" class="form-control" placeholder="Tìm theo tên..."

@@ -65,7 +65,6 @@ class RoomAdminController extends Controller
                     ];
                 }
             } catch (\Exception $e) {
-                // Nếu có lỗi, chỉ đặt booking thành null
                 $bookingData = null;
             }
 

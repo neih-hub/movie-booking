@@ -20,13 +20,13 @@
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
 
-            {{-- Tên rạp --}}
+            
             <div class="form-group">
                 <label class="form-label">Tên rạp <span style="color: red;">*</span></label>
                 <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
             </div>
 
-            {{-- Thành phố --}}
+            
             <div class="form-group">
                 <label class="form-label">Thành phố <span style="color: red;">*</span></label>
                 <input type="text" name="city" class="form-control" value="{{ old('city') }}" required>
@@ -34,7 +34,7 @@
 
         </div>
 
-        {{-- Địa chỉ --}}
+        
         <div class="form-group" style="margin-top: 1.5rem;">
             <label class="form-label">Địa chỉ <span style="color: red;">*</span></label>
             <input type="text" name="address" class="form-control" value="{{ old('address') }}" required>

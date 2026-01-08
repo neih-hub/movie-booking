@@ -7,10 +7,10 @@
 
 <div class="container py-5">
     <div class="row">
-        <!-- Main Content -->
+        
         <div class="col-lg-8">
             <article class="post-detail">
-                <!-- Post Header -->
+                
                 <header class="mb-4">
                     <h1 class="display-5 fw-bold mb-3">{{ $post->title }}</h1>
                     
@@ -38,26 +38,26 @@
                     @endif
                 </header>
 
-                <!-- Featured Image -->
+                
                 @if($post->thumbnail)
                 <div class="post-thumbnail mb-4">
                     <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}" class="img-fluid rounded">
                 </div>
                 @endif
 
-                <!-- Excerpt -->
+                
                 @if($post->excerpt)
                 <div class="post-excerpt alert alert-light mb-4">
                     <p class="lead mb-0">{{ $post->excerpt }}</p>
                 </div>
                 @endif
 
-                <!-- Content -->
+                
                 <div class="post-content">
                     {!! $post->content !!}
                 </div>
 
-                <!-- Share Buttons -->
+                
                 <div class="share-buttons mt-5 pt-4 border-top">
                     <h5 class="mb-3">Chia sẻ bài viết</h5>
                     <div class="d-flex gap-2">
@@ -75,7 +75,7 @@
                 </div>
             </article>
 
-            <!-- Related Posts -->
+            
             @if(isset($relatedPosts) && $relatedPosts->count() > 0)
             <section class="related-posts mt-5 pt-5 border-top">
                 <h3 class="mb-4">Bài viết liên quan</h3>
@@ -110,10 +110,10 @@
             @endif
         </div>
 
-        <!-- Sidebar -->
+        
         <div class="col-lg-4">
             <div class="sidebar">
-                <!-- Back to Posts -->
+                
                 <div class="card mb-4">
                     <div class="card-body">
                         <a href="{{ route('posts.index') }}" class="btn btn-outline-primary w-100" >
@@ -122,7 +122,7 @@
                     </div>
                 </div>
 
-                <!-- Categories -->
+                
                 <div class="card mb-4">
                     <div class="card-header bg-dark text-white">
                         <h5 class="mb-0">Danh mục</h5>

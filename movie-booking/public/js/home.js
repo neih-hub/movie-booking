@@ -6,10 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let date = document.querySelector("#date_start");
   let showtime = document.querySelector("#showtime");
 
-  // =====================
-  // RESET FUNCTIONS
-  // =====================
-
   function resetCinemas() {
     cinema.innerHTML = `<option value="">-- Chọn rạp --</option>`;
   }
@@ -25,10 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function resetShowtimes() {
     showtime.innerHTML = `<option value="">-- Chọn suất --</option>`;
   }
-
-  // =====================
-  // LOAD RẠP THEO PHIM
-  // =====================
 
   function loadCinemasByMovie() {
     resetCinemas();
@@ -60,9 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // =====================
-  // LOAD PHÒNG THEO RẠP
-  // =====================
 
   function loadRooms() {
     resetRooms();
@@ -93,9 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // =====================
-  // LOAD NGÀY CHIẾU
-  // =====================
 
   function loadDates() {
     resetDates();
@@ -124,10 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
         date.innerHTML = `<option value="">Lỗi tải dữ liệu</option>`;
       });
   }
-
-  // =====================
-  // LOAD SUẤT CHIẾU
-  // =====================
 
   function loadShowtimes() {
     resetShowtimes();
@@ -164,10 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // =====================
-  // EVENT LISTENERS
-  // =====================
-
   movie.addEventListener("change", loadCinemasByMovie);
 
   cinema.addEventListener("change", loadRooms);
@@ -176,9 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   date.addEventListener("change", loadShowtimes);
 
-  // =====================
-  // MUA VÉ
-  // =====================
 
   document.querySelector("#btnBuy").onclick = function () {
     if (!showtime.value) {

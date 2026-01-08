@@ -9,13 +9,10 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    //HIỂN THỊ FORM ĐĂNG KÝ
     public function showRegister()
     {
         return view('auth.register');
     }
-
-    //XỬ LÝ ĐĂNG KÝ
     public function register(Request $request)
     {
         try {
@@ -40,13 +37,11 @@ class AuthController extends Controller
         }
     }
 
-    //HIỂN THỊ FORM ĐĂNG NHẬP
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    // XỬ LÝ ĐĂNG NHẬP
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -63,19 +58,16 @@ class AuthController extends Controller
         return back()->withErrors(['email' => 'Sai email hoặc mật khẩu']);
     }
 
-    //ĐĂNG XUẤT
     public function logout()
     {
         Auth::logout();
         return redirect('/');
     }
 
-    //HIỂN THỊ TRANG PROFILE
     public function showProfile()
     {
         return view('auth.profile');
     }
-    // CẬP NHẬT THÔNG TIN CÁ NHÂN
     public function updateProfile(Request $request)
     {
         $request->validate([

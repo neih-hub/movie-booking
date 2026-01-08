@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Panel') - Movie Booking</title>
 
-    <!-- Bootstrap CSS -->
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-    <!-- Bootstrap Icons -->
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <!-- Google Fonts -->
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- Admin CSS -->
+    
     <link rel="stylesheet" href="/css/admin.css">
 
     @stack('styles')
@@ -26,7 +26,7 @@
 
 <body class="admin-body">
     <div class="admin-wrapper">
-        <!-- Sidebar -->
+        
         <aside class="admin-sidebar">
             <div class="sidebar-brand">
                 <i class="bi bi-film"></i> HubVerse Admin
@@ -122,9 +122,9 @@
             </ul>
         </aside>
 
-        <!-- Main Content -->
+        
         <main class="admin-main">
-            <!-- Header -->
+            
             <div class="admin-header">
                 <h1>@yield('page-title', 'Dashboard')</h1>
 
@@ -142,7 +142,7 @@
                 </div>
             </div>
 
-            <!-- Alerts -->
+            
             @if(session('success'))
                 <div class="alert alert-success">
                     <i class="bi bi-check-circle"></i>
@@ -168,17 +168,17 @@
                 </div>
             @endif
 
-            <!-- Page Content -->
+            
             @yield('content')
         </main>
     </div>
 
-    <!-- Bootstrap JS -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     @stack('scripts')
     
-    {{-- Scripts được yield từ view --}}
+    
     @yield('scripts')
 </body>
 

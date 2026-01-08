@@ -9,7 +9,7 @@
 
     <div class="row g-4">
 
-      {{-- ====================== Cột trái (Avatar + Tên) ====================== --}}
+      
       <div class="col-md-3">
 
         <div class="avatar-card">
@@ -19,7 +19,7 @@
                  class="avatar-image"
                  alt="Avatar">
 
-            {{-- Form upload avatar --}}
+            
             <form action="{{ route('profile.avatar') }}" method="POST" enctype="multipart/form-data">
               @csrf
               <label class="avatar-upload-btn">
@@ -36,12 +36,12 @@
 
       </div>
 
-      {{-- ====================== Cột phải (Tabs) ====================== --}}
+      
       <div class="col-md-9">
 
         <div class="content-card">
 
-          {{-- TAB MENU --}}
+          
           <ul class="nav nav-tabs custom-tabs mb-4" id="profileTabs" role="tablist">
             <li class="nav-item" role="presentation">
               <a class="nav-link custom-tab active" id="info-tab" data-bs-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">
@@ -49,11 +49,7 @@
               </a>
             </li>
 
-            <!-- <li class="nav-item" role="presentation">
-              <a class="nav-link custom-tab" id="notifications-tab" data-bs-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
-                Thông báo
-              </a>
-            </li> -->
+            
 
             <li class="nav-item" role="presentation">
               <a class="nav-link custom-tab" id="history-tab" data-bs-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">
@@ -70,7 +66,7 @@
 
           <div class="tab-content" id="profileTabContent">
 
-            {{-- ====================== TAB: THÔNG TIN CÁ NHÂN ====================== --}}
+            
             <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
 
               <h5 class="form-section-title">Cập nhật thông tin</h5>
@@ -140,7 +136,7 @@
 
             </div>
 
-            {{-- ====================== TAB: THÔNG BÁO ====================== --}}
+            
             <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
               <h5 class="form-section-title">Thông báo</h5>
               <div class="empty-state">
@@ -149,7 +145,7 @@
               </div>
             </div>
 
-            {{-- ====================== TAB: LỊCH SỬ GIAO DỊCH ====================== --}}
+            
             <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
               <h5 class="form-section-title">Lịch sử đặt vé</h5>
               
@@ -236,7 +232,7 @@
               @endif
             </div>
 
-            {{-- ====================== TAB: BỘ PHIM ĐÃ LƯU ====================== --}}
+            
             <div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">
               <h5 class="form-section-title">Phim đã lưu</h5>
               <div class="empty-state">

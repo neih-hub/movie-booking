@@ -51,7 +51,7 @@ class CinemaAdminController extends Controller
                 $label = $r . str_pad($i, 2, '0', STR_PAD_LEFT);
                 Seat::create([
                     'room_id' => $room->id,
-                    'seat_number' => $label,  // A01, A02...
+                    'seat_number' => $label, 
                     'type' => 'normal',
                 ]);
             }
@@ -61,7 +61,7 @@ class CinemaAdminController extends Controller
             ->with('success', 'Thêm rạp chiếu thành công!');
     }
 
-        // Form chỉnh sửa (hiển thị danh sách phòng bên trong)
+        //hiển thị danh sách phòng bên trong
     public function edit($id)
     {
         $cinema = Cinema::findOrFail($id);

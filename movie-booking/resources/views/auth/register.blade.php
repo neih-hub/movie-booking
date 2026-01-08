@@ -15,7 +15,7 @@
             <p class="register-subtitle">Tạo tài khoản mới</p>
           </div>
 
-          {{-- Hiển thị lỗi --}}
+          
           @if($errors->any())
           <div class="alert-custom alert-danger">
             @foreach($errors->all() as $err)

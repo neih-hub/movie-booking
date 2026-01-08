@@ -1,21 +1,12 @@
-/**
- * Booking Selection - Movie, Cinema, Room, Date, Showtime
- * Handles the dynamic loading of showtime data for the booking flow
- */
-
 document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
     const movieSelect = document.getElementById('movie');
     const cinemaSelect = document.getElementById('cinema');
     const roomSelect = document.getElementById('room');
     const dateSelect = document.getElementById('date_start');
     const showtimeGrid = document.getElementById('showtimeGrid');
     const btnContinue = document.getElementById('btnContinue');
-
-    // State
     let selectedShowtimeId = null;
 
-    // Event Listeners
     cinemaSelect.addEventListener('change', loadRooms);
     roomSelect.addEventListener('change', function() {
         loadDates();
@@ -24,21 +15,14 @@ document.addEventListener('DOMContentLoaded', function() {
     dateSelect.addEventListener('change', loadShowtimes);
     btnContinue.addEventListener('click', proceedToBooking);
 
-    // Also trigger when movie changes
     movieSelect.addEventListener('change', function() {
         if (roomSelect.value) {
             loadDates();
         }
         clearShowtimes();
     });
-
-    /**
-     * Load rooms based on selected cinema
-     */
     async function loadRooms() {
         const cinemaId = cinemaSelect.value;
-        
-        // Reset dependent fields
         roomSelect.innerHTML = '<option value="">-- Chọn phòng --</option>';
         dateSelect.innerHTML = '<option value="">-- Chọn ngày --</option>';
         clearShowtimes();
@@ -60,14 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    /**
-     * Load dates based on selected movie and room
-     */
     async function loadDates() {
         const movieId = movieSelect.value;
         const roomId = roomSelect.value;
 
-        // Reset dependent fields
         dateSelect.innerHTML = '<option value="">-- Chọn ngày --</option>';
         clearShowtimes();
 
@@ -93,9 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    /**
-     * Load showtimes based on selected movie, room, and date
-     */
     async function loadShowtimes() {
         const movieId = movieSelect.value;
         const roomId = roomSelect.value;
@@ -143,27 +120,15 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
     }
-
-    /**
-     * Select a showtime
-     */
     function selectShowtime(showtimeId, buttonElement) {
-        // Remove previous selection
         document.querySelectorAll('.showtime-btn').forEach(btn => {
             btn.classList.remove('selected');
         });
-
-        // Mark as selected
         buttonElement.classList.add('selected');
         selectedShowtimeId = showtimeId;
 
-        // Enable continue button
         btnContinue.disabled = false;
     }
-
-    /**
-     * Clear showtimes display
-     */
     function clearShowtimes() {
         showtimeGrid.innerHTML = `
             <div class="empty-state">
@@ -175,22 +140,14 @@ document.addEventListener('DOMContentLoaded', function() {
         btnContinue.disabled = true;
     }
 
-    /**
-     * Proceed to booking page
-     */
     function proceedToBooking() {
         if (!selectedShowtimeId) {
             alert('Vui lòng chọn suất chiếu!');
             return;
         }
 
-        // Redirect to booking page with showtime ID
         window.location.href = `/booking/${selectedShowtimeId}`;
     }
-
-    /**
-     * Format date for display
-     */
     function formatDate(dateString) {
         const date = new Date(dateString);
         const days = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
@@ -202,9 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return `${dayOfWeek}, ${day}/${month}/${year}`;
     }
 
-    /**
-     * Format price
-     */
     function formatPrice(price) {
         return new Intl.NumberFormat('vi-VN').format(price);
     }

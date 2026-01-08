@@ -1,13 +1,13 @@
-/* public/css/genre.css */
 
-/* ==================== MOVIE FORM LAYOUT ==================== */
+
+
 .movie-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-/* ==================== FORM SECTIONS ==================== */
+
 .form-section {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -22,7 +22,7 @@
   border-color: #d1d5db;
 }
 
-/* Section Header */
+
 .section-header {
   display: flex;
   align-items: center;
@@ -44,7 +44,7 @@
   color: #1f2937;
 }
 
-/* ==================== FORM CONTROLS ==================== */
+
 .form-group {
   margin-bottom: 0;
 }
@@ -82,7 +82,7 @@
   color: #9ca3af;
 }
 
-/* ==================== GENRE BUTTONS ==================== */
+
 .genre-container {
   display: flex;
   flex-wrap: wrap;
@@ -117,7 +117,7 @@ button.genre-btn i {
   transition: transform 0.2s ease;
 }
 
-/* Hover effect */
+
 button.genre-btn:hover,
 .genre-btn:hover {
   background: linear-gradient(135deg, #fff0f1 0%, #fff5f6 100%);
@@ -130,7 +130,7 @@ button.genre-btn:hover i {
   transform: rotate(15deg);
 }
 
-/* Active state */
+
 button.genre-btn.active,
 .genre-btn.active {
   background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
@@ -145,13 +145,13 @@ button.genre-btn.active i {
   transform: rotate(0deg);
 }
 
-/* Focus outline */
+
 button.genre-btn:focus {
   outline: 2px solid rgba(255, 154, 158, 0.3);
   outline-offset: 2px;
 }
 
-/* Badge styling */
+
 .badge {
   font-size: 0.75rem;
   padding: 0.25rem 0.625rem;
@@ -159,7 +159,7 @@ button.genre-btn:focus {
   font-weight: 600;
 }
 
-/* ==================== FORM ACTIONS ==================== */
+
 .form-actions {
   display: flex;
   gap: 1rem;
@@ -201,7 +201,7 @@ button.genre-btn:focus {
   box-shadow: 0 4px 12px rgba(107, 114, 128, 0.4);
 }
 
-/* ==================== RESPONSIVE ==================== */
+
 @media (max-width: 768px) {
   .form-section {
     padding: 1rem;

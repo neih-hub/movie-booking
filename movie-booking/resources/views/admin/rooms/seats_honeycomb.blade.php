@@ -39,7 +39,7 @@
         </div>
 
         <div class="seats-layout">
-            {{-- Seat Map --}}
+            
             <div class="seat-container">
                 <div class="screen"></div>
 
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            {{-- Info Panel --}}
+            
             <div class="info-panel">
                 <div class="info-panel-header">
                     <h3><i class="bi bi-info-circle"></i> Thông tin ghế</h3>

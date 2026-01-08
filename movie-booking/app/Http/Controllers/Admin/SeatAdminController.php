@@ -55,7 +55,7 @@ class SeatAdminController extends Controller
         $type = $request->type;
 
         for ($i = 0; $i < $rows; $i++) {
-            $rowLetter = chr(65 + $i); // ASCII + i = A, B, C,...
+            $rowLetter = chr(65 + $i);
 
             for ($j = 1; $j <= $seatsPerRow; $j++) {
                 Seat::create([

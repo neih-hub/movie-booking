@@ -1,6 +1,4 @@
-/* ===============================
-   RESET
-================================ */
+
 * {
   margin: 0;
   padding: 0;
@@ -12,9 +10,7 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-/* ===============================
-   QUICK BOOKING SECTION
-================================ */
+
 .quick-booking-section {
   margin-bottom: 3rem;
 }
@@ -77,9 +73,7 @@ body {
 }
 
 
-/* ===============================
-   MOVIE TABS
-================================ */
+
 .movie-tabs-container {
   margin-top: 3rem;
 }
@@ -124,7 +118,7 @@ body {
   border-bottom-color: #ff9a9e;
 }
 
-/* Tab Content - Only for movie tabs */
+
 .movie-tabs-container .tab-content {
   display: none;
 }
@@ -133,9 +127,7 @@ body {
   display: block;
 }
 
-/* ===============================
-   5-COLUMN GRID
-================================ */
+
 .movie-grid-5col {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -168,9 +160,7 @@ body {
   }
 }
 
-/* ===============================
-   LOAD MORE BUTTON
-================================ */
+
 .btn-load-more {
   display: inline-block;
   padding: 0.75rem 2rem;
@@ -195,18 +185,14 @@ body {
   margin-left: 0.5rem;
 }
 
-/* ===============================
-   MOVIE GRID (OLD - KEEP FOR COMPATIBILITY)
-================================ */
+
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 26px;
 }
 
-/* ===============================
-   MOVIE CARD
-================================ */
+
 .movie-card {
   position: relative;
   overflow: hidden;
@@ -223,15 +209,13 @@ body {
   border-radius: 18px;
 }
 
-/* Hover effect */
+
 .movie-card:hover img {
   filter: brightness(45%);
   transform: scale(1.05);
 }
 
-/* ===============================
-   OVERLAY BUTTONS
-================================ */
+
 .movie-overlay {
   position: absolute;
   top: 0;
@@ -254,9 +238,7 @@ body {
   pointer-events: auto;
 }
 
-/* ===============================
-   BUTTON: BUY TICKET
-================================ */
+
 .btn-buy {
   padding: 8px 22px;
   background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
@@ -282,9 +264,7 @@ body {
   transform: translateY(-3px);
 }
 
-/* ===============================
-   BUTTON: TRAILER
-================================ */
+
 .btn-trailer {
   padding: 7px 18px;
   border: 2px solid #ffffff;
@@ -309,9 +289,7 @@ body {
   transform: translateY(-3px);
 }
 
-/* ===============================
-   MOVIE TITLE
-================================ */
+
 .movie-title {
   font-size: 18px;
   font-weight: 700;
@@ -319,9 +297,7 @@ body {
   color: #222;
 }
 
-/* ===============================
-   RESPONSIVE
-================================ */
+
 @media (max-width: 768px) {
   #btnBuy {
     width: 100%;
@@ -337,9 +313,7 @@ body {
   }
 }
 
-/* ===============================
-   BLOG SECTION HEADER
-================================ */
+
 .blog-section-header {
   display: flex;
   justify-content: space-between;
@@ -385,7 +359,7 @@ body {
   border-bottom-color: #ff9a9e;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .blog-section-header {
     flex-direction: column;
@@ -408,7 +382,7 @@ body {
   }
 }
 
-/* Blog Tab Content */
+
 .blog-tab-content {
   display: none;
 }

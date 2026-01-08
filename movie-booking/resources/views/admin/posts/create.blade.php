@@ -11,13 +11,13 @@
 
         <div class="row g-4">
 
-            {{-- Tiêu đề --}}
+            
             <div class="col-md-8">
                 <label class="form-label fw-bold">Tiêu đề bài viết</label>
                 <input type="text" name="title" class="form-control" required>
             </div>
 
-            {{-- Danh mục --}}
+            
             <div class="col-md-4">
                 <label class="form-label fw-bold">Danh mục</label>
                 <select name="category" class="form-select">
@@ -27,13 +27,13 @@
                 </select>
             </div>
 
-            {{-- Thumbnail --}}
+            
             <div class="col-md-6">
                 <label class="form-label fw-bold">Ảnh thumbnail</label>
                 <input type="file" name="thumbnail" class="form-control">
             </div>
 
-            {{-- Trạng thái --}}
+            
             <div class="col-md-3">
                 <label class="form-label fw-bold">Trạng thái</label>
                 <select name="status" class="form-select">
@@ -42,19 +42,19 @@
                 </select>
             </div>
 
-            {{-- Ngày xuất bản --}}
+            
             <div class="col-md-3">
                 <label class="form-label fw-bold">Ngày xuất bản</label>
                 <input type="datetime-local" name="published_at" class="form-control">
             </div>
 
-            {{-- Tóm tắt --}}
+            
             <div class="col-12">
                 <label class="form-label fw-bold">Tóm tắt</label>
                 <textarea name="excerpt" class="form-control" rows="3"></textarea>
             </div>
 
-            {{-- Nội dung --}}
+            
             <div class="col-12">
                 <label class="form-label fw-bold">Nội dung</label>
                 <textarea id="editor" name="content"></textarea>

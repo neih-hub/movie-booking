@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-{{-- ========== LOAD CSS ========== --}}
+
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/genre.css') }}">
 @endpush
@@ -12,7 +12,7 @@
 
 <div class="content-card">
 
-    {{-- ================= HEADER ================= --}}
+    
     <div class="card-header d-flex justify-content-between align-items-center">
         <h2 class="card-title">
             <i class="fas fa-edit"></i> Sửa phim: {{ $movie->title }}
@@ -23,11 +23,11 @@
         </a>
     </div>
 
-    {{-- ================= FORM ================= --}}
+    
     <form action="{{ route('admin.movies.update', $movie->id) }}" method="POST" enctype="multipart/form-data" class="movie-form">
         @csrf
 
-        {{-- Tiêu đề phim --}}
+        
         <div class="form-section">
             <div class="section-header">
                 <i class="fas fa-heading"></i>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        {{-- Thời lượng --}}
+        
         <div class="form-section">
             <div class="section-header">
                 <i class="fas fa-clock"></i>
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        {{-- Mô tả --}}
+        
         <div class="form-section">
             <div class="section-header">
                 <i class="fas fa-align-left"></i>
@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        {{-- Thể loại --}}
+        
         <div class="form-section">
             <div class="section-header">
                 <i class="fas fa-tags"></i>
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        {{-- Ngày công chiếu & Poster --}}
+        
         <div class="form-section">
             <div class="section-header">
                 <i class="fas fa-calendar-alt"></i>
@@ -137,7 +137,7 @@
                 </div>
             </div>
 
-            {{-- Poster hiện tại --}}
+            
             @if($movie->poster)
                 <div class="mt-3">
                     <label class="form-label">
@@ -150,7 +150,7 @@
             @endif
         </div>
 
-        {{-- ================= BUTTONS ================= --}}
+        
         <div class="form-actions">
             <button type="submit" class="btn btn-primary btn-lg">
                 <i class="fas fa-save"></i> Cập nhật phim
@@ -164,7 +164,7 @@
     </form>
 </div>
 
-{{-- ========== LOAD JS ========== --}}
+
 @push('scripts')
 <script>
 // Preload selected genres for edit mode

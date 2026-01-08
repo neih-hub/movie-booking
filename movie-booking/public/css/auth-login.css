@@ -1,4 +1,4 @@
-/* Animated gradient background */
+
 .login-wrapper {
   min-height: 100vh;
   background: #ffffff;
@@ -13,7 +13,7 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Floating particles effect */
+
 .login-wrapper::before {
   content: '';
   position: absolute;
@@ -28,7 +28,7 @@
   50% { transform: translate(50px, 50px); }
 }
 
-/* Glass morphism card */
+
 .login-card {
   background: #f3f4f6;
   border-radius: 24px;
@@ -74,7 +74,7 @@
   }
 }
 
-/* Logo/Title styling */
+
 .login-header {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -104,7 +104,7 @@
   font-weight: 300;
 }
 
-/* Form group with floating labels */
+
 .form-group {
   position: relative;
   margin-bottom: 2rem;
@@ -170,7 +170,7 @@
   padding: 0 0.5rem;
 }
 
-/* Submit button */
+
 .btn-login {
   width: 100%;
   padding: 1rem;
@@ -212,7 +212,7 @@
   transform: translateY(-1px);
 }
 
-/* Alert messages */
+
 .alert-custom {
   padding: 1rem 1.25rem;
   border-radius: 12px;
@@ -244,7 +244,7 @@
   color: #86efac;
 }
 
-/* Register link */
+
 .register-link {
   text-align: center;
   margin-top: 2rem;
@@ -279,7 +279,7 @@
   width: 100%;
 }
 
-/* Icon decorations */
+
 .input-icon {
   position: absolute;
   right: 1.25rem;
@@ -293,7 +293,7 @@
   color: #ff9a9e;
 }
 
-/* Responsive */
+
 @media (max-width: 576px) {
   .login-card {
     padding: 2rem 1.5rem;

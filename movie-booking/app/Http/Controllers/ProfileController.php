@@ -9,7 +9,6 @@ use App\Models\Booking;
 
 class ProfileController extends Controller
 {
-    // TRANG PROFILE
     public function index()
     {
         /** @var User $user */
@@ -27,7 +26,6 @@ class ProfileController extends Controller
         return view('profile.profile', compact('user', 'bookings'));
     }
 
-    // CẬP NHẬT THÔNG TIN
     public function update(Request $request)
     {
         $request->validate([
@@ -45,7 +43,6 @@ class ProfileController extends Controller
         return back()->with('success', 'Cập nhật thông tin thành công!');
     }
 
-    // CẬP NHẬT AVATAR
     public function updateAvatar(Request $request)
     {
         $request->validate([

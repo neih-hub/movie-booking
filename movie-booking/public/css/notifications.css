@@ -1,4 +1,4 @@
-/* Notifications Page Styles */
+
 
 .notifications-container {
     max-width: 900px;
@@ -85,7 +85,7 @@
     padding: 4rem 2rem;
 }
 
-/* Header Notification Badge */
+
 .notification-bell {
     position: relative;
     display: inline-block;
@@ -109,7 +109,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .notifications-header {
         flex-direction: column;
@@ -126,7 +126,7 @@
     }
 }
 
-/* Modern Pagination Styling */
+
 nav[role="navigation"] {
     margin-top: 2rem;
 }
@@ -139,7 +139,7 @@ nav[role="navigation"] > div {
     flex-wrap: wrap;
 }
 
-/* Pagination Links */
+
 nav[role="navigation"] a,
 nav[role="navigation"] span {
     min-width: 2.5rem;
@@ -157,7 +157,7 @@ nav[role="navigation"] span {
     overflow: hidden;
 }
 
-/* Default state */
+
 nav[role="navigation"] a {
     background: white;
     color: #475569;
@@ -165,7 +165,7 @@ nav[role="navigation"] a {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-/* Hover effect */
+
 nav[role="navigation"] a:hover {
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: white;
@@ -174,7 +174,7 @@ nav[role="navigation"] a:hover {
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-/* Active page */
+
 nav[role="navigation"] span[aria-current="page"] {
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: white;
@@ -183,7 +183,7 @@ nav[role="navigation"] span[aria-current="page"] {
     font-weight: 600;
 }
 
-/* Disabled state */
+
 nav[role="navigation"] span[aria-disabled="true"] {
     background: #f8fafc;
     color: #cbd5e1;
@@ -192,7 +192,7 @@ nav[role="navigation"] span[aria-disabled="true"] {
     opacity: 0.6;
 }
 
-/* Previous/Next buttons */
+
 nav[role="navigation"] a[rel="prev"],
 nav[role="navigation"] a[rel="next"] {
     font-weight: 600;
@@ -207,7 +207,7 @@ nav[role="navigation"] a[rel="next"]:hover {
     border-color: #3b82f6;
 }
 
-/* SVG Icons - Fixed size */
+
 nav[role="navigation"] svg {
     width: 1rem !important;
     height: 1rem !important;
@@ -218,7 +218,7 @@ nav[role="navigation"] svg {
     transition: transform 0.3s ease;
 }
 
-/* Icon animation on hover */
+
 nav[role="navigation"] a[rel="prev"]:hover svg {
     transform: translateX(-3px);
 }
@@ -227,7 +227,7 @@ nav[role="navigation"] a[rel="next"]:hover svg {
     transform: translateX(3px);
 }
 
-/* Dots separator */
+
 nav[role="navigation"] span:not([aria-current]):not([aria-disabled]) {
     background: transparent;
     border: none;
@@ -236,7 +236,7 @@ nav[role="navigation"] span:not([aria-current]):not([aria-disabled]) {
     cursor: default;
 }
 
-/* Responsive */
+
 @media (max-width: 576px) {
     nav[role="navigation"] a,
     nav[role="navigation"] span {

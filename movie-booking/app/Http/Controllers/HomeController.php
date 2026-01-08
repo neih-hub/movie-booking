@@ -12,15 +12,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Phim đang chiếu
         $nowShowing = Movie::orderBy('title')->get();
-
-        // Phim sắp chiếu
         $comingSoon = Movie::where('release_date', '>', today())
             ->orderBy('release_date')
             ->get();
-
-        // Góc điện ảnh – lấy 10 bài viết mới nhất
         $latestPosts = Post::published()
             ->orderBy('published_at', 'desc')
             ->take(10)

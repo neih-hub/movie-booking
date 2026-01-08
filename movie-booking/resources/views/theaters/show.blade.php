@@ -7,7 +7,7 @@
 @section('content')
 <div class="container py-5">
     
-    {{-- Cinema Header with Selector --}}
+    
     <div class="cinema-header">
         <div class="row align-items-center">
             <div class="col-md-8">
@@ -34,7 +34,7 @@
 
     <hr class="my-4">
 
-    {{-- Showtimes Section --}}
+    
     <div class="showtimes-section">
         <h3 class="section-title mb-4">
             <i class="bi bi-film"></i> Lịch chiếu
@@ -49,14 +49,14 @@
 
                 <div class="movie-showtime-card mb-4">
                     <div class="row">
-                        {{-- Movie Poster --}}
+                        
                         <div class="col-md-2">
                             <img src="{{ asset($movie->poster) }}" 
                                  alt="{{ $movie->title }}" 
                                  class="img-fluid rounded shadow-sm">
                         </div>
 
-                        {{-- Movie Info & Showtimes --}}
+                        
                         <div class="col-md-10">
                             <h4 class="movie-title mb-3">{{ $movie->title }}</h4>
                             
@@ -71,7 +71,7 @@
                                 </span>
                             </div>
 
-                            {{-- Showtimes by Date --}}
+                            
                             @foreach($dateGroups as $date => $showtimes)
                                 <div class="date-group mb-3">
                                     <div class="date-header">

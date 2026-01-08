@@ -9,7 +9,7 @@
 
 @section('content')
 
-  <!-- Statistics Cards -->
+  
   <div class="stats-grid">
 
     <div class="stat-card">
@@ -87,7 +87,7 @@
   </div>
 
 
-  <!-- Recent Bookings -->
+  
   <div class="content-card">
     <div class="card-header">
       <h2 class="card-title">
@@ -153,7 +153,7 @@
   </div>
 
 
-  <!-- Quick Actions -->
+  
   <div class="content-card">
     <div class="card-header">
       <h2 class="card-title">

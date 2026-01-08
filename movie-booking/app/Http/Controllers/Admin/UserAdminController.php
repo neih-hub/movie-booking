@@ -64,7 +64,7 @@ class UserAdminController extends Controller
             $data['avatar'] = 'uploads/avatars/' . $name;
         }
 
-        // cập nhật password (nếu nhập)
+        // cập nhật password
         if ($request->filled('password')) {
             $request->validate([
                 'password' => 'min:6|confirmed',
@@ -81,7 +81,7 @@ class UserAdminController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $user->status = $user->status == 1 ? 0 : 1; // toggle
+        $user->status = $user->status == 1 ? 0 : 1;
         $user->save();
 
         $msg = $user->status ? "Đã kích hoạt người dùng!" : "Đã khóa người dùng!";

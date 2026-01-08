@@ -3,7 +3,7 @@
 @section('content')
 <div class="container py-5">
     <div class="row">
-        <!-- Movie Poster -->
+        
         <div class="col-md-4">
             <img src="{{ asset($movie->poster) }}" 
      alt="{{ $movie->title }}" 
@@ -12,7 +12,7 @@
 
         </div>
 
-        <!-- Movie Details -->
+        
         <div class="col-md-8">
             <h1 class="mb-3" style="font-weight: 700; color: #1e293b;">{{ $movie->title }}</h1>
             
@@ -39,7 +39,7 @@
                 <p class="text-muted">{{ $movie->description }}</p>
             </div>
 
-            <!-- Showtimes Section -->
+            
             <div class="mt-5">
                 <h4 class="mb-4" style="font-weight: 700;">Lịch chiếu</h4>
                 

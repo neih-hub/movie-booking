@@ -1,8 +1,8 @@
-{{-- =================== GÓC ĐIỆN ẢNH =================== --}}
+
 @if(isset($latestPosts) && $latestPosts->count() > 0)
 <div class="blog-section mt-5">
 
-    {{-- Header --}}
+    
     <div class="blog-section-header">
         <h3 class="blog-section-title">GÓC ĐIỆN ẢNH</h3>
         
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    {{-- Tab Content: Bình luận phim --}}
+    
     <div class="blog-tab-content active" id="blog-review">
         <div class="blog-grid">
             @php
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    {{-- Tab Content: Blog điện ảnh --}}
+    
     <div class="blog-tab-content" id="blog-news">
         <div class="blog-grid">
             @php
@@ -132,7 +132,7 @@
         </div>
     </div>
 
-    {{-- View more --}}
+    
     <div class="text-center mt-3">
         <a href="{{ route('posts.index') }}" class="btn-view-more">
             Xem thêm <i class="bi bi-arrow-right"></i>

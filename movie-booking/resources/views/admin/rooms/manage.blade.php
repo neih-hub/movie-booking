@@ -18,7 +18,7 @@
             </a>
         </div>
 
-        {{-- Cinema Selector --}}
+        
         <div class="cinema-selector">
             <label for="cinema_select">
                 <i class="bi bi-building"></i>
@@ -32,7 +32,7 @@
             </select>
         </div>
 
-        {{-- Rooms Container --}}
+        
         <div id="rooms_container" style="display: none;">
             <div class="rooms-section">
                 <div class="rooms-section-title">
@@ -40,7 +40,7 @@
                     <h3>Danh sách phòng chiếu</h3>
                 </div>
                 <div id="rooms_grid" class="rooms-grid">
-                    <!-- js load ghế của phòng-->
+                    
                 </div>
             </div>
         </div>
